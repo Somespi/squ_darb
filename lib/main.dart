@@ -51,7 +51,9 @@ class DarbMapPage extends StatefulWidget {
 
 class _DarbMapPageState extends State<DarbMapPage> {
   static const LatLng _initialCenter = LatLng(23.5913, 58.1722);
-  static const LatLng _squLocation = LatLng(23.5880, 58.1660);
+  bool _isDaroobStaring = false;
+  Timer? _animationTimer;
+  final math.Random _random = math.Random();
 
   final MapController _mapController = MapController();
   final TextEditingController _searchController = TextEditingController();
@@ -75,8 +77,44 @@ class _DarbMapPageState extends State<DarbMapPage> {
     loadCampusData().then((d) {
       campusPlaces = d;
     });
+    _searchFocusNode.addListener(_onFocusChange);
   }
 
+  
+void _onFocusChange() {
+
+  if (_searchFocusNode.hasFocus) {
+    _startStaring();
+  } else {
+    _animationTimer?.cancel();
+    _animationTimer = null;
+
+    if (mounted) {
+      setState(() {
+        _isDaroobStaring = false;
+      });
+    }
+  }
+}
+void _startStaring() {
+  _animationTimer?.cancel();
+
+  void scheduleNext() {
+    final seconds = 5 + _random.nextInt(3); 
+
+    _animationTimer = Timer(Duration(seconds: seconds), () {
+      if (!mounted || !_searchFocusNode.hasFocus) return;
+
+      setState(() {
+        _isDaroobStaring = !_isDaroobStaring;
+      });
+
+      scheduleNext(); 
+    });
+  }
+
+  scheduleNext();
+}
   Future<void> _startLocationTracking() async {
     try {
       final serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -218,7 +256,7 @@ class _DarbMapPageState extends State<DarbMapPage> {
             child: Icon(
               Icons.school,
               size: 20,
-              color: Colors.white, // Icon color
+              color: Colors.white, 
             ),
           ),
         ),
@@ -251,7 +289,7 @@ class _DarbMapPageState extends State<DarbMapPage> {
         child: Icon(
           Icons.school,
           size: 20,
-          color: Colors.white, // Icon color
+          color: Colors.white, 
         ),
       ),
     );
@@ -273,6 +311,7 @@ class _DarbMapPageState extends State<DarbMapPage> {
     _mapController.dispose();
     _searchController.dispose();
     _searchFocusNode.dispose();
+    _animationTimer?.cancel();
     super.dispose();
   }
 
@@ -300,15 +339,20 @@ class _DarbMapPageState extends State<DarbMapPage> {
                 ),
 
                 CurrentLocationLayer(
-                  style: const LocationMarkerStyle(
-                    marker: DefaultLocationMarker(
-                      child: Icon(
-                        Icons.navigation,
-                        color: Colors.white,
-                        size: 20,
+                  style: LocationMarkerStyle(
+                    marker: Transform.flip(
+                      flipX: true,
+                      child: Transform.rotate(
+                        angle: -math.pi / 2,
+                        child: Image.asset(
+                          'assets/images/daroob.png',
+                          fit: BoxFit.contain,
+                          filterQuality: FilterQuality.none,
+                        ),
                       ),
                     ),
-                    markerSize: Size(40, 40),
+
+                    markerSize: Size(40, 33.85),
                     markerDirection: MarkerDirection.heading,
                     showAccuracyCircle: true,
                   ),
@@ -330,94 +374,112 @@ class _DarbMapPageState extends State<DarbMapPage> {
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(12, 8, 12, 0),
                   constraints: const BoxConstraints(maxHeight: 340),
-                  decoration: ShapeDecoration(
-                    shape: SmoothRectangleBorder(
+                  
+                  child: Material(
+                  shape: SmoothRectangleBorder(
                       borderRadius: 24,
                       smoothing: 0.6,
                     ),
-                    color: Colors.white,
-                    shadows: const [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 12,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
+                  color: Colors.white,
+                  elevation: 8,
+                  
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                          16,
-                          4,
-                          12,
-                          4,
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                controller: _searchController,
-                                focusNode: _searchFocusNode,
-                                onChanged: searchCampus,
-                                textInputAction: TextInputAction.search,
-                                textDirection: TextDirection.rtl,
-                                textAlignVertical: TextAlignVertical.center,
-                                decoration: InputDecoration(
-                                  hintText: 'ابحث عن مبنى أو قاعة...',
-                                  hintTextDirection: TextDirection.rtl,
-                                  border: InputBorder.none,
-                                  isDense: true,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 12,
-                                  ),
-                                  prefixIcon: Icon(
-                                    MingCuteIcons.mgc_location_fill,
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.primary,
-                                  ),
-                                  prefixIconConstraints: const BoxConstraints(
-                                    minWidth: 40,
-                                    minHeight: 40,
+                      Stack(
+                        clipBehavior: Clip.hardEdge,
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                              16,
+                              4,
+                              12,
+                              4,
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: _searchController,
+                                    focusNode: _searchFocusNode,
+                                    onChanged: searchCampus,
+                                    textInputAction: TextInputAction.search,
+                                    textDirection: TextDirection.rtl,
+                                    textAlignVertical: TextAlignVertical.center,
+                                    decoration: InputDecoration(
+                                      hintText: 'ابحث عن مبنى أو قاعة...',
+                                      hintTextDirection: TextDirection.rtl,
+                                      border: InputBorder.none,
+                                      isDense: true,
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                            vertical: 12,
+                                          ),
+                                      prefixIcon: Icon(
+                                        MingCuteIcons.mgc_location_fill,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.primary,
+                                      ),
+                                      prefixIconConstraints:
+                                          const BoxConstraints(
+                                            minWidth: 40,
+                                            minHeight: 40,
+                                          ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                                AnimatedSwitcher(
+                                  duration: const Duration(milliseconds: 250),
+                                  reverseDuration: const Duration(
+                                    milliseconds: 180,
+                                  ),
+                                  switchInCurve: Curves.fastEaseInToSlowEaseOut,
+                                  switchOutCurve: Curves.elasticOut,
+                                  child: _searchController.text.isNotEmpty
+                                      ? IconButton(
+                                          key: const ValueKey('clear_button'),
+                                          onPressed: () {
+                                            setState(() {
+                                              _searchController.clear();
+                                            });
+                                          },
+                                          icon: const Icon(
+                                            MingCuteIcons.mgc_close_line,
+                                          ),
+                                        )
+                                      : const SizedBox(
+                                          key: ValueKey('empty'),
+                                          width: 48,
+                                        ),
+                                ),
+                              ],
                             ),
-                            AnimatedSwitcher(
-                              duration: const Duration(milliseconds: 250),
-                              reverseDuration: const Duration(
-                                milliseconds: 180,
-                              ),
-                              switchInCurve: Curves.fastEaseInToSlowEaseOut,
-                              switchOutCurve: Curves.elasticOut,
-                              
-                              child: _searchController.text.isNotEmpty
-                                  ? IconButton(
-                                      key: const ValueKey('clear_button'),
-                                      onPressed: () {
-                                        setState(() {
-                                          _searchController.clear();
-                                        });
-                                      },
-                                      icon: const Icon(
-                                        MingCuteIcons.mgc_close_line,
-                                      ),
-                                    )
-                                  : const SizedBox(
-                                      key: ValueKey('empty'),
-                                      width: 48,
-                                    ),
+                          ),
+
+AnimatedPositioned(
+      duration: const Duration(milliseconds: 350), 
+      curve: Curves.easeOutBack, 
+      left: 70,
+      bottom: _isDaroobStaring ?  0: -30, 
+      child: Image.asset(
+                              'assets/images/daroob_staring.png',
+                              width: 20 * 1.3,
+                              height: 15.14 * 1.3,
+                              fit: BoxFit.contain,
+                              filterQuality: FilterQuality.none,
                             ),
-                          ],
-                        ),
+    ),
+
+                      
+                        ],
                       ),
+
                       const Divider(height: 1),
 
-                      // قائمة الأماكن.
                       Flexible(
                         child: AnimatedSize(
                           duration: const Duration(milliseconds: 250),
@@ -449,15 +511,12 @@ class _DarbMapPageState extends State<DarbMapPage> {
                                       ),
                                       onTap: () {
                                         final building = item['building'];
-
                                         final lat = building['lat'];
                                         final lon = building['lon'];
-
                                         _mapController.move(
                                           LatLng(lat, lon),
                                           18,
                                         );
-
                                         _searchController.text = item['name'];
                                         _searchFocusNode.unfocus();
                                         _currentMarker =
@@ -474,16 +533,8 @@ class _DarbMapPageState extends State<DarbMapPage> {
                     ],
                   ),
                 ),
-              ),
+              )),
             ),
-
-            // زر موقعي الحالي أسفل اليسار.
-            // Positioned(
-            //   left: 16,
-            //   bottom: 32,
-            //   child:
-
-            // ),
           ],
         ),
       ),
@@ -531,7 +582,7 @@ Future<Map<String, dynamic>> loadCampusData() async {
   return data;
 }
 
-// ---------- Normalization ----------
+
 
 const Map<String, String> _digitMap = {
   '٠': '0',
@@ -572,7 +623,7 @@ String normalizeSearchText(String input) {
       .map((char) => _digitMap[char] ?? char)
       .join();
 
-  // Avoid Unicode property escapes; retain Arabic/Latin letters and digits.
+  
   final cleaned = digitsNormalized.replaceAll(
     RegExp(r'[^a-z0-9\u0621-\u063A\u0641-\u064A\u066E-\u06D3]+'),
     ' ',
@@ -581,7 +632,7 @@ String normalizeSearchText(String input) {
   return cleaned.replaceAll(RegExp(r'\s+'), ' ').trim();
 }
 
-// ---------- Models ----------
+
 
 class CampusSearchResult {
   final String buildingId;
@@ -603,7 +654,7 @@ class CampusSearchResult {
   });
 }
 
-// ---------- Pure helper functions ----------
+
 
 List<String> _readKeywords(dynamic value) =>
     value is List ? value.map((item) => item.toString()).toList() : [];
@@ -666,7 +717,7 @@ int _scoreField({
       : (matchingTokens / queryTokens.length * 50).round();
 }
 
-// ---------- Search ----------
+
 
 class CampusSearch {
   final Map<String, dynamic> campusData;
@@ -721,10 +772,10 @@ class CampusSearch {
                     fields: _roomFields(roomId, room),
                   );
 
-                  // Only include a room if the room itself matches.
+                  
                   if (roomScore == 0) return null;
 
-                  // Slightly boost matching rooms in a matching building.
+                  
                   final score = math.max(
                     roomScore,
                     buildingScore > 0 ? (buildingScore * 0.35).round() : 0,
