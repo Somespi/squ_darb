@@ -45,6 +45,7 @@ dependencies:
   text_form_field_flutter: ^0.0.4
   flutter_localizations:
     sdk: flutter
+  ming_cute_icons: ^0.0.8
 
 dev_dependencies:
   flutter_test:
@@ -70,8 +71,8 @@ flutter:
   
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  
+  assets:
+    - assets/data/campus.json  
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

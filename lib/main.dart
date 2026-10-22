@@ -1,11 +1,16 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:ming_cute_icons/ming_cute_icons.dart';
+import 'package:smooth_border/smooth_border.dart';
 import 'package:solar_icons/solar_icons.dart';
 
 void main() {
@@ -25,7 +30,7 @@ class DarbApp extends StatelessWidget {
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       theme: ThemeData(
         useMaterial3: true,
-        fontFamily: 'Roboto',
+        fontFamily: 'thmanyahsans',
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF008577)),
         scaffoldBackgroundColor: Colors.white,
       ),
@@ -50,6 +55,9 @@ class _DarbMapPageState extends State<DarbMapPage> {
 
   final MapController _mapController = MapController();
   final TextEditingController _searchController = TextEditingController();
+  final FocusNode _searchFocusNode = FocusNode();
+
+  Marker? _currentMarker;
 
   StreamSubscription<Position>? _positionSubscription;
 
@@ -58,10 +66,15 @@ class _DarbMapPageState extends State<DarbMapPage> {
   bool _mapReady = false;
   bool _hasCentered = false;
 
+  late Map<String, dynamic> campusPlaces;
+
   @override
   void initState() {
     super.initState();
     _startLocationTracking();
+    loadCampusData().then((d) {
+      campusPlaces = d;
+    });
   }
 
   Future<void> _startLocationTracking() async {
@@ -154,40 +167,92 @@ class _DarbMapPageState extends State<DarbMapPage> {
     _mapController.move(position, 18);
   }
 
-  void _goToUniversity() {
-    _mapController.move(_squLocation, 17);
-    _showMessage('جامعة السلطان قابوس');
+  List<Map<String, dynamic>> searchResults = [];
+
+  void searchCampus(String query) {
+    final results = CampusSearch(campusPlaces)
+        .search(query)
+        .map(
+          (result) => <String, dynamic>{
+            'id': result.id,
+            'name': result.name,
+            'type': result.isRoom ? 'room' : 'building',
+            if (result.isRoom) ...{
+              'floor': result.room?['floor'],
+              'buildingName':
+                  result.building['name_display']?.toString() ??
+                  result.buildingId,
+            },
+            'building': result.building,
+          },
+        )
+        .toList();
+
+    setState(() {
+      searchResults = results;
+    });
   }
 
-  void _searchPlace(String query) {
-    final text = query.trim();
+  List<Marker> createMapMarkersForBuildings() {
+    final List<Marker> markers = [];
+    final Map<String, Color> markerColors = {
+      "college": Color(0xFFC9826B),
+      "teaching": Color(0xFFD6B58C),
+      "library": Color(0xFF8F9B83),
+      "research_center": Color(0xFFB7A5C7),
+      "other": Color(0xFF7F9C9A),
+    };
 
-    if (text.isEmpty) {
-      _showMessage('اكتب اسم المكان الذي تريد البحث عنه.');
-      return;
-    }
+    campusPlaces.forEach((key, building) {
+      markers.add(
+        Marker(
+          point: LatLng(building['lat'], building['lon']),
+          width: 40.0,
+          height: 40.0,
+          rotate: true,
+          child: CircleAvatar(
+            backgroundColor: markerColors[building['genre'] as String],
+            radius: 30,
 
-    // البحث هنا تجريبي للأماكن المحددة فقط.
-    // يمكن ربطه لاحقاً بخدمة بحث جغرافي حقيقية.
-    final normalized = text.toLowerCase();
+            child: Icon(
+              Icons.school,
+              size: 20,
+              color: Colors.white, // Icon color
+            ),
+          ),
+        ),
+      );
+    });
 
-    if (normalized.contains('جامعة') ||
-        normalized.contains('سلطان قابوس') ||
-        normalized.contains('squ') ||
-        normalized.contains('sultan qaboos')) {
-      _goToUniversity();
-      return;
-    }
+    return markers;
+  }
 
-    if (normalized.contains('موقعي') ||
-        normalized.contains('موقعي الحالي') ||
-        normalized.contains('my location')) {
-      _goToCurrentLocation();
-      return;
-    }
+  Marker createMapMarkerForBuilding(String id) {
+    final Map<String, Color> markerColors = {
+      "college": Color(0xFFC9826B),
+      "teaching": Color(0xFFD6B58C),
+      "library": Color(0xFF8F9B83),
+      "research_center": Color(0xFFB7A5C7),
+      "other": Color(0xFF7F9C9A),
+    };
 
-    _showMessage(
-      'لم يتم العثور على المكان. جرّب البحث عن جامعة السلطان قابوس.',
+    final building = campusPlaces[id];
+
+    return Marker(
+      point: LatLng(building['lat'], building['lon']),
+      width: 40.0,
+      height: 40.0,
+      rotate: true,
+      child: CircleAvatar(
+        backgroundColor: markerColors[building['genre'] as String],
+        radius: 30,
+
+        child: Icon(
+          Icons.school,
+          size: 20,
+          color: Colors.white, // Icon color
+        ),
+      ),
     );
   }
 
@@ -206,6 +271,7 @@ class _DarbMapPageState extends State<DarbMapPage> {
     _positionSubscription?.cancel();
     _mapController.dispose();
     _searchController.dispose();
+    _searchFocusNode.dispose();
     super.dispose();
   }
 
@@ -250,20 +316,26 @@ class _DarbMapPageState extends State<DarbMapPage> {
                 const RichAttributionWidget(
                   attributions: [TextSourceAttribution('مساهمو OpenStreetMap')],
                 ),
+
+                MarkerLayer(
+                  markers: _currentMarker != null ? [_currentMarker!] : [],
+                ),
               ],
             ),
 
-            // لوحة البحث والأماكن المحفوظة.
             SafeArea(
               child: Align(
                 alignment: Alignment.topCenter,
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(12, 8, 12, 0),
                   constraints: const BoxConstraints(maxHeight: 340),
-                  decoration: BoxDecoration(
+                  decoration: ShapeDecoration(
+                    shape: SmoothRectangleBorder(
+                      borderRadius: 24,
+                      smoothing: 0.6,
+                    ),
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(24),
-                    boxShadow: const [
+                    shadows: const [
                       BoxShadow(
                         color: Colors.black26,
                         blurRadius: 12,
@@ -272,7 +344,6 @@ class _DarbMapPageState extends State<DarbMapPage> {
                     ],
                   ),
                   child: Column(
-                  
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -284,39 +355,65 @@ class _DarbMapPageState extends State<DarbMapPage> {
                           4,
                         ),
                         child: Row(
-                          
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Expanded(
                               child: TextField(
                                 controller: _searchController,
-                                onChanged: (String _) {
-                                  setState(() {});
-                                },
+                                focusNode: _searchFocusNode,
+                                onChanged: searchCampus,
                                 textInputAction: TextInputAction.search,
                                 textDirection: TextDirection.rtl,
-                                onSubmitted: _searchPlace,
-                                decoration: const InputDecoration(
-                                  hintText: 'ابحث في الخريطة...',
+                                textAlignVertical: TextAlignVertical.center,
+                                decoration: InputDecoration(
+                                  hintText: 'ابحث عن مبنى أو قاعة...',
                                   hintTextDirection: TextDirection.rtl,
                                   border: InputBorder.none,
-                                  prefixIcon: Icon(SolarIconsBold.map),
+                                  isDense: true,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 12,
+                                  ),
+                                  prefixIcon: Icon(
+                                    MingCuteIcons.mgc_location_fill,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                  ),
+                                  prefixIconConstraints: const BoxConstraints(
+                                    minWidth: 40,
+                                    minHeight: 40,
+                                  ),
                                 ),
                               ),
                             ),
-                            IconButton(
-                              tooltip: 'بحث',
-                              onPressed: () =>
-                                  _searchPlace(_searchController.text),
-                              icon: const Icon(
-                                Icons.search,
-                                size: 28,
-                                color: Color(0xFF5F6368),
+                            AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 250),
+                              reverseDuration: const Duration(
+                                milliseconds: 180,
                               ),
+                              switchInCurve: Curves.fastEaseInToSlowEaseOut,
+                              switchOutCurve: Curves.elasticOut,
+                              
+                              child: _searchController.text.isNotEmpty
+                                  ? IconButton(
+                                      key: const ValueKey('clear_button'),
+                                      onPressed: () {
+                                        setState(() {
+                                          _searchController.clear();
+                                        });
+                                      },
+                                      icon: const Icon(
+                                        MingCuteIcons.mgc_close_line,
+                                      ),
+                                    )
+                                  : const SizedBox(
+                                      key: ValueKey('empty'),
+                                      width: 48,
+                                    ),
                             ),
                           ],
                         ),
                       ),
-
                       const Divider(height: 1),
 
                       // قائمة الأماكن.
@@ -325,22 +422,50 @@ class _DarbMapPageState extends State<DarbMapPage> {
                           duration: const Duration(milliseconds: 250),
                           curve: Curves.easeInOut,
                           alignment: Alignment.topCenter,
-                          child: _searchController.text.isNotEmpty
-                              ? ListView(
+                          child:
+                              _searchController.text.isNotEmpty &&
+                                  MediaQuery.of(context).viewInsets.bottom > 0
+                              ? ListView.builder(
                                   shrinkWrap: true,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 6,
-                                  ),
-                                  children: [
-                                    ListTile(
-                                      leading: const CircleAvatar(
-                                        child: Icon(Icons.school_outlined),
+                                  itemCount: searchResults.length,
+                                  itemBuilder: (context, index) {
+                                    final item = searchResults[index];
+                                    final isRoom = item['type'] == 'room';
+                                    if (isRoom && item['floor'] == '0') {
+                                      item['floor'] = 'الأرضي';
+                                    }
+                                    return ListTile(
+                                      leading: Icon(
+                                        isRoom
+                                            ? MingCuteIcons.mgc_door_line
+                                            : MingCuteIcons.mgc_house_2_line,
                                       ),
-                                      title: const Text('جامعة السلطان قابوس'),
-                                      subtitle: const Text('مكان مقترح'),
-                                      onTap: _goToUniversity,
-                                    ),
-                                  ],
+                                      title: Text(item['name']),
+                                      subtitle: Text(
+                                        isRoom
+                                            ? '${item['buildingName']} • الطابق ${item['floor']}'
+                                            : 'مبنى',
+                                      ),
+                                      onTap: () {
+                                        final building = item['building'];
+
+                                        final lat = building['lat'];
+                                        final lon = building['lon'];
+
+                                        _mapController.move(
+                                          LatLng(lat, lon),
+                                          18,
+                                        );
+
+                                        _searchController.text = item['name'];
+                                        _searchFocusNode.unfocus();
+                                        _currentMarker =
+                                            createMapMarkerForBuilding(
+                                              item['id'],
+                                            );
+                                      },
+                                    );
+                                  },
                                 )
                               : const SizedBox.shrink(),
                         ),
@@ -365,16 +490,271 @@ class _DarbMapPageState extends State<DarbMapPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: Padding(
         padding: EdgeInsets.only(bottom: 30),
-        child: FloatingActionButton(
-          heroTag: 'currentLocationButton',
-          backgroundColor: Colors.white,
-          foregroundColor: const Color(0xFF2877D4),
-          elevation: 5,
-          tooltip: 'موقعي الحالي',
-          onPressed: _goToCurrentLocation,
-          child: const Icon(Icons.my_location_rounded),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            _currentMarker != null
+                ? FloatingActionButton(
+                    heroTag: 'removeMarker',
+                    elevation: 5,
+                    tooltip: 'احذف العلامة',
+                    onPressed: () {
+                      setState(() {
+                        _currentMarker = null;
+                      });
+                    },
+                    child: const Icon(MingCuteIcons.mgc_mingcute_fill),
+                  )
+                : SizedBox.shrink(),
+
+            const SizedBox(height: 10),
+            FloatingActionButton(
+              heroTag: 'currentLocationButton',
+              elevation: 5,
+              tooltip: 'موقعي الحالي',
+              onPressed: _goToCurrentLocation,
+              child: const Icon(Icons.my_location_rounded),
+            ),
+          ],
         ),
       ),
     );
+  }
+}
+
+Future<Map<String, dynamic>> loadCampusData() async {
+  final jsonString = await rootBundle.loadString('assets/data/campus.json');
+
+  final Map<String, dynamic> data = jsonDecode(jsonString);
+
+  return data;
+}
+
+// ---------- Normalization ----------
+
+const Map<String, String> _digitMap = {
+  '٠': '0',
+  '١': '1',
+  '٢': '2',
+  '٣': '3',
+  '٤': '4',
+  '٥': '5',
+  '٦': '6',
+  '٧': '7',
+  '٨': '8',
+  '٩': '9',
+  '۰': '0',
+  '۱': '1',
+  '۲': '2',
+  '۳': '3',
+  '۴': '4',
+  '۵': '5',
+  '۶': '6',
+  '۷': '7',
+  '۸': '8',
+  '۹': '9',
+};
+
+String normalizeSearchText(String input) {
+  final arabicNormalized = input
+      .toLowerCase()
+      .replaceAll(RegExp(r'[أإآٱ]'), 'ا')
+      .replaceAll('ى', 'ي')
+      .replaceAll('ـ', '')
+      .replaceAll(
+        RegExp(r'[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]'),
+        '',
+      );
+
+  final digitsNormalized = arabicNormalized
+      .split('')
+      .map((char) => _digitMap[char] ?? char)
+      .join();
+
+  // Avoid Unicode property escapes; retain Arabic/Latin letters and digits.
+  final cleaned = digitsNormalized.replaceAll(
+    RegExp(r'[^a-z0-9\u0621-\u063A\u0641-\u064A\u066E-\u06D3]+'),
+    ' ',
+  );
+
+  return cleaned.replaceAll(RegExp(r'\s+'), ' ').trim();
+}
+
+// ---------- Models ----------
+
+class CampusSearchResult {
+  final String buildingId;
+  final Map<String, dynamic> building;
+  final String name;
+  final String id;
+  final bool isRoom;
+  final Map<String, dynamic>? room;
+  final int score;
+
+  const CampusSearchResult({
+    required this.buildingId,
+    required this.building,
+    required this.name,
+    required this.id,
+    required this.isRoom,
+    required this.score,
+    this.room,
+  });
+}
+
+// ---------- Pure helper functions ----------
+
+List<String> _readKeywords(dynamic value) =>
+    value is List ? value.map((item) => item.toString()).toList() : [];
+
+List<String> _buildingFields(
+  String buildingId,
+  Map<String, dynamic> building,
+) => [
+  building['name_display']?.toString() ?? buildingId,
+  buildingId,
+  ..._readKeywords(building['search_keywords']),
+];
+
+List<String> _roomFields(String roomId, Map<String, dynamic> room) => [
+  room['name_display']?.toString() ?? roomId,
+  roomId,
+  ..._readKeywords(room['search_keywords']),
+];
+
+int _bestScore({
+  required String query,
+  required List<String> queryTokens,
+  required List<String> fields,
+}) {
+  return fields
+      .map(
+        (field) => _scoreField(
+          query: query,
+          queryTokens: queryTokens,
+          field: normalizeSearchText(field),
+        ),
+      )
+      .fold(0, math.max);
+}
+
+int _scoreField({
+  required String query,
+  required List<String> queryTokens,
+  required String field,
+}) {
+  if (field.isEmpty) return 0;
+
+  if (field == query) return 100;
+  if (field.startsWith(query)) return 80;
+  if (field.contains(query)) return 65;
+
+  final fieldTokens = field.split(' ');
+
+  final matchingTokens = queryTokens
+      .where(
+        (queryToken) => fieldTokens.any(
+          (fieldToken) =>
+              fieldToken == queryToken || fieldToken.startsWith(queryToken),
+        ),
+      )
+      .length;
+
+  return queryTokens.isEmpty
+      ? 0
+      : (matchingTokens / queryTokens.length * 50).round();
+}
+
+// ---------- Search ----------
+
+class CampusSearch {
+  final Map<String, dynamic> campusData;
+
+  const CampusSearch(this.campusData);
+
+  List<CampusSearchResult> search(String input) {
+    final query = normalizeSearchText(input);
+
+    if (query.isEmpty) return [];
+
+    final queryTokens = query.split(' ');
+
+    return campusData.entries.expand((entry) {
+      final buildingId = entry.key;
+      final building = Map<String, dynamic>.from(entry.value as Map);
+
+      final buildingFields = _buildingFields(buildingId, building);
+
+      final buildingScore = _bestScore(
+        query: query,
+        queryTokens: queryTokens,
+        fields: buildingFields,
+      );
+
+      final buildingResult = buildingScore > 0
+          ? [
+              CampusSearchResult(
+                buildingId: buildingId,
+                building: building,
+                name: building['name_display']?.toString() ?? buildingId,
+                id: buildingId,
+                isRoom: false,
+                score: buildingScore,
+              ),
+            ]
+          : <CampusSearchResult>[];
+
+      final rooms = building['rooms'];
+
+      final roomResults = rooms is Map
+          ? rooms.entries
+                .map((roomEntry) {
+                  final roomId = roomEntry.key.toString();
+                  final room = Map<String, dynamic>.from(
+                    roomEntry.value as Map,
+                  );
+
+                  final roomScore = _bestScore(
+                    query: query,
+                    queryTokens: queryTokens,
+                    fields: _roomFields(roomId, room),
+                  );
+
+                  // Only include a room if the room itself matches.
+                  if (roomScore == 0) return null;
+
+                  // Slightly boost matching rooms in a matching building.
+                  final score = math.max(
+                    roomScore,
+                    buildingScore > 0 ? (buildingScore * 0.35).round() : 0,
+                  );
+
+                  return CampusSearchResult(
+                    buildingId: buildingId,
+                    building: building,
+                    name: room['name_display']?.toString() ?? roomId,
+                    id: roomId,
+                    isRoom: true,
+                    room: room,
+                    score: score,
+                  );
+                })
+                .whereType<CampusSearchResult>()
+                .toList()
+          : <CampusSearchResult>[];
+
+      return [...buildingResult, ...roomResults];
+    }).toList()..sort((a, b) {
+      final scoreComparison = b.score.compareTo(a.score);
+      if (scoreComparison != 0) return scoreComparison;
+
+      final hasNumber = RegExp(r'\d').hasMatch(query);
+
+      if (hasNumber && a.isRoom != b.isRoom) {
+        return a.isRoom ? -1 : 1;
+      }
+
+      return a.name.compareTo(b.name);
+    });
   }
 }

@@ -1,0 +1,558 @@
+{
+    "social_sciences_college": {
+        "name_display": "كلية الآداب والعلوم الاجتماعية",
+        "genre": "college",
+        "lon": 58.162219,
+        "lat": 23.591322,
+        "search_keywords": [
+            "كلية الآداب",
+            "كلية العلوم الاجتماعية",
+            "الآداب والعلوم الاجتماعية",
+            "كلية الاجتماع",
+            "arts college",
+            "social sciences",
+            "social sciences college",
+            "college of arts",
+            "humanities"
+        ],
+        "rooms": {
+            "drama_hall_1": {
+                "name_display": "قاعة الدراما (1)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "دراما",
+                    "مسرح",
+                    "قاعة المسرح",
+                    "قاعة الدراما",
+                    "drama",
+                    "drama hall",
+                    "theatre",
+                    "theater"
+                ]
+            },
+            "drama_hall_2": {
+                "name_display": "قاعة الدراما (2)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "دراما",
+                    "مسرح",
+                    "قاعة المسرح",
+                    "قاعة الدراما",
+                    "drama",
+                    "drama hall",
+                    "theatre",
+                    "theater"
+                ]
+            },
+            "special_needs_lab_0004": {
+                "name_display": "معمل ذوي الاحتياجات الخاصة (0004)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "معمل ذوي الاحتياجات الخاصة",
+                    "مختبر ذوي الاحتياجات الخاصة",
+                    "معمل الاحتياجات الخاصة",
+                    "معمل 0004",
+                    "0004",
+                    "special needs lab",
+                    "special education lab",
+                    "lab 0004"
+                ]
+            },
+            "teaching_classroom_3": {
+                "name_display": "قاعة دراسية (3)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 3",
+                    "قاعة دراسية 3",
+                    "صف 3",
+                    "فصل 3",
+                    "classroom 3",
+                    "room 3",
+                    "teaching classroom 3"
+                ]
+            },
+            "teaching_classroom_11": {
+                "name_display": "قاعة دراسية (11)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 11",
+                    "قاعة دراسية 11",
+                    "صف 11",
+                    "فصل 11",
+                    "classroom 11",
+                    "room 11",
+                    "teaching classroom 11"
+                ]
+            },
+            "teaching_classroom_12": {
+                "name_display": "قاعة دراسية (12)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 12",
+                    "قاعة دراسية 12",
+                    "صف 12",
+                    "فصل 12",
+                    "classroom 12",
+                    "room 12",
+                    "teaching classroom 12"
+                ]
+            },
+            "teaching_classroom_18": {
+                "name_display": "قاعة دراسية (18)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 18",
+                    "قاعة دراسية 18",
+                    "صف 18",
+                    "فصل 18",
+                    "classroom 18",
+                    "room 18",
+                    "teaching classroom 18"
+                ]
+            },
+            "teaching_classroom_19": {
+                "name_display": "قاعة دراسية (19)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 19",
+                    "قاعة دراسية 19",
+                    "صف 19",
+                    "فصل 19",
+                    "classroom 19",
+                    "room 19",
+                    "teaching classroom 19"
+                ]
+            },
+            "teaching_classroom_20": {
+                "name_display": "قاعة دراسية (20)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 20",
+                    "قاعة دراسية 20",
+                    "صف 20",
+                    "فصل 20",
+                    "classroom 20",
+                    "room 20",
+                    "teaching classroom 20"
+                ]
+            },
+            "teaching_classroom_21": {
+                "name_display": "قاعة دراسية (21)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 21",
+                    "قاعة دراسية 21",
+                    "صف 21",
+                    "فصل 21",
+                    "classroom 21",
+                    "room 21",
+                    "teaching classroom 21"
+                ]
+            },
+            "teaching_classroom_32": {
+                "name_display": "قاعة دراسية (32)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 32",
+                    "قاعة دراسية 32",
+                    "صف 32",
+                    "فصل 32",
+                    "classroom 32",
+                    "room 32",
+                    "teaching classroom 32"
+                ]
+            },
+            "teaching_classroom_33": {
+                "name_display": "قاعة دراسية (33)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 33",
+                    "قاعة دراسية 33",
+                    "صف 33",
+                    "فصل 33",
+                    "classroom 33",
+                    "room 33",
+                    "teaching classroom 33"
+                ]
+            },
+            "lab_1163": {
+                "name_display": "معمل (1163)",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "معمل 1163",
+                    "مختبر 1163",
+                    "لاب 1163",
+                    "lab 1163",
+                    "laboratory 1163",
+                    "room 1163"
+                ]
+            },
+            "lab_1165": {
+                "name_display": "معمل (1165)",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "معمل 1165",
+                    "مختبر 1165",
+                    "لاب 1165",
+                    "lab 1165",
+                    "laboratory 1165",
+                    "room 1165"
+                ]
+            },
+            "lab_1170": {
+                "name_display": "معمل (1170)",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "معمل 1170",
+                    "مختبر 1170",
+                    "لاب 1170",
+                    "lab 1170",
+                    "laboratory 1170",
+                    "room 1170"
+                ]
+            },
+            "teaching_classroom_1167": {
+                "name_display": "قاعة دراسية (1167)",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 1167",
+                    "قاعة دراسية 1167",
+                    "صف 1167",
+                    "فصل 1167",
+                    "classroom 1167",
+                    "room 1167"
+                ]
+            },
+            "teaching_classroom_1168": {
+                "name_display": "قاعة دراسية (1168)",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 1168",
+                    "قاعة دراسية 1168",
+                    "صف 1168",
+                    "فصل 1168",
+                    "classroom 1168",
+                    "room 1168"
+                ]
+            },
+            "teaching_classroom_1169": {
+                "name_display": "قاعة دراسية (1169)",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 1169",
+                    "قاعة دراسية 1169",
+                    "صف 1169",
+                    "فصل 1169",
+                    "classroom 1169",
+                    "room 1169"
+                ]
+            },
+            "lecture_hall_8": {
+                "name_display": "قاعة المحاضرات (8)",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة المحاضرات 8",
+                    "محاضرات 8",
+                    "مدرج 8",
+                    "قاعة 8",
+                    "lecture hall 8",
+                    "lecture room 8",
+                    "auditorium 8"
+                ]
+            },
+            "lecture_hall_9": {
+                "name_display": "قاعة المحاضرات (9)",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة المحاضرات 9",
+                    "محاضرات 9",
+                    "مدرج 9",
+                    "قاعة 9",
+                    "lecture hall 9",
+                    "lecture room 9",
+                    "auditorium 9"
+                ]
+            },
+            "lab_2421": {
+                "name_display": "معمل (2421)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "معمل 2421",
+                    "مختبر 2421",
+                    "لاب 2421",
+                    "lab 2421",
+                    "laboratory 2421",
+                    "room 2421"
+                ]
+            },
+            "lab_2429": {
+                "name_display": "معمل (2429)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "معمل 2429",
+                    "مختبر 2429",
+                    "لاب 2429",
+                    "lab 2429",
+                    "laboratory 2429",
+                    "room 2429"
+                ]
+            },
+            "lab_2432": {
+                "name_display": "معمل (2432)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "معمل 2432",
+                    "مختبر 2432",
+                    "لاب 2432",
+                    "lab 2432",
+                    "laboratory 2432",
+                    "room 2432"
+                ]
+            },
+            "lab_2433": {
+                "name_display": "معمل (2433)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "معمل 2433",
+                    "مختبر 2433",
+                    "لاب 2433",
+                    "lab 2433",
+                    "laboratory 2433",
+                    "room 2433"
+                ]
+            },
+            "lab_2437": {
+                "name_display": "معمل (2437)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "معمل 2437",
+                    "مختبر 2437",
+                    "لاب 2437",
+                    "lab 2437",
+                    "laboratory 2437",
+                    "room 2437"
+                ]
+            },
+            "teaching_classroom_2401": {
+                "name_display": "قاعة دراسية (2401)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 2401",
+                    "قاعة دراسية 2401",
+                    "صف 2401",
+                    "فصل 2401",
+                    "classroom 2401",
+                    "room 2401"
+                ]
+            },
+            "teaching_classroom_2402": {
+                "name_display": "قاعة دراسية (2402)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 2402",
+                    "قاعة دراسية 2402",
+                    "صف 2402",
+                    "فصل 2402",
+                    "classroom 2402",
+                    "room 2402"
+                ]
+            },
+            "teaching_classroom_2403": {
+                "name_display": "قاعة دراسية (2403)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 2403",
+                    "قاعة دراسية 2403",
+                    "صف 2403",
+                    "فصل 2403",
+                    "classroom 2403",
+                    "room 2403"
+                ]
+            },
+            "teaching_classroom_2404": {
+                "name_display": "قاعة دراسية (2404)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 2404",
+                    "قاعة دراسية 2404",
+                    "صف 2404",
+                    "فصل 2404",
+                    "classroom 2404",
+                    "room 2404"
+                ]
+            },
+            "teaching_classroom_2405": {
+                "name_display": "قاعة دراسية (2405)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 2405",
+                    "قاعة دراسية 2405",
+                    "صف 2405",
+                    "فصل 2405",
+                    "classroom 2405",
+                    "room 2405"
+                ]
+            },
+            "teaching_classroom_2406": {
+                "name_display": "قاعة دراسية (2406)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 2406",
+                    "قاعة دراسية 2406",
+                    "صف 2406",
+                    "فصل 2406",
+                    "classroom 2406",
+                    "room 2406"
+                ]
+            },
+            "teaching_classroom_2407": {
+                "name_display": "قاعة دراسية (2407)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 2407",
+                    "قاعة دراسية 2407",
+                    "صف 2407",
+                    "فصل 2407",
+                    "classroom 2407",
+                    "room 2407"
+                ]
+            },
+            "teaching_classroom_2408": {
+                "name_display": "قاعة دراسية (2408)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 2408",
+                    "قاعة دراسية 2408",
+                    "صف 2408",
+                    "فصل 2408",
+                    "classroom 2408",
+                    "room 2408"
+                ]
+            },
+            "teaching_classroom_2410": {
+                "name_display": "قاعة دراسية (2410)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 2410",
+                    "قاعة دراسية 2410",
+                    "صف 2410",
+                    "فصل 2410",
+                    "classroom 2410",
+                    "room 2410"
+                ]
+            },
+            "teaching_classroom_2411": {
+                "name_display": "قاعة دراسية (2411)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 2411",
+                    "قاعة دراسية 2411",
+                    "صف 2411",
+                    "فصل 2411",
+                    "classroom 2411",
+                    "room 2411"
+                ]
+            },
+            "teaching_classroom_2412": {
+                "name_display": "قاعة دراسية (2412)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 2412",
+                    "قاعة دراسية 2412",
+                    "صف 2412",
+                    "فصل 2412",
+                    "classroom 2412",
+                    "room 2412"
+                ]
+            },
+            "teaching_classroom_2413": {
+                "name_display": "قاعة دراسية (2413)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 2413",
+                    "قاعة دراسية 2413",
+                    "صف 2413",
+                    "فصل 2413",
+                    "classroom 2413",
+                    "room 2413"
+                ]
+            },
+            "teaching_classroom_2414": {
+                "name_display": "قاعة دراسية (2414)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 2414",
+                    "قاعة دراسية 2414",
+                    "صف 2414",
+                    "فصل 2414",
+                    "classroom 2414",
+                    "room 2414"
+                ]
+            },
+            "teaching_classroom_2415": {
+                "name_display": "قاعة دراسية (2415)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 2415",
+                    "قاعة دراسية 2415",
+                    "صف 2415",
+                    "فصل 2415",
+                    "classroom 2415",
+                    "room 2415"
+                ]
+            },
+            "teaching_classroom_2464": {
+                "name_display": "قاعة دراسية (2464)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة 2464",
+                    "قاعة دراسية 2464",
+                    "صف 2464",
+                    "فصل 2464",
+                    "classroom 2464",
+                    "room 2464"
+                ]
+            }
+        }
+    }
+}
