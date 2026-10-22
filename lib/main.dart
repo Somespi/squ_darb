@@ -4,6 +4,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
@@ -80,41 +81,41 @@ class _DarbMapPageState extends State<DarbMapPage> {
     _searchFocusNode.addListener(_onFocusChange);
   }
 
-  
-void _onFocusChange() {
+  void _onFocusChange() {
+    if (_searchFocusNode.hasFocus) {
+      _startStaring();
+    } else {
+      _animationTimer?.cancel();
+      _animationTimer = null;
 
-  if (_searchFocusNode.hasFocus) {
-    _startStaring();
-  } else {
-    _animationTimer?.cancel();
-    _animationTimer = null;
-
-    if (mounted) {
-      setState(() {
-        _isDaroobStaring = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isDaroobStaring = false;
+        });
+      }
     }
   }
-}
-void _startStaring() {
-  _animationTimer?.cancel();
 
-  void scheduleNext() {
-    final seconds = 5 + _random.nextInt(3); 
+  void _startStaring() {
+    _animationTimer?.cancel();
 
-    _animationTimer = Timer(Duration(seconds: seconds), () {
-      if (!mounted || !_searchFocusNode.hasFocus) return;
+    void scheduleNext() {
+      final seconds = 5 + _random.nextInt(3);
 
-      setState(() {
-        _isDaroobStaring = !_isDaroobStaring;
+      _animationTimer = Timer(Duration(seconds: seconds), () {
+        if (!mounted || !_searchFocusNode.hasFocus) return;
+
+        setState(() {
+          _isDaroobStaring = !_isDaroobStaring;
+        });
+
+        scheduleNext();
       });
+    }
 
-      scheduleNext(); 
-    });
+    scheduleNext();
   }
 
-  scheduleNext();
-}
   Future<void> _startLocationTracking() async {
     try {
       final serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -253,11 +254,7 @@ void _startStaring() {
             backgroundColor: markerColors[building['genre'] as String],
             radius: 30,
 
-            child: Icon(
-              Icons.school,
-              size: 20,
-              color: Colors.white, 
-            ),
+            child: Icon(Icons.school, size: 20, color: Colors.white),
           ),
         ),
       );
@@ -286,11 +283,7 @@ void _startStaring() {
         backgroundColor: markerColors[building['genre'] as String],
         radius: 30,
 
-        child: Icon(
-          Icons.school,
-          size: 20,
-          color: Colors.white, 
-        ),
+        child: Icon(Icons.school, size: 20, color: Colors.white),
       ),
     );
   }
@@ -374,166 +367,197 @@ void _startStaring() {
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(12, 8, 12, 0),
                   constraints: const BoxConstraints(maxHeight: 340),
-                  
+
                   child: Material(
-                  shape: SmoothRectangleBorder(
+                    shape: SmoothRectangleBorder(
                       borderRadius: 24,
                       smoothing: 0.6,
                     ),
-                  color: Colors.white,
-                  elevation: 8,
-                  
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Stack(
-                        clipBehavior: Clip.hardEdge,
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                              16,
-                              4,
-                              12,
-                              4,
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: TextField(
-                                    controller: _searchController,
-                                    focusNode: _searchFocusNode,
-                                    onChanged: searchCampus,
-                                    textInputAction: TextInputAction.search,
-                                    textDirection: TextDirection.rtl,
-                                    textAlignVertical: TextAlignVertical.center,
-                                    decoration: InputDecoration(
-                                      hintText: 'ابحث عن مبنى أو قاعة...',
-                                      hintTextDirection: TextDirection.rtl,
-                                      border: InputBorder.none,
-                                      isDense: true,
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                            vertical: 12,
-                                          ),
-                                      prefixIcon: Icon(
-                                        MingCuteIcons.mgc_location_fill,
-                                        color: Theme.of(
-                                          context,
-                                        ).colorScheme.primary,
+                    color: Colors.white,
+                    elevation: 8,
+
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Stack(
+                          clipBehavior: Clip.hardEdge,
+                          alignment: Alignment.bottomCenter,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                16,
+                                4,
+                                12,
+                                4,
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: TextField(
+                                      controller: _searchController,
+                                      focusNode: _searchFocusNode,
+                                      onChanged: searchCampus,
+                                      onTapOutside: (_) {
+                                        _searchFocusNode.unfocus();
+                                      },
+                                      textInputAction: TextInputAction.search,
+                                      textDirection: TextDirection.rtl,
+                                      textAlignVertical:
+                                          TextAlignVertical.center,
+                                      decoration: InputDecoration(
+                                        hintText: 'ابحث عن مبنى أو قاعة...',
+                                        hintTextDirection: TextDirection.rtl,
+                                        border: InputBorder.none,
+                                        isDense: true,
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                              vertical: 12,
+                                            ),
+                                        prefixIcon: Icon(
+                                          MingCuteIcons.mgc_location_fill,
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.primary,
+                                        ),
+                                        prefixIconConstraints:
+                                            const BoxConstraints(
+                                              minWidth: 40,
+                                              minHeight: 40,
+                                            ),
                                       ),
-                                      prefixIconConstraints:
-                                          const BoxConstraints(
-                                            minWidth: 40,
-                                            minHeight: 40,
-                                          ),
                                     ),
                                   ),
-                                ),
-                                AnimatedSwitcher(
-                                  duration: const Duration(milliseconds: 250),
-                                  reverseDuration: const Duration(
-                                    milliseconds: 180,
-                                  ),
-                                  switchInCurve: Curves.fastEaseInToSlowEaseOut,
-                                  switchOutCurve: Curves.elasticOut,
-                                  child: _searchController.text.isNotEmpty
-                                      ? IconButton(
-                                          key: const ValueKey('clear_button'),
-                                          onPressed: () {
-                                            setState(() {
-                                              _searchController.clear();
-                                            });
-                                          },
-                                          icon: const Icon(
-                                            MingCuteIcons.mgc_close_line,
+                                  AnimatedSwitcher(
+                                    duration: const Duration(milliseconds: 250),
+                                    reverseDuration: const Duration(
+                                      milliseconds: 180,
+                                    ),
+                                    switchInCurve:
+                                        Curves.fastEaseInToSlowEaseOut,
+                                    switchOutCurve: Curves.elasticOut,
+                                    child: _searchController.text.isNotEmpty
+                                        ? IconButton(
+                                            key: const ValueKey('clear_button'),
+                                            onPressed: () {
+                                              setState(() {
+                                                _searchController.clear();
+                                              });
+                                            },
+                                            icon: const Icon(
+                                              MingCuteIcons.mgc_close_line,
+                                            ),
+                                          )
+                                        : const SizedBox(
+                                            key: ValueKey('empty'),
+                                            width: 48,
                                           ),
-                                        )
-                                      : const SizedBox(
-                                          key: ValueKey('empty'),
-                                          width: 48,
-                                        ),
-                                ),
-                              ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
 
-AnimatedPositioned(
-      duration: const Duration(milliseconds: 350), 
-      curve: Curves.easeOutBack, 
-      left: 70,
-      bottom: _isDaroobStaring ?  0: -30, 
-      child: Image.asset(
-                              'assets/images/daroob_staring.png',
-                              width: 20 * 1.3,
-                              height: 15.14 * 1.3,
-                              fit: BoxFit.contain,
-                              filterQuality: FilterQuality.none,
+                            AnimatedPositioned(
+                              duration: const Duration(milliseconds: 350),
+                              curve: Curves.easeOutBack,
+                              left: 70,
+                              bottom: _isDaroobStaring ? 0 : -30,
+                              child: Stack(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/daroob_staring.png',
+                                    width: 20 * 1.3,
+                                    height: 15.14 * 1.3,
+                                    fit: BoxFit.contain,
+                                    filterQuality: FilterQuality.none,
+                                  ),
+
+                                  Positioned(
+                                    bottom: 1,
+                                    left: 0,
+                                  child: Image.asset(
+                                        'assets/images/daroob_eyes_staring.png',
+                                        width: 16.8664803193,
+                                        height: 4.50891333832,
+                                        fit: BoxFit.contain,
+                                        filterQuality: FilterQuality.none,
+                                      )
+                                      .animate(
+                                        onPlay: (controller) =>
+                                            controller.repeat(reverse: true),
+                                      )
+                                      .moveX(
+                                        begin: 13 / 4,
+                                        end: 13 / 2,
+                                        duration: const Duration(seconds: 1),
+                                        curve: Curves.easeInOutBack,
+                                      ),)
+                                ],
+                              ),
                             ),
-    ),
-
-                      
-                        ],
-                      ),
-
-                      const Divider(height: 1),
-
-                      Flexible(
-                        child: AnimatedSize(
-                          duration: const Duration(milliseconds: 250),
-                          curve: Curves.easeInOut,
-                          alignment: Alignment.topCenter,
-                          child:
-                              _searchController.text.isNotEmpty &&
-                                  MediaQuery.of(context).viewInsets.bottom > 0
-                              ? ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: searchResults.length,
-                                  itemBuilder: (context, index) {
-                                    final item = searchResults[index];
-                                    final isRoom = item['type'] == 'room';
-                                    if (isRoom && item['floor'] == '0') {
-                                      item['floor'] = 'الأرضي';
-                                    }
-                                    return ListTile(
-                                      leading: Icon(
-                                        isRoom
-                                            ? MingCuteIcons.mgc_door_line
-                                            : MingCuteIcons.mgc_house_2_line,
-                                      ),
-                                      title: Text(item['name']),
-                                      subtitle: Text(
-                                        isRoom
-                                            ? '${item['buildingName']} • الطابق ${item['floor']}'
-                                            : 'مبنى',
-                                      ),
-                                      onTap: () {
-                                        final building = item['building'];
-                                        final lat = building['lat'];
-                                        final lon = building['lon'];
-                                        _mapController.move(
-                                          LatLng(lat, lon),
-                                          18,
-                                        );
-                                        _searchController.text = item['name'];
-                                        _searchFocusNode.unfocus();
-                                        _currentMarker =
-                                            createMapMarkerForBuilding(
-                                              item['building_id'],
-                                            );
-                                      },
-                                    );
-                                  },
-                                )
-                              : const SizedBox.shrink(),
+                            
+                            
+                          ],
                         ),
-                      ),
-                    ],
+
+                        const Divider(height: 1),
+
+                        Flexible(
+                          child: AnimatedSize(
+                            duration: const Duration(milliseconds: 250),
+                            curve: Curves.easeInOut,
+                            alignment: Alignment.topCenter,
+                            child:
+                                _searchController.text.isNotEmpty &&
+                                    MediaQuery.of(context).viewInsets.bottom > 0
+                                ? ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: searchResults.length,
+                                    itemBuilder: (context, index) {
+                                      final item = searchResults[index];
+                                      final isRoom = item['type'] == 'room';
+                                      if (isRoom && item['floor'] == '0') {
+                                        item['floor'] = 'الأرضي';
+                                      }
+                                      return ListTile(
+                                        leading: Icon(
+                                          isRoom
+                                              ? MingCuteIcons.mgc_door_line
+                                              : MingCuteIcons.mgc_house_2_line,
+                                        ),
+                                        title: Text(item['name']),
+                                        subtitle: Text(
+                                          isRoom
+                                              ? '${item['buildingName']} • الطابق ${item['floor']}'
+                                              : 'مبنى',
+                                        ),
+                                        onTap: () {
+                                          final building = item['building'];
+                                          final lat = building['lat'];
+                                          final lon = building['lon'];
+                                          _mapController.move(
+                                            LatLng(lat, lon),
+                                            18,
+                                          );
+                                          _searchController.text = item['name'];
+                                          _searchFocusNode.unfocus();
+                                          _currentMarker =
+                                              createMapMarkerForBuilding(
+                                                item['building_id'],
+                                              );
+                                        },
+                                      );
+                                    },
+                                  )
+                                : const SizedBox.shrink(),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              )),
+              ),
             ),
           ],
         ),
@@ -582,8 +606,6 @@ Future<Map<String, dynamic>> loadCampusData() async {
   return data;
 }
 
-
-
 const Map<String, String> _digitMap = {
   '٠': '0',
   '١': '1',
@@ -623,7 +645,6 @@ String normalizeSearchText(String input) {
       .map((char) => _digitMap[char] ?? char)
       .join();
 
-  
   final cleaned = digitsNormalized.replaceAll(
     RegExp(r'[^a-z0-9\u0621-\u063A\u0641-\u064A\u066E-\u06D3]+'),
     ' ',
@@ -631,8 +652,6 @@ String normalizeSearchText(String input) {
 
   return cleaned.replaceAll(RegExp(r'\s+'), ' ').trim();
 }
-
-
 
 class CampusSearchResult {
   final String buildingId;
@@ -653,8 +672,6 @@ class CampusSearchResult {
     this.room,
   });
 }
-
-
 
 List<String> _readKeywords(dynamic value) =>
     value is List ? value.map((item) => item.toString()).toList() : [];
@@ -717,8 +734,6 @@ int _scoreField({
       : (matchingTokens / queryTokens.length * 50).round();
 }
 
-
-
 class CampusSearch {
   final Map<String, dynamic> campusData;
 
@@ -772,10 +787,8 @@ class CampusSearch {
                     fields: _roomFields(roomId, room),
                   );
 
-                  
                   if (roomScore == 0) return null;
 
-                  
                   final score = math.max(
                     roomScore,
                     buildingScore > 0 ? (buildingScore * 0.35).round() : 0,
