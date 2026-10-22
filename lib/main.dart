@@ -177,6 +177,7 @@ class _DarbMapPageState extends State<DarbMapPage> {
             'id': result.id,
             'name': result.name,
             'type': result.isRoom ? 'room' : 'building',
+            'building_id': result.buildingId,
             if (result.isRoom) ...{
               'floor': result.room?['floor'],
               'buildingName':
@@ -461,7 +462,7 @@ class _DarbMapPageState extends State<DarbMapPage> {
                                         _searchFocusNode.unfocus();
                                         _currentMarker =
                                             createMapMarkerForBuilding(
-                                              item['id'],
+                                              item['building_id'],
                                             );
                                       },
                                     );
@@ -503,7 +504,7 @@ class _DarbMapPageState extends State<DarbMapPage> {
                         _currentMarker = null;
                       });
                     },
-                    child: const Icon(MingCuteIcons.mgc_mingcute_fill),
+                    child: const Icon(SolarIconsBold.mapPointRemove),
                   )
                 : SizedBox.shrink(),
 
