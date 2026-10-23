@@ -330,22 +330,48 @@ class _DarbMapPageState extends State<DarbMapPage> {
                   userAgentPackageName: 'com.squ_navigator',
                   maxNativeZoom: 19,
                 ),
-
                 CurrentLocationLayer(
                   style: LocationMarkerStyle(
-                    marker: Transform.flip(
-                      flipX: true,
-                      child: Transform.rotate(
-                        angle: -math.pi / 2,
-                        child: Image.asset(
-                          'assets/images/daroob.png',
-                          fit: BoxFit.contain,
-                          filterQuality: FilterQuality.none,
-                        ),
-                      ),
-                    ),
+                    marker: StreamBuilder<Position>(
+                      stream: Geolocator.getPositionStream(),
+                      builder: (context, snapshot) {
+                        final position = snapshot.data;
+                        final marker = _currentMarker;
 
-                    markerSize: Size(40, 33.85),
+                        if (position == null || marker == null) {
+                          return Image.asset(
+                            'assets/images/daroob_sideways.png',
+                            fit: BoxFit.contain,
+                            filterQuality: FilterQuality.none,
+                          );
+                        }
+
+                        final bearing = Geolocator.bearingBetween(
+                          position.latitude,
+                          position.longitude,
+                          marker.point.latitude,
+                          marker.point.longitude,
+                        );
+
+                        final sprite = _isDaroobStaring
+                            ? _getStaringSprite(bearing)
+                            : (asset: 'assets/images/daroob.png', flipX: false);
+
+                        return Transform.flip(
+                          flipX: sprite.flipX,
+
+                          child: Transform.rotate(
+                          angle: -math.pi/4,
+                          
+                          child: Image.asset(
+                            sprite.asset,
+                            fit: BoxFit.contain,
+                            filterQuality: FilterQuality.none,
+                          ),
+                        ));
+                      },
+                    ),
+                    markerSize: const Size(40, 33.85),
                     markerDirection: MarkerDirection.heading,
                     showAccuracyCircle: true,
                   ),
@@ -476,28 +502,30 @@ class _DarbMapPageState extends State<DarbMapPage> {
                                   Positioned(
                                     bottom: 1,
                                     left: 0,
-                                  child: Image.asset(
-                                        'assets/images/daroob_eyes_staring.png',
-                                        width: 16.8664803193,
-                                        height: 4.50891333832,
-                                        fit: BoxFit.contain,
-                                        filterQuality: FilterQuality.none,
-                                      )
-                                      .animate(
-                                        onPlay: (controller) =>
-                                            controller.repeat(reverse: true),
-                                      )
-                                      .moveX(
-                                        begin: 13 / 4,
-                                        end: 13 / 2,
-                                        duration: const Duration(seconds: 1),
-                                        curve: Curves.easeInOutBack,
-                                      ),)
+                                    child:
+                                        Image.asset(
+                                              'assets/images/daroob_eyes_staring.png',
+                                              width: 16.8664803193,
+                                              height: 4.50891333832,
+                                              fit: BoxFit.contain,
+                                              filterQuality: FilterQuality.none,
+                                            )
+                                            .animate(
+                                              onPlay: (controller) => controller
+                                                  .repeat(reverse: true),
+                                            )
+                                            .moveX(
+                                              begin: 13 / 4,
+                                              end: 13 / 2,
+                                              duration: const Duration(
+                                                seconds: 1,
+                                              ),
+                                              curve: Curves.easeInOutBack,
+                                            ),
+                                  ),
                                 ],
                               ),
                             ),
-                            
-                            
                           ],
                         ),
 
@@ -822,4 +850,38 @@ class CampusSearch {
       return a.name.compareTo(b.name);
     });
   }
+}
+
+({String asset, bool flipX}) _getStaringSprite(double bearing) {
+  final direction = ((bearing % 360) + 360) % 360;
+
+  if (direction >= 337.5 || direction < 22.5) {
+    return (asset: 'assets/images/daroob_up.png', flipX: false);
+  }
+
+  if (direction < 67.5) {
+    return (asset: 'assets/images/daroob_up_sideways.png', flipX: false);
+  }
+
+  if (direction < 112.5) {
+    return (asset: 'assets/images/daroob_sideways.png', flipX: false);
+  }
+
+  if (direction < 157.5) {
+    return (asset: 'assets/images/daroob_down_sideways.png', flipX: false);
+  }
+
+  if (direction < 202.5) {
+    return (asset: 'assets/images/daroob_sideways.png', flipX: false);
+  }
+
+  if (direction < 247.5) {
+    return (asset: 'assets/images/daroob_down_sideways.png', flipX: true);
+  }
+
+  if (direction < 292.5) {
+    return (asset: 'assets/images/daroob_sideways.png', flipX: true);
+  }
+
+  return (asset: 'assets/images/daroob_up_sideways.png', flipX: true);
 }

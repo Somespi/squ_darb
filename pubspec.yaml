@@ -71,10 +71,13 @@ flutter:
   uses-material-design: true
   
 
-  # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/daroob.png
+    - assets/images/
     - assets/images/daroob_staring.png
+    - assets/images/daroob_down_sideways.png
+    - assets/images/daroob_sideways.png
+    - assets/images/daroob_up_sideways.png
+    - assets/images/daroob_up.png
     - assets/images/daroob_eyes_staring.png
     - assets/data/campus.json  
   # An image asset can refer to one or more resolution-specific "variants", see
