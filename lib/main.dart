@@ -7,8 +7,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
 import 'package:latlong2/latlong.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:smooth_border/smooth_border.dart';
@@ -25,7 +27,7 @@ class DarbApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'درب',
+      title: 'Darb',
       locale: const Locale('ar'),
       supportedLocales: const [Locale('ar'), Locale('en')],
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
@@ -50,13 +52,32 @@ class DarbMapPage extends StatefulWidget {
   State<DarbMapPage> createState() => _DarbMapPageState();
 }
 
-class _DarbMapPageState extends State<DarbMapPage> {
+typedef RouteResult = (List<dynamic>, dynamic, dynamic);
+
+class _DarbMapPageState extends State<DarbMapPage>
+    with TickerProviderStateMixin {
   static const LatLng _initialCenter = LatLng(23.5913, 58.1722);
+  static const EdgeInsets _routePadding = EdgeInsets.fromLTRB(40, 160, 40, 120);
+
   bool _isDaroobStaring = false;
   Timer? _animationTimer;
   final math.Random _random = math.Random();
 
   final MapController _mapController = MapController();
+  late final AnimatedMapController _animated = AnimatedMapController(
+    vsync: this,
+    mapController: _mapController,
+    duration: const Duration(milliseconds: 800),
+    curve: Curves.easeInOutCubic,
+  );
+
+  // Route "draw-in" animation: 0 -> 1 reveals the full polyline.
+  late final AnimationController _routeAnim = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1200),
+  );
+  List<double> _routeCumulative = []; // cumulative distance (m) per point
+
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
 
@@ -66,10 +87,12 @@ class _DarbMapPageState extends State<DarbMapPage> {
 
   LatLng? _currentPosition;
 
+  List<LatLng> routePoints = [];
+
   bool _mapReady = false;
   bool _hasCentered = false;
 
-  late Map<String, dynamic> campusPlaces;
+  Map<String, dynamic> campusPlaces = {};
 
   @override
   void initState() {
@@ -180,7 +203,8 @@ class _DarbMapPageState extends State<DarbMapPage> {
 
     if (_mapReady && !_hasCentered) {
       _hasCentered = true;
-      _mapController.move(location, 18);
+      // First centering: animated fly-in. Use _mapController.move(...) to snap.
+      _animated.animateTo(dest: location, zoom: 18);
     }
   }
 
@@ -191,7 +215,7 @@ class _DarbMapPageState extends State<DarbMapPage> {
 
     if (location != null && !_hasCentered) {
       _hasCentered = true;
-      _mapController.move(location, 18);
+      _mapController.move(location, 18); // snap on initial load
     }
   }
 
@@ -203,7 +227,84 @@ class _DarbMapPageState extends State<DarbMapPage> {
       return;
     }
 
-    _mapController.move(position, 18);
+    _animated.animateTo(dest: position, zoom: 18);
+  }
+
+  void _fitRoute(List<LatLng> points) {
+    if (points.length < 2) return;
+    _animated.animatedFitCamera(
+      cameraFit: CameraFit.coordinates(
+        coordinates: points,
+        padding: _routePadding,
+        maxZoom: 18,
+      ),
+    );
+  }
+
+  void _applyRoute(List<dynamic> coords) {
+    final pts = _toLatLngs(coords);
+
+    // Precompute cumulative distances so the reveal moves at constant speed.
+    const dist = Distance();
+    final cum = <double>[0];
+    for (var i = 1; i < pts.length; i++) {
+      cum.add(cum.last + dist(pts[i - 1], pts[i]));
+    }
+
+    _routeAnim.stop();
+    setState(() {
+      routePoints = pts;
+      _routeCumulative = cum;
+    });
+
+    _fitRoute(pts);
+
+    // Longer routes take a bit longer to draw (0.8s - 2s).
+    final ms = (600 + cum.last * 0.8).clamp(800, 2000).round();
+    _routeAnim.duration = Duration(milliseconds: ms);
+    _routeAnim.forward(from: 0);
+  }
+
+  /// Returns the part of the route that should be visible at progress [t].
+  List<LatLng> _visibleRoute(double t) {
+    if (routePoints.length < 2 || _routeCumulative.length != routePoints.length) {
+      return routePoints;
+    }
+    if (t >= 1) return routePoints;
+
+    final target = _routeCumulative.last * t;
+    final out = <LatLng>[routePoints.first];
+
+    for (var i = 1; i < routePoints.length; i++) {
+      if (_routeCumulative[i] <= target) {
+        out.add(routePoints[i]);
+      } else {
+        final segLen = _routeCumulative[i] - _routeCumulative[i - 1];
+        final f = segLen == 0 ? 0.0 : (target - _routeCumulative[i - 1]) / segLen;
+        final a = routePoints[i - 1];
+        final b = routePoints[i];
+        out.add(
+          LatLng(
+            a.latitude + (b.latitude - a.latitude) * f,
+            a.longitude + (b.longitude - a.longitude) * f,
+          ),
+        );
+        break;
+      }
+    }
+    return out;
+  }
+
+  void _clearMarkerAndRoute() {
+    _routeAnim.stop();
+    setState(() {
+      _currentMarker = null;
+      routePoints = [];
+    });
+    final position = _currentPosition;
+    if (position != null) {
+      _animated.animateTo(dest: position, zoom: 18);
+    }
   }
 
   List<Map<String, dynamic>> searchResults = [];
@@ -236,11 +337,11 @@ class _DarbMapPageState extends State<DarbMapPage> {
   List<Marker> createMapMarkersForBuildings() {
     final List<Marker> markers = [];
     final Map<String, Color> markerColors = {
-      "college": Color(0xFFC9826B),
-      "teaching": Color(0xFFD6B58C),
-      "library": Color(0xFF8F9B83),
-      "research_center": Color(0xFFB7A5C7),
-      "other": Color(0xFF7F9C9A),
+      "college": const Color(0xFFC9826B),
+      "teaching": const Color(0xFFD6B58C),
+      "library": const Color(0xFF8F9B83),
+      "research_center": const Color(0xFFB7A5C7),
+      "other": const Color(0xFF7F9C9A),
     };
 
     campusPlaces.forEach((key, building) {
@@ -253,14 +354,54 @@ class _DarbMapPageState extends State<DarbMapPage> {
           child: CircleAvatar(
             backgroundColor: markerColors[building['genre'] as String],
             radius: 30,
-
-            child: Icon(Icons.school, size: 20, color: Colors.white),
+            child: const Icon(Icons.school, size: 20, color: Colors.white),
           ),
         ),
       );
     });
 
     return markers;
+  }
+
+  Future<RouteResult> getRoute(
+    LatLng startPoint,
+    LatLng endPoint, {
+    String method = 'driving',
+  }) async {
+    // The OSRM demo server (router.project-osrm.org) only serves the car
+    // profile. Walking uses routing.openstreetmap.de's foot server, which
+    // always takes "driving" as the profile segment in the path.
+    final base = method == 'walking'
+        ? 'https://routing.openstreetmap.de/routed-foot/route/v1/driving'
+        : 'https://router.project-osrm.org/route/v1/driving';
+    final url =
+        '$base/'
+        '${startPoint.longitude},${startPoint.latitude};'
+        '${endPoint.longitude},${endPoint.latitude}?overview=full&geometries=geojson';
+    final response = await http.get(Uri.parse(url));
+
+    final data = jsonDecode(response.body);
+    final List coordinates = data['routes'][0]['geometry']['coordinates'];
+    return (
+      coordinates,
+      data['routes'][0]['legs'][0]['duration'],
+      data['routes'][0]['legs'][0]['distance'],
+    );
+  }
+
+  List<LatLng> _toLatLngs(List<dynamic> coords) => coords
+      .map((c) => LatLng((c[1] as num).toDouble(), (c[0] as num).toDouble()))
+      .toList();
+
+  Future<void> _showRoute(LatLng from, LatLng to, String method) async {
+    try {
+      final route = await getRoute(from, to, method: method);
+      if (!mounted) return;
+      _applyRoute(route.$1);
+    } catch (e) {
+      debugPrint('تعذر جلب المسار: $e');
+      _showMessage('تعذر جلب المسار.');
+    }
   }
 
   Marker createMapMarkerForBuilding(String id) {
@@ -277,11 +418,10 @@ class _DarbMapPageState extends State<DarbMapPage> {
             fit: BoxFit.contain,
             filterQuality: FilterQuality.none,
           ),
-          Positioned(
+          const Positioned(
             left: 12,
             bottom: 12.5,
             child: Icon(
-
               MingCuteIcons.mgc_location_fill,
               color: Color(0xFF002FA7),
               size: 22,
@@ -305,15 +445,220 @@ class _DarbMapPageState extends State<DarbMapPage> {
   @override
   void dispose() {
     _positionSubscription?.cancel();
-    _mapController.dispose();
+    // Disposes the animation controller (and the wrapped MapController).
+    // If your version of flutter_map_animations does not dispose the
+    // MapController, add `_mapController.dispose();` after this line.
+    _animated.dispose();
+    _routeAnim.dispose();
     _searchController.dispose();
     _searchFocusNode.dispose();
     _animationTimer?.cancel();
     super.dispose();
   }
 
+  Future<void> _onResultTap(Map<String, dynamic> item) async {
+    final building = item['building'];
+    final target = LatLng(
+      (building['lat'] as num).toDouble(),
+      (building['lon'] as num).toDouble(),
+    );
+    final from = _currentPosition;
+    if (from == null) {
+      _showMessage('جارٍ تحديد موقعك، يرجى الانتظار...');
+      return;
+    }
+
+    _animated.animateTo(dest: target, zoom: 18);
+    _searchController.text = item['name'];
+    _searchFocusNode.unfocus();
+    setState(() {
+      _currentMarker = createMapMarkerForBuilding(item['building_id']);
+    });
+
+    final RouteResult ridingRoute;
+    try {
+      ridingRoute = await getRoute(from, target);
+    } catch (e) {
+      debugPrint('تعذر جلب المسار: $e');
+      _showMessage('تعذر جلب المسار.');
+      return;
+    }
+    if (!mounted) return;
+
+    await _showRouteSheet(
+      item: item,
+      from: from,
+      target: target,
+      ridingRoute: ridingRoute,
+    );
+  }
+
+  Future<void> _showRouteSheet({
+    required Map<String, dynamic> item,
+    required LatLng from,
+    required LatLng target,
+    required RouteResult ridingRoute,
+  }) {
+    final isRoom = item['type'] == 'room';
+
+    return showModalBottomSheet(
+      context: context,
+      showDragHandle: true,
+      isScrollControlled: true,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+      ),
+      builder: (sheetContext) {
+        final cs = Theme.of(sheetContext).colorScheme;
+
+        Widget statCard(IconData icon, String value, String label) {
+          return Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+              decoration: BoxDecoration(
+                color: cs.surfaceContainerHighest.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: cs.primary.withOpacity(0.12),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(icon, size: 22, color: cs.primary),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    value,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'thmanyahserif',
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: cs.onSurface.withOpacity(0.6),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+
+        final buttonShape = RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        );
+        const buttonPadding = EdgeInsets.symmetric(vertical: 16);
+
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item['name'],
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'thmanyahserif',
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: cs.primary.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Text(
+                      isRoom
+                          ? '${item['buildingName']} • الطابق ${item['floor']}'
+                          : 'مبنى',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: cs.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    children: [
+                      statCard(
+                        MingCuteIcons.mgc_ruler_line,
+                        (ridingRoute.$3 as num).round().toString(),
+                        'متر',
+                      ),
+                      const SizedBox(width: 12),
+                      statCard(
+                        MingCuteIcons.mgc_time_duration_line,
+                        ((ridingRoute.$2 as num) / 60).ceil().toString(),
+                        'دقيقة',
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FilledButton.icon(
+                          onPressed: () {
+                            Navigator.pop(sheetContext);
+                            _showRoute(from, target, 'walking');
+                          },
+                          icon: const Icon(MingCuteIcons.mgc_walk_line),
+                          label: const Text('مشي'),
+                          style: FilledButton.styleFrom(
+                            padding: buttonPadding,
+                            shape: buttonShape,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: FilledButton.tonalIcon(
+                          onPressed: () {
+                            Navigator.pop(sheetContext);
+                            _applyRoute(ridingRoute.$1);
+                          },
+                          icon: const Icon(MingCuteIcons.mgc_car_line),
+                          label: const Text('سيارة'),
+                          style: FilledButton.styleFrom(
+                            padding: buttonPadding,
+                            shape: buttonShape,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final keyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
+
     return Scaffold(
       body: SafeArea(
         top: false,
@@ -335,7 +680,9 @@ class _DarbMapPageState extends State<DarbMapPage> {
                   maxNativeZoom: 19,
                 ),
                 CurrentLocationLayer(
-                  alignPositionOnUpdate: AlignOnUpdate.always,
+                  // Must be `never`, otherwise every GPS update snaps the
+                  // camera back and interrupts the animations.
+                  alignPositionOnUpdate: AlignOnUpdate.never,
                   alignDirectionOnUpdate: AlignOnUpdate.never,
                   style: LocationMarkerStyle(
                     marker: const DefaultLocationMarker(
@@ -349,6 +696,29 @@ class _DarbMapPageState extends State<DarbMapPage> {
                   attributions: [TextSourceAttribution('مساهمو OpenStreetMap')],
                 ),
 
+                if (routePoints.isNotEmpty)
+                  AnimatedBuilder(
+                    animation: _routeAnim,
+                    builder: (context, _) {
+                      final t = Curves.easeInOutCubic.transform(
+                        _routeAnim.value,
+                      );
+                      final visible = _visibleRoute(t);
+                      if (visible.length < 2) return const SizedBox.shrink();
+                      return PolylineLayer(
+                        polylines: [
+                          Polyline(
+                            points: visible,
+                            color: Colors.deepPurple,
+                            strokeWidth: 5.0,
+                            strokeCap: StrokeCap.round,
+                            strokeJoin: StrokeJoin.round,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+
                 MarkerLayer(
                   markers: _currentMarker != null ? [_currentMarker!] : [],
                 ),
@@ -361,7 +731,6 @@ class _DarbMapPageState extends State<DarbMapPage> {
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(12, 8, 12, 0),
                   constraints: const BoxConstraints(maxHeight: 340),
-
                   child: Material(
                     shape: SmoothRectangleBorder(
                       borderRadius: 24,
@@ -369,7 +738,6 @@ class _DarbMapPageState extends State<DarbMapPage> {
                     ),
                     color: Colors.white,
                     elevation: 8,
-
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
@@ -394,35 +762,36 @@ class _DarbMapPageState extends State<DarbMapPage> {
                                       onTapOutside: (_) {
                                         _searchFocusNode.unfocus();
                                       },
-                                      child:TextField(
-                                      controller: _searchController,
-                                      focusNode: _searchFocusNode,
-                                      onChanged: searchCampus,
-                                      textInputAction: TextInputAction.search,
-                                      textDirection: TextDirection.rtl,
-                                      textAlignVertical:
-                                          TextAlignVertical.center,
-                                      decoration: InputDecoration(
-                                        hintText: 'ابحث عن مبنى أو قاعة...',
-                                        hintTextDirection: TextDirection.rtl,
-                                        border: InputBorder.none,
-                                        isDense: true,
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                              vertical: 12,
-                                            ),
-                                        prefixIcon: Icon(
-                                          MingCuteIcons.mgc_location_fill,
-                                          color: Theme.of(
-                                            context,
-                                          ).colorScheme.primary,
+                                      child: TextField(
+                                        controller: _searchController,
+                                        focusNode: _searchFocusNode,
+                                        onChanged: searchCampus,
+                                        textInputAction: TextInputAction.search,
+                                        textDirection: TextDirection.rtl,
+                                        textAlignVertical:
+                                            TextAlignVertical.center,
+                                        decoration: InputDecoration(
+                                          hintText: 'ابحث عن مبنى أو قاعة...',
+                                          hintTextDirection: TextDirection.rtl,
+                                          border: InputBorder.none,
+                                          isDense: true,
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                vertical: 12,
+                                              ),
+                                          prefixIcon: Icon(
+                                            MingCuteIcons.mgc_location_fill,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.primary,
+                                          ),
+                                          prefixIconConstraints:
+                                              const BoxConstraints(
+                                                minWidth: 40,
+                                                minHeight: 40,
+                                              ),
                                         ),
-                                        prefixIconConstraints:
-                                            const BoxConstraints(
-                                              minWidth: 40,
-                                              minHeight: 40,
-                                            ),
-                                      ),),
+                                      ),
                                     ),
                                   ),
                                   AnimatedSwitcher(
@@ -458,8 +827,12 @@ class _DarbMapPageState extends State<DarbMapPage> {
                               duration: const Duration(milliseconds: 350),
                               curve: Curves.easeOutBack,
                               left: 70,
-                              bottom: _isDaroobStaring && _searchController.text.isNotEmpty &&
-                                    MediaQuery.of(context).viewInsets.bottom > 0 ? 0 : -30,
+                              bottom:
+                                  _isDaroobStaring &&
+                                      _searchController.text.isNotEmpty &&
+                                      keyboardOpen
+                                  ? 0
+                                  : -30,
                               child: Stack(
                                 children: [
                                   Image.asset(
@@ -469,7 +842,6 @@ class _DarbMapPageState extends State<DarbMapPage> {
                                     fit: BoxFit.contain,
                                     filterQuality: FilterQuality.none,
                                   ),
-
                                   Positioned(
                                     bottom: 1,
                                     left: 0,
@@ -508,49 +880,36 @@ class _DarbMapPageState extends State<DarbMapPage> {
                             curve: Curves.easeInOut,
                             alignment: Alignment.topCenter,
                             child:
-                                _searchController.text.isNotEmpty &&
-                                    MediaQuery.of(context).viewInsets.bottom > 0
+                                _searchController.text.isNotEmpty && keyboardOpen
                                 ? TapRegion(
-                                      groupId: 'search_bar',
-                                      child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: searchResults.length,
-                                    itemBuilder: (context, index) {
-                                      final item = searchResults[index];
-                                      final isRoom = item['type'] == 'room';
-                                      if (isRoom && item['floor'] == '0') {
-                                        item['floor'] = 'الأرضي';
-                                      }
-                                      return ListTile(
-                                        leading: Icon(
-                                          isRoom
-                                              ? MingCuteIcons.mgc_door_line
-                                              : MingCuteIcons.mgc_house_2_line,
-                                        ),
-                                        title: Text(item['name']),
-                                        subtitle: Text(
-                                          isRoom
-                                              ? '${item['buildingName']} • الطابق ${item['floor']}'
-                                              : 'مبنى',
-                                        ),
-                                        onTap: () {
-                                          final building = item['building'];
-                                          final lat = building['lat'];
-                                          final lon = building['lon'];
-                                          _mapController.move(
-                                            LatLng(lat, lon),
-                                            18,
-                                          );
-                                          _searchController.text = item['name'];
-                                          _searchFocusNode.unfocus();
-                                          _currentMarker =
-                                              createMapMarkerForBuilding(
-                                                item['building_id'],
-                                              );
-                                        },
-                                      );
-                                    },
-                                  ))
+                                    groupId: 'search_bar',
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: searchResults.length,
+                                      itemBuilder: (listContext, index) {
+                                        final item = searchResults[index];
+                                        final isRoom = item['type'] == 'room';
+                                        if (isRoom && item['floor'] == '0') {
+                                          item['floor'] = 'الأرضي';
+                                        }
+                                        return ListTile(
+                                          leading: Icon(
+                                            isRoom
+                                                ? MingCuteIcons.mgc_door_line
+                                                : MingCuteIcons
+                                                      .mgc_house_2_line,
+                                          ),
+                                          title: Text(item['name']),
+                                          subtitle: Text(
+                                            isRoom
+                                                ? '${item['buildingName']} • الطابق ${item['floor']}'
+                                                : 'مبنى',
+                                          ),
+                                          onTap: () => _onResultTap(item),
+                                        );
+                                      },
+                                    ),
+                                  )
                                 : const SizedBox.shrink(),
                           ),
                         ),
@@ -566,7 +925,7 @@ class _DarbMapPageState extends State<DarbMapPage> {
 
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: Padding(
-        padding: EdgeInsets.only(bottom: 30),
+        padding: const EdgeInsets.only(bottom: 30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -575,14 +934,10 @@ class _DarbMapPageState extends State<DarbMapPage> {
                     heroTag: 'removeMarker',
                     elevation: 5,
                     tooltip: 'احذف العلامة',
-                    onPressed: () {
-                      setState(() {
-                        _currentMarker = null;
-                      });
-                    },
+                    onPressed: _clearMarkerAndRoute,
                     child: const Icon(SolarIconsBold.mapPointRemove),
                   )
-                : SizedBox.shrink(),
+                : const SizedBox.shrink(),
 
             const SizedBox(height: 10),
             FloatingActionButton(

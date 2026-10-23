@@ -265,6 +265,35 @@
                     "room 1169"
                 ]
             },
+            "lecture_hall_6": {
+                "name_display": "قاعة المحاضرات (6)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة المحاضرات 6",
+                    "محاضرات 6",
+                    "مدرج 6",
+                    "قاعة 6",
+                    "lecture hall 6",
+                    "lecture room 6",
+                    "auditorium 6"
+                ]
+            },
+            "lecture_hall_7": {
+                "name_display": "قاعة المحاضرات (7)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "قاعة المحاضرات 7",
+                    "محاضرات 7",
+                    "مدرج 7",
+                    "قاعة 7",
+                    "lecture hall 7",
+                    "lecture room 7",
+                    "auditorium 7"
+                ]
+            },
+
             "lecture_hall_8": {
                 "name_display": "قاعة المحاضرات (8)",
                 "floor": "1",
