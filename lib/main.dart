@@ -264,26 +264,30 @@ class _DarbMapPageState extends State<DarbMapPage> {
   }
 
   Marker createMapMarkerForBuilding(String id) {
-    final Map<String, Color> markerColors = {
-      "college": Color(0xFFC9826B),
-      "teaching": Color(0xFFD6B58C),
-      "library": Color(0xFF8F9B83),
-      "research_center": Color(0xFFB7A5C7),
-      "other": Color(0xFF7F9C9A),
-    };
-
     final building = campusPlaces[id];
-
     return Marker(
       point: LatLng(building['lat'], building['lon']),
       width: 40.0,
       height: 40.0,
       rotate: true,
-      child: CircleAvatar(
-        backgroundColor: markerColors[building['genre'] as String],
-        radius: 30,
+      child: Stack(
+        children: [
+          Image.asset(
+            'assets/images/daroob_sitting_faceless.png',
+            fit: BoxFit.contain,
+            filterQuality: FilterQuality.none,
+          ),
+          Positioned(
+            left: 12,
+            bottom: 12.5,
+            child: Icon(
 
-        child: Icon(Icons.school, size: 20, color: Colors.white),
+              MingCuteIcons.mgc_location_fill,
+              color: Color(0xFF002FA7),
+              size: 22,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -331,52 +335,16 @@ class _DarbMapPageState extends State<DarbMapPage> {
                   maxNativeZoom: 19,
                 ),
                 CurrentLocationLayer(
+                  alignPositionOnUpdate: AlignOnUpdate.always,
+                  alignDirectionOnUpdate: AlignOnUpdate.never,
                   style: LocationMarkerStyle(
-                    marker: StreamBuilder<Position>(
-                      stream: Geolocator.getPositionStream(),
-                      builder: (context, snapshot) {
-                        final position = snapshot.data;
-                        final marker = _currentMarker;
-
-                        if (position == null || marker == null) {
-                          return Image.asset(
-                            'assets/images/daroob_sideways.png',
-                            fit: BoxFit.contain,
-                            filterQuality: FilterQuality.none,
-                          );
-                        }
-
-                        final bearing = Geolocator.bearingBetween(
-                          position.latitude,
-                          position.longitude,
-                          marker.point.latitude,
-                          marker.point.longitude,
-                        );
-
-                        final sprite = _isDaroobStaring
-                            ? _getStaringSprite(bearing)
-                            : (asset: 'assets/images/daroob.png', flipX: false);
-
-                        return Transform.flip(
-                          flipX: sprite.flipX,
-
-                          child: Transform.rotate(
-                          angle: -math.pi/4,
-                          
-                          child: Image.asset(
-                            sprite.asset,
-                            fit: BoxFit.contain,
-                            filterQuality: FilterQuality.none,
-                          ),
-                        ));
-                      },
+                    marker: const DefaultLocationMarker(
+                      child: Icon(Icons.navigation, color: Colors.white),
                     ),
-                    markerSize: const Size(40, 33.85),
+                    markerSize: const Size(40, 40),
                     markerDirection: MarkerDirection.heading,
-                    showAccuracyCircle: true,
                   ),
                 ),
-
                 const RichAttributionWidget(
                   attributions: [TextSourceAttribution('مساهمو OpenStreetMap')],
                 ),
@@ -421,13 +389,15 @@ class _DarbMapPageState extends State<DarbMapPage> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Expanded(
-                                    child: TextField(
-                                      controller: _searchController,
-                                      focusNode: _searchFocusNode,
-                                      onChanged: searchCampus,
+                                    child: TapRegion(
+                                      groupId: 'search_bar',
                                       onTapOutside: (_) {
                                         _searchFocusNode.unfocus();
                                       },
+                                      child:TextField(
+                                      controller: _searchController,
+                                      focusNode: _searchFocusNode,
+                                      onChanged: searchCampus,
                                       textInputAction: TextInputAction.search,
                                       textDirection: TextDirection.rtl,
                                       textAlignVertical:
@@ -452,7 +422,7 @@ class _DarbMapPageState extends State<DarbMapPage> {
                                               minWidth: 40,
                                               minHeight: 40,
                                             ),
-                                      ),
+                                      ),),
                                     ),
                                   ),
                                   AnimatedSwitcher(
@@ -488,7 +458,8 @@ class _DarbMapPageState extends State<DarbMapPage> {
                               duration: const Duration(milliseconds: 350),
                               curve: Curves.easeOutBack,
                               left: 70,
-                              bottom: _isDaroobStaring ? 0 : -30,
+                              bottom: _isDaroobStaring && _searchController.text.isNotEmpty &&
+                                    MediaQuery.of(context).viewInsets.bottom > 0 ? 0 : -30,
                               child: Stack(
                                 children: [
                                   Image.asset(
@@ -539,7 +510,9 @@ class _DarbMapPageState extends State<DarbMapPage> {
                             child:
                                 _searchController.text.isNotEmpty &&
                                     MediaQuery.of(context).viewInsets.bottom > 0
-                                ? ListView.builder(
+                                ? TapRegion(
+                                      groupId: 'search_bar',
+                                      child: ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: searchResults.length,
                                     itemBuilder: (context, index) {
@@ -577,7 +550,7 @@ class _DarbMapPageState extends State<DarbMapPage> {
                                         },
                                       );
                                     },
-                                  )
+                                  ))
                                 : const SizedBox.shrink(),
                           ),
                         ),
@@ -850,38 +823,4 @@ class CampusSearch {
       return a.name.compareTo(b.name);
     });
   }
-}
-
-({String asset, bool flipX}) _getStaringSprite(double bearing) {
-  final direction = ((bearing % 360) + 360) % 360;
-
-  if (direction >= 337.5 || direction < 22.5) {
-    return (asset: 'assets/images/daroob_up.png', flipX: false);
-  }
-
-  if (direction < 67.5) {
-    return (asset: 'assets/images/daroob_up_sideways.png', flipX: false);
-  }
-
-  if (direction < 112.5) {
-    return (asset: 'assets/images/daroob_sideways.png', flipX: false);
-  }
-
-  if (direction < 157.5) {
-    return (asset: 'assets/images/daroob_down_sideways.png', flipX: false);
-  }
-
-  if (direction < 202.5) {
-    return (asset: 'assets/images/daroob_sideways.png', flipX: false);
-  }
-
-  if (direction < 247.5) {
-    return (asset: 'assets/images/daroob_down_sideways.png', flipX: true);
-  }
-
-  if (direction < 292.5) {
-    return (asset: 'assets/images/daroob_sideways.png', flipX: true);
-  }
-
-  return (asset: 'assets/images/daroob_up_sideways.png', flipX: true);
 }

@@ -79,6 +79,7 @@ flutter:
     - assets/images/daroob_up_sideways.png
     - assets/images/daroob_up.png
     - assets/images/daroob_eyes_staring.png
+    - assets/images/daroob_sitting_faceless.png
     - assets/data/campus.json  
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
