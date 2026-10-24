@@ -71,7 +71,6 @@ class _DarbMapPageState extends State<DarbMapPage>
     curve: Curves.easeInOutCubic,
   );
 
-  // Route "draw-in" animation: 0 -> 1 reveals the full polyline.
   late final AnimationController _routeAnim = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 1200),
@@ -244,7 +243,6 @@ class _DarbMapPageState extends State<DarbMapPage>
   void _applyRoute(List<dynamic> coords) {
     final pts = _toLatLngs(coords);
 
-    // Precompute cumulative distances so the reveal moves at constant speed.
     const dist = Distance();
     final cum = <double>[0];
     for (var i = 1; i < pts.length; i++) {
@@ -259,13 +257,11 @@ class _DarbMapPageState extends State<DarbMapPage>
 
     _fitRoute(pts);
 
-    // Longer routes take a bit longer to draw (0.8s - 2s).
-    final ms = (600 + cum.last * 0.8).clamp(800, 2000).round();
+    final ms = (600 + cum.last * 11).clamp(1000, 4000).round();
     _routeAnim.duration = Duration(milliseconds: ms);
     _routeAnim.forward(from: 0);
   }
 
-  /// Returns the part of the route that should be visible at progress [t].
   List<LatLng> _visibleRoute(double t) {
     if (routePoints.length < 2 || _routeCumulative.length != routePoints.length) {
       return routePoints;
@@ -535,8 +531,7 @@ class _DarbMapPageState extends State<DarbMapPage>
                     value,
                     style: const TextStyle(
                       fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'thmanyahserif',
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                   const SizedBox(height: 2),
@@ -571,8 +566,7 @@ class _DarbMapPageState extends State<DarbMapPage>
                     item['name'],
                     style: const TextStyle(
                       fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'thmanyahserif',
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -709,7 +703,7 @@ class _DarbMapPageState extends State<DarbMapPage>
                         polylines: [
                           Polyline(
                             points: visible,
-                            color: Colors.deepPurple,
+                            color: Theme.of(context).colorScheme.primary,
                             strokeWidth: 5.0,
                             strokeCap: StrokeCap.round,
                             strokeJoin: StrokeJoin.round,
@@ -718,6 +712,8 @@ class _DarbMapPageState extends State<DarbMapPage>
                       );
                     },
                   ),
+
+              
 
                 MarkerLayer(
                   markers: _currentMarker != null ? [_currentMarker!] : [],
