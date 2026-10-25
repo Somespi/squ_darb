@@ -314,6 +314,9 @@ class _DarbMapPageState extends State<DarbMapPage>
             'name': result.name,
             'type': result.isRoom ? 'room' : 'building',
             'building_id': result.buildingId,
+            'further_instructions': result.isRoom
+                ? result.room!['further_instructions']
+                : result.building['further_instructions'],
             if (result.isRoom) ...{
               'floor': result.room?['floor'],
               'buildingName':
@@ -553,6 +556,8 @@ class _DarbMapPageState extends State<DarbMapPage>
         );
         const buttonPadding = EdgeInsets.symmetric(vertical: 16);
 
+        final instructions = parseInstructions(item['further_instructions']);
+
         return Directionality(
           textDirection: TextDirection.rtl,
           child: SafeArea(
@@ -590,6 +595,41 @@ class _DarbMapPageState extends State<DarbMapPage>
                       ),
                     ),
                   ),
+                  if (instructions.isNotEmpty) ...[
+                    const SizedBox(height: 16),
+                    ...instructions.map(
+                      (line) => Padding(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: Container(
+                                width: 6,
+                                height: 6,
+                                decoration: BoxDecoration(
+                                  color: cs.primary,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                line,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  height: 1.4,
+                                  color: cs.onSurface.withOpacity(0.8),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                   const SizedBox(height: 24),
                   Row(
                     children: [
@@ -673,19 +713,6 @@ class _DarbMapPageState extends State<DarbMapPage>
                   userAgentPackageName: 'com.squ_navigator',
                   maxNativeZoom: 19,
                 ),
-                CurrentLocationLayer(
-                  // Must be `never`, otherwise every GPS update snaps the
-                  // camera back and interrupts the animations.
-                  alignPositionOnUpdate: AlignOnUpdate.never,
-                  alignDirectionOnUpdate: AlignOnUpdate.never,
-                  style: LocationMarkerStyle(
-                    marker: const DefaultLocationMarker(
-                      child: Icon(Icons.navigation, color: Colors.white),
-                    ),
-                    markerSize: const Size(40, 40),
-                    markerDirection: MarkerDirection.heading,
-                  ),
-                ),
                 const RichAttributionWidget(
                   attributions: [TextSourceAttribution('مساهمو OpenStreetMap')],
                 ),
@@ -713,10 +740,20 @@ class _DarbMapPageState extends State<DarbMapPage>
                     },
                   ),
 
-              
-
                 MarkerLayer(
                   markers: _currentMarker != null ? [_currentMarker!] : [],
+                ),
+
+                CurrentLocationLayer(
+                  alignPositionOnUpdate: AlignOnUpdate.never,
+                  alignDirectionOnUpdate: AlignOnUpdate.never,
+                  style: LocationMarkerStyle(
+                    marker: const DefaultLocationMarker(
+                      child: Icon(Icons.navigation, color: Colors.white),
+                    ),
+                    markerSize: const Size(40, 40),
+                    markerDirection: MarkerDirection.heading,
+                  ),
                 ),
               ],
             ),
@@ -956,6 +993,19 @@ Future<Map<String, dynamic>> loadCampusData() async {
   final Map<String, dynamic> data = jsonDecode(jsonString);
 
   return data;
+}
+
+/// Turns `further_instructions` into a list of bullet lines.
+/// Accepts null, a JSON list, or a string separated by ؛ ; ، or newlines.
+List<String> parseInstructions(dynamic value) {
+  if (value == null) return [];
+  final parts = value is List
+      ? value.map((e) => e.toString())
+      : value.toString().split(RegExp(r'[؛;،\n]'));
+  return parts
+      .map((s) => s.trim().replaceFirst(RegExp(r'^و(?=ال)'), ''))
+      .where((s) => s.isNotEmpty)
+      .toList();
 }
 
 const Map<String, String> _digitMap = {
