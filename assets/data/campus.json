@@ -293,7 +293,6 @@
                     "auditorium 7"
                 ]
             },
-
             "lecture_hall_8": {
                 "name_display": "قاعة المحاضرات (8)",
                 "floor": "1",
@@ -581,7 +580,2359 @@
                     "classroom 2464",
                     "room 2464"
                 ]
+            },
+            "e1_e8": {
+                "name_display": "E1 - E8",
+                "floor": "0",
+                "further_instructions": "من جهة اليسار، والمدخل من جهة المسجد",
+                "search_keywords": [
+                    "E1",
+                    "E2",
+                    "E3",
+                    "E4",
+                    "E5",
+                    "E6",
+                    "E7",
+                    "E8",
+                    "الطابق الأرضي",
+                    "من جهة اليسار",
+                    "المدخل من جهة المسجد"
+                ]
+            },
+            "e9_e14": {
+                "name_display": "E9 - E14",
+                "floor": "0",
+                "further_instructions": "من جهة اليمين، والمدخل من جهة المسجد",
+                "search_keywords": [
+                    "E9",
+                    "E10",
+                    "E11",
+                    "E12",
+                    "E13",
+                    "E14",
+                    "الطابق الأرضي",
+                    "من جهة اليمين",
+                    "المدخل من جهة المسجد"
+                ]
+            },
+            "e15_e24": {
+                "name_display": "E15 - E24",
+                "floor": "1",
+                "further_instructions": "من جهة اليسار، والمدخل من جهة المسجد",
+                "search_keywords": [
+                    "E15",
+                    "E16",
+                    "E17",
+                    "E18",
+                    "E19",
+                    "E20",
+                    "E21",
+                    "E22",
+                    "E23",
+                    "E24",
+                    "الطابق الأول",
+                    "من جهة اليسار",
+                    "المدخل من جهة المسجد"
+                ]
+            },
+            "e25_e34": {
+                "name_display": "E25 - E34",
+                "floor": "1",
+                "further_instructions": "من جهة اليمين، والمدخل من جهة المسجد",
+                "search_keywords": [
+                    "E25",
+                    "E26",
+                    "E27",
+                    "E28",
+                    "E29",
+                    "E30",
+                    "E31",
+                    "E32",
+                    "E33",
+                    "E34",
+                    "الطابق الأول",
+                    "من جهة اليمين",
+                    "المدخل من جهة المسجد"
+                ]
+            },
+            "e35_e44": {
+                "name_display": "E35 - E44",
+                "floor": "2",
+                "further_instructions": "من جهة اليسار، والمدخل من جهة المسجد",
+                "search_keywords": [
+                    "E35",
+                    "E36",
+                    "E37",
+                    "E38",
+                    "E39",
+                    "E40",
+                    "E41",
+                    "E42",
+                    "E43",
+                    "E44",
+                    "الطابق الثاني",
+                    "من جهة اليسار",
+                    "المدخل من جهة المسجد"
+                ]
+            },
+            "e45_e54": {
+                "name_display": "E45 - E54",
+                "floor": "2",
+                "further_instructions": "من جهة اليمين، والمدخل من جهة المسجد",
+                "search_keywords": [
+                    "E45",
+                    "E46",
+                    "E47",
+                    "E48",
+                    "E49",
+                    "E50",
+                    "E51",
+                    "E52",
+                    "E53",
+                    "E54",
+                    "الطابق الثاني",
+                    "من جهة اليمين",
+                    "المدخل من جهة المسجد"
+                ]
             }
         }
+    },
+    "building_e": {
+        "name_display": "مبنى الصفوف الدراسية (و)",
+        "genre": "building",
+        "lon": 58.1641277778,
+        "lat": 23.5901722222,
+        "search_keywords": [
+            "مبنى الصفوف الدراسية (و)",
+            "مبنى الصفوف الدراسية و",
+            "مبنى E",
+            "مبنى الصفوف الدراسية E",
+            "building E",
+            "E building",
+            "classroom building E"
+        ],
+        "rooms": {
+            "e1": {
+                "name_display": "قاعة دراسية (E1)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليسار",
+                "search_keywords": [
+                    "E1",
+                    "e1",
+                    "قاعة E1",
+                    "قاعة دراسية E1",
+                    "غرفة E1",
+                    "room E1",
+                    "classroom E1",
+                    "building E room E1"
+                ]
+            },
+            "e2": {
+                "name_display": "قاعة دراسية (E2)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليسار",
+                "search_keywords": [
+                    "E2",
+                    "e2",
+                    "قاعة E2",
+                    "قاعة دراسية E2",
+                    "غرفة E2",
+                    "room E2",
+                    "classroom E2",
+                    "building E room E2"
+                ]
+            },
+            "e3": {
+                "name_display": "قاعة دراسية (E3)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليسار",
+                "search_keywords": [
+                    "E3",
+                    "e3",
+                    "قاعة E3",
+                    "قاعة دراسية E3",
+                    "غرفة E3",
+                    "room E3",
+                    "classroom E3",
+                    "building E room E3"
+                ]
+            },
+            "e4": {
+                "name_display": "قاعة دراسية (E4)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليسار",
+                "search_keywords": [
+                    "E4",
+                    "e4",
+                    "قاعة E4",
+                    "قاعة دراسية E4",
+                    "غرفة E4",
+                    "room E4",
+                    "classroom E4",
+                    "building E room E4"
+                ]
+            },
+            "e5": {
+                "name_display": "قاعة دراسية (E5)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليسار",
+                "search_keywords": [
+                    "E5",
+                    "e5",
+                    "قاعة E5",
+                    "قاعة دراسية E5",
+                    "غرفة E5",
+                    "room E5",
+                    "classroom E5",
+                    "building E room E5"
+                ]
+            },
+            "e6": {
+                "name_display": "قاعة دراسية (E6)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليسار",
+                "search_keywords": [
+                    "E6",
+                    "e6",
+                    "قاعة E6",
+                    "قاعة دراسية E6",
+                    "غرفة E6",
+                    "room E6",
+                    "classroom E6",
+                    "building E room E6"
+                ]
+            },
+            "e7": {
+                "name_display": "قاعة دراسية (E7)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليسار",
+                "search_keywords": [
+                    "E7",
+                    "e7",
+                    "قاعة E7",
+                    "قاعة دراسية E7",
+                    "غرفة E7",
+                    "room E7",
+                    "classroom E7",
+                    "building E room E7"
+                ]
+            },
+            "e8": {
+                "name_display": "قاعة دراسية (E8)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليسار",
+                "search_keywords": [
+                    "E8",
+                    "e8",
+                    "قاعة E8",
+                    "قاعة دراسية E8",
+                    "غرفة E8",
+                    "room E8",
+                    "classroom E8",
+                    "building E room E8"
+                ]
+            },
+            "e9": {
+                "name_display": "قاعة دراسية (E9)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليمين",
+                "search_keywords": [
+                    "E9",
+                    "e9",
+                    "قاعة E9",
+                    "قاعة دراسية E9",
+                    "غرفة E9",
+                    "room E9",
+                    "classroom E9",
+                    "building E room E9"
+                ]
+            },
+            "e10": {
+                "name_display": "قاعة دراسية (E10)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليمين",
+                "search_keywords": [
+                    "E10",
+                    "e10",
+                    "قاعة E10",
+                    "قاعة دراسية E10",
+                    "غرفة E10",
+                    "room E10",
+                    "classroom E10",
+                    "building E room E10"
+                ]
+            },
+            "e11": {
+                "name_display": "قاعة دراسية (E11)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليمين",
+                "search_keywords": [
+                    "E11",
+                    "e11",
+                    "قاعة E11",
+                    "قاعة دراسية E11",
+                    "غرفة E11",
+                    "room E11",
+                    "classroom E11",
+                    "building E room E11"
+                ]
+            },
+            "e12": {
+                "name_display": "قاعة دراسية (E12)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليمين",
+                "search_keywords": [
+                    "E12",
+                    "e12",
+                    "قاعة E12",
+                    "قاعة دراسية E12",
+                    "غرفة E12",
+                    "room E12",
+                    "classroom E12",
+                    "building E room E12"
+                ]
+            },
+            "e13": {
+                "name_display": "قاعة دراسية (E13)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليمين",
+                "search_keywords": [
+                    "E13",
+                    "e13",
+                    "قاعة E13",
+                    "قاعة دراسية E13",
+                    "غرفة E13",
+                    "room E13",
+                    "classroom E13",
+                    "building E room E13"
+                ]
+            },
+            "e14": {
+                "name_display": "قاعة دراسية (E14)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليمين",
+                "search_keywords": [
+                    "E14",
+                    "e14",
+                    "قاعة E14",
+                    "قاعة دراسية E14",
+                    "غرفة E14",
+                    "room E14",
+                    "classroom E14",
+                    "building E room E14"
+                ]
+            },
+            "e15": {
+                "name_display": "قاعة دراسية (E15)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "E15",
+                    "e15",
+                    "قاعة E15",
+                    "قاعة دراسية E15",
+                    "غرفة E15",
+                    "room E15",
+                    "classroom E15",
+                    "building E room E15"
+                ]
+            },
+            "e16": {
+                "name_display": "قاعة دراسية (E16)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "E16",
+                    "e16",
+                    "قاعة E16",
+                    "قاعة دراسية E16",
+                    "غرفة E16",
+                    "room E16",
+                    "classroom E16",
+                    "building E room E16"
+                ]
+            },
+            "e17": {
+                "name_display": "قاعة دراسية (E17)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "E17",
+                    "e17",
+                    "قاعة E17",
+                    "قاعة دراسية E17",
+                    "غرفة E17",
+                    "room E17",
+                    "classroom E17",
+                    "building E room E17"
+                ]
+            },
+            "e18": {
+                "name_display": "قاعة دراسية (E18)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "E18",
+                    "e18",
+                    "قاعة E18",
+                    "قاعة دراسية E18",
+                    "غرفة E18",
+                    "room E18",
+                    "classroom E18",
+                    "building E room E18"
+                ]
+            },
+            "e19": {
+                "name_display": "قاعة دراسية (E19)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "E19",
+                    "e19",
+                    "قاعة E19",
+                    "قاعة دراسية E19",
+                    "غرفة E19",
+                    "room E19",
+                    "classroom E19",
+                    "building E room E19"
+                ]
+            },
+            "e20": {
+                "name_display": "قاعة دراسية (E20)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "E20",
+                    "e20",
+                    "قاعة E20",
+                    "قاعة دراسية E20",
+                    "غرفة E20",
+                    "room E20",
+                    "classroom E20",
+                    "building E room E20"
+                ]
+            },
+            "e21": {
+                "name_display": "قاعة دراسية (E21)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "E21",
+                    "e21",
+                    "قاعة E21",
+                    "قاعة دراسية E21",
+                    "غرفة E21",
+                    "room E21",
+                    "classroom E21",
+                    "building E room E21"
+                ]
+            },
+            "e22": {
+                "name_display": "قاعة دراسية (E22)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "E22",
+                    "e22",
+                    "قاعة E22",
+                    "قاعة دراسية E22",
+                    "غرفة E22",
+                    "room E22",
+                    "classroom E22",
+                    "building E room E22"
+                ]
+            },
+            "e23": {
+                "name_display": "قاعة دراسية (E23)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "E23",
+                    "e23",
+                    "قاعة E23",
+                    "قاعة دراسية E23",
+                    "غرفة E23",
+                    "room E23",
+                    "classroom E23",
+                    "building E room E23"
+                ]
+            },
+            "e24": {
+                "name_display": "قاعة دراسية (E24)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "E24",
+                    "e24",
+                    "قاعة E24",
+                    "قاعة دراسية E24",
+                    "غرفة E24",
+                    "room E24",
+                    "classroom E24",
+                    "building E room E24"
+                ]
+            },
+            "e25": {
+                "name_display": "قاعة دراسية (E25)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "E25",
+                    "e25",
+                    "قاعة E25",
+                    "قاعة دراسية E25",
+                    "غرفة E25",
+                    "room E25",
+                    "classroom E25",
+                    "building E room E25"
+                ]
+            },
+            "e26": {
+                "name_display": "قاعة دراسية (E26)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "E26",
+                    "e26",
+                    "قاعة E26",
+                    "قاعة دراسية E26",
+                    "غرفة E26",
+                    "room E26",
+                    "classroom E26",
+                    "building E room E26"
+                ]
+            },
+            "e27": {
+                "name_display": "قاعة دراسية (E27)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "E27",
+                    "e27",
+                    "قاعة E27",
+                    "قاعة دراسية E27",
+                    "غرفة E27",
+                    "room E27",
+                    "classroom E27",
+                    "building E room E27"
+                ]
+            },
+            "e28": {
+                "name_display": "قاعة دراسية (E28)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "E28",
+                    "e28",
+                    "قاعة E28",
+                    "قاعة دراسية E28",
+                    "غرفة E28",
+                    "room E28",
+                    "classroom E28",
+                    "building E room E28"
+                ]
+            },
+            "e29": {
+                "name_display": "قاعة دراسية (E29)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "E29",
+                    "e29",
+                    "قاعة E29",
+                    "قاعة دراسية E29",
+                    "غرفة E29",
+                    "room E29",
+                    "classroom E29",
+                    "building E room E29"
+                ]
+            },
+            "e30": {
+                "name_display": "قاعة دراسية (E30)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "E30",
+                    "e30",
+                    "قاعة E30",
+                    "قاعة دراسية E30",
+                    "غرفة E30",
+                    "room E30",
+                    "classroom E30",
+                    "building E room E30"
+                ]
+            },
+            "e31": {
+                "name_display": "قاعة دراسية (E31)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "E31",
+                    "e31",
+                    "قاعة E31",
+                    "قاعة دراسية E31",
+                    "غرفة E31",
+                    "room E31",
+                    "classroom E31",
+                    "building E room E31"
+                ]
+            },
+            "e32": {
+                "name_display": "قاعة دراسية (E32)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "E32",
+                    "e32",
+                    "قاعة E32",
+                    "قاعة دراسية E32",
+                    "غرفة E32",
+                    "room E32",
+                    "classroom E32",
+                    "building E room E32"
+                ]
+            },
+            "e33": {
+                "name_display": "قاعة دراسية (E33)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "E33",
+                    "e33",
+                    "قاعة E33",
+                    "قاعة دراسية E33",
+                    "غرفة E33",
+                    "room E33",
+                    "classroom E33",
+                    "building E room E33"
+                ]
+            },
+            "e34": {
+                "name_display": "قاعة دراسية (E34)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "E34",
+                    "e34",
+                    "قاعة E34",
+                    "قاعة دراسية E34",
+                    "غرفة E34",
+                    "room E34",
+                    "classroom E34",
+                    "building E room E34"
+                ]
+            },
+            "e35": {
+                "name_display": "قاعة دراسية (E35)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "E35",
+                    "e35",
+                    "قاعة E35",
+                    "قاعة دراسية E35",
+                    "غرفة E35",
+                    "room E35",
+                    "classroom E35",
+                    "building E room E35"
+                ]
+            },
+            "e36": {
+                "name_display": "قاعة دراسية (E36)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "E36",
+                    "e36",
+                    "قاعة E36",
+                    "قاعة دراسية E36",
+                    "غرفة E36",
+                    "room E36",
+                    "classroom E36",
+                    "building E room E36"
+                ]
+            },
+            "e37": {
+                "name_display": "قاعة دراسية (E37)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "E37",
+                    "e37",
+                    "قاعة E37",
+                    "قاعة دراسية E37",
+                    "غرفة E37",
+                    "room E37",
+                    "classroom E37",
+                    "building E room E37"
+                ]
+            },
+            "e38": {
+                "name_display": "قاعة دراسية (E38)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "E38",
+                    "e38",
+                    "قاعة E38",
+                    "قاعة دراسية E38",
+                    "غرفة E38",
+                    "room E38",
+                    "classroom E38",
+                    "building E room E38"
+                ]
+            },
+            "e39": {
+                "name_display": "قاعة دراسية (E39)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "E39",
+                    "e39",
+                    "قاعة E39",
+                    "قاعة دراسية E39",
+                    "غرفة E39",
+                    "room E39",
+                    "classroom E39",
+                    "building E room E39"
+                ]
+            },
+            "e40": {
+                "name_display": "قاعة دراسية (E40)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "E40",
+                    "e40",
+                    "قاعة E40",
+                    "قاعة دراسية E40",
+                    "غرفة E40",
+                    "room E40",
+                    "classroom E40",
+                    "building E room E40"
+                ]
+            },
+            "e41": {
+                "name_display": "قاعة دراسية (E41)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "E41",
+                    "e41",
+                    "قاعة E41",
+                    "قاعة دراسية E41",
+                    "غرفة E41",
+                    "room E41",
+                    "classroom E41",
+                    "building E room E41"
+                ]
+            },
+            "e42": {
+                "name_display": "قاعة دراسية (E42)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "E42",
+                    "e42",
+                    "قاعة E42",
+                    "قاعة دراسية E42",
+                    "غرفة E42",
+                    "room E42",
+                    "classroom E42",
+                    "building E room E42"
+                ]
+            },
+            "e43": {
+                "name_display": "قاعة دراسية (E43)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "E43",
+                    "e43",
+                    "قاعة E43",
+                    "قاعة دراسية E43",
+                    "غرفة E43",
+                    "room E43",
+                    "classroom E43",
+                    "building E room E43"
+                ]
+            },
+            "e44": {
+                "name_display": "قاعة دراسية (E44)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "E44",
+                    "e44",
+                    "قاعة E44",
+                    "قاعة دراسية E44",
+                    "غرفة E44",
+                    "room E44",
+                    "classroom E44",
+                    "building E room E44"
+                ]
+            },
+            "e45": {
+                "name_display": "قاعة دراسية (E45)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "E45",
+                    "e45",
+                    "قاعة E45",
+                    "قاعة دراسية E45",
+                    "غرفة E45",
+                    "room E45",
+                    "classroom E45",
+                    "building E room E45"
+                ]
+            },
+            "e46": {
+                "name_display": "قاعة دراسية (E46)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "E46",
+                    "e46",
+                    "قاعة E46",
+                    "قاعة دراسية E46",
+                    "غرفة E46",
+                    "room E46",
+                    "classroom E46",
+                    "building E room E46"
+                ]
+            },
+            "e47": {
+                "name_display": "قاعة دراسية (E47)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "E47",
+                    "e47",
+                    "قاعة E47",
+                    "قاعة دراسية E47",
+                    "غرفة E47",
+                    "room E47",
+                    "classroom E47",
+                    "building E room E47"
+                ]
+            },
+            "e48": {
+                "name_display": "قاعة دراسية (E48)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "E48",
+                    "e48",
+                    "قاعة E48",
+                    "قاعة دراسية E48",
+                    "غرفة E48",
+                    "room E48",
+                    "classroom E48",
+                    "building E room E48"
+                ]
+            },
+            "e49": {
+                "name_display": "قاعة دراسية (E49)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "E49",
+                    "e49",
+                    "قاعة E49",
+                    "قاعة دراسية E49",
+                    "غرفة E49",
+                    "room E49",
+                    "classroom E49",
+                    "building E room E49"
+                ]
+            },
+            "e50": {
+                "name_display": "قاعة دراسية (E50)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "E50",
+                    "e50",
+                    "قاعة E50",
+                    "قاعة دراسية E50",
+                    "غرفة E50",
+                    "room E50",
+                    "classroom E50",
+                    "building E room E50"
+                ]
+            },
+            "e51": {
+                "name_display": "قاعة دراسية (E51)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "E51",
+                    "e51",
+                    "قاعة E51",
+                    "قاعة دراسية E51",
+                    "غرفة E51",
+                    "room E51",
+                    "classroom E51",
+                    "building E room E51"
+                ]
+            },
+            "e52": {
+                "name_display": "قاعة دراسية (E52)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "E52",
+                    "e52",
+                    "قاعة E52",
+                    "قاعة دراسية E52",
+                    "غرفة E52",
+                    "room E52",
+                    "classroom E52",
+                    "building E room E52"
+                ]
+            },
+            "e53": {
+                "name_display": "قاعة دراسية (E53)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "E53",
+                    "e53",
+                    "قاعة E53",
+                    "قاعة دراسية E53",
+                    "غرفة E53",
+                    "room E53",
+                    "classroom E53",
+                    "building E room E53"
+                ]
+            },
+            "e54": {
+                "name_display": "قاعة دراسية (E54)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "E54",
+                    "e54",
+                    "قاعة E54",
+                    "قاعة دراسية E54",
+                    "غرفة E54",
+                    "room E54",
+                    "classroom E54",
+                    "building E room E54"
+                ]
+            }
+        }
+    },
+    "student_clinic": {
+        "name_display": "عيادة الطلبة",
+        "genre": "building",
+        "lon": 58.1664056,
+        "lat": 23.5910472,
+        "search_keywords": [
+            "عيادة الطلبة",
+            "عيادة الطلاب",
+            "العيادة",
+            "العيادة الطبية",
+            "student clinic",
+            "student health clinic",
+            "university clinic",
+            "medical clinic"
+        ]
+    },
+    "student_affairs_deanship": {
+        "name_display": "عمادة شؤون الطلبة",
+        "genre": "building",
+        "lon": 58.1673389,
+        "lat": 23.5908806,
+        "search_keywords": [
+            "عمادة شؤون الطلبة",
+            "عمادة شؤون الطلاب",
+            "شؤون الطلبة",
+            "شؤون الطلاب",
+            "عمادة الطلبة",
+            "student affairs deanship",
+            "deanship of student affairs",
+            "student affairs"
+        ]
+    },
+    "conference_hall": {
+        "name_display": "قاعة المؤتمرات",
+        "genre": "building",
+        "lon": 58.1671028,
+        "lat": 23.5911278,
+        "search_keywords": [
+            "قاعة المؤتمرات",
+            "قاعة المؤتمر",
+            "المؤتمرات",
+            "conference hall",
+            "conference room"
+        ],
+        "further_instructions": "بجانب عمادة شؤون الطلبة"
+    },
+    "exhibition_hall": {
+        "name_display": "قاعة المعارض",
+        "genre": "building",
+        "lon": 58.1674861,
+        "lat": 23.5911667,
+        "search_keywords": [
+            "قاعة المعارض",
+            "المعارض",
+            "قاعة معرض",
+            "exhibition hall",
+            "exhibition room"
+        ],
+        "further_instructions": "بجانب عمادة شؤون الطلبة"
+    },
+    "lecture_hall_1": {
+        "name_display": "قاعة المحاضرات 1",
+        "genre": "building",
+        "lon": 58.1685583,
+        "lat": 23.5909806,
+        "search_keywords": [
+            "قاعة المحاضرات 1",
+            "قاعة المحاضرات الأولى",
+            "قاعة محاضرات 1",
+            "قاعة 1",
+            "المحاضرات 1",
+            "lecture hall 1",
+            "lecture room 1",
+            "lec1"
+        ],
+        "further_instructions": "بعد عمادة شؤون الطلبة من جهة اليمين عند المشي من المسجد"
+    },
+    "educational_technology_and_information_systems": {
+        "name_display": "مركز تقنيات التعليم ومركز نظم المعلومات",
+        "genre": "building",
+        "lon": 58.1699,
+        "lat": 23.5910306,
+        "search_keywords": [
+            "مركز تقنيات التعليم",
+            "مركز نظم المعلومات",
+            "تقنيات التعليم",
+            "نظم المعلومات",
+            "مركز تقنية التعليم",
+            "educational technology center",
+            "information systems center",
+            "educational technology",
+            "information systems"
+        ],
+        "rooms": {
+            "educational_technology_center": {
+                "name_display": "مركز تقنيات التعليم",
+                "floor": null,
+                "further_instructions": null,
+                "search_keywords": [
+                    "مركز تقنيات التعليم",
+                    "تقنيات التعليم",
+                    "مركز تقنية التعليم",
+                    "educational technology center",
+                    "educational technology"
+                ]
+            },
+            "information_systems_center": {
+                "name_display": "مركز نظم المعلومات",
+                "floor": null,
+                "further_instructions": null,
+                "search_keywords": [
+                    "مركز نظم المعلومات",
+                    "نظم المعلومات",
+                    "information systems center",
+                    "information systems"
+                ]
+            }
+        }
+    },
+    "student_support_services": {
+        "name_display": "مركز خدمات دعم الطلبة",
+        "genre": "building",
+        "lon": 58.1695833,
+        "lat": 23.5911639,
+        "search_keywords": [
+            "مركز خدمات دعم الطلبة",
+            "خدمات دعم الطلبة",
+            "دعم الطلبة",
+            "دعم الطلاب",
+            "خدمات الطلاب",
+            "student support services center",
+            "student support services",
+            "student support",
+            "student services"
+        ]
+    },
+    "building_c": {
+        "name_display": "مبنى قاعات التدريس (ج) (C)",
+        "genre": "building",
+        "lon": 58.168925,
+        "lat": 23.5911222,
+        "search_keywords": [
+            "مبنى ج",
+            "مبنى C",
+            "مبنى (ج)",
+            "مبنى (C)",
+            "قاعات تدريس ج",
+            "قاعات تدريس C",
+            "صفوف ج",
+            "صفوف C",
+            "قاعات التدريس",
+            "مبنى الصفوف الدراسية ج",
+            "مبنى الصفوف الدراسية C",
+            "Building C",
+            "Building ج",
+            "Classrooms Building C",
+            "Classrooms Building ج",
+            "Teaching Classrooms C",
+            "Teaching Classrooms ج"
+        ],
+        "rooms": {
+            "classroom_c1": {
+                "name_display": "قاعة دراسية C1 (ج1)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C1",
+                    "ج1",
+                    "قاعة C1",
+                    "قاعة ج1",
+                    "قاعة دراسية C1",
+                    "قاعة دراسية ج1",
+                    "classroom C1",
+                    "classroom ج1",
+                    "room C1",
+                    "room ج1"
+                ]
+            },
+            "classroom_c2": {
+                "name_display": "قاعة دراسية C2 (ج2)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C2",
+                    "ج2",
+                    "قاعة C2",
+                    "قاعة ج2",
+                    "قاعة دراسية C2",
+                    "قاعة دراسية ج2",
+                    "classroom C2",
+                    "classroom ج2",
+                    "room C2",
+                    "room ج2"
+                ]
+            },
+            "classroom_c3": {
+                "name_display": "قاعة دراسية C3 (ج3)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C3",
+                    "ج3",
+                    "قاعة C3",
+                    "قاعة ج3",
+                    "قاعة دراسية C3",
+                    "قاعة دراسية ج3",
+                    "classroom C3",
+                    "classroom ج3",
+                    "room C3",
+                    "room ج3"
+                ]
+            },
+            "classroom_c4": {
+                "name_display": "قاعة دراسية C4 (ج4)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C4",
+                    "ج4",
+                    "قاعة C4",
+                    "قاعة ج4",
+                    "قاعة دراسية C4",
+                    "قاعة دراسية ج4",
+                    "classroom C4",
+                    "classroom ج4",
+                    "room C4",
+                    "room ج4"
+                ]
+            },
+            "classroom_c5": {
+                "name_display": "قاعة دراسية C5 (ج5)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C5",
+                    "ج5",
+                    "قاعة C5",
+                    "قاعة ج5",
+                    "قاعة دراسية C5",
+                    "قاعة دراسية ج5",
+                    "classroom C5",
+                    "classroom ج5",
+                    "room C5",
+                    "room ج5"
+                ]
+            },
+            "classroom_c6": {
+                "name_display": "قاعة دراسية C6 (ج6)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C6",
+                    "ج6",
+                    "قاعة C6",
+                    "قاعة ج6",
+                    "قاعة دراسية C6",
+                    "قاعة دراسية ج6",
+                    "classroom C6",
+                    "classroom ج6",
+                    "room C6",
+                    "room ج6"
+                ]
+            },
+            "classroom_c7": {
+                "name_display": "قاعة دراسية C7 (ج7)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C7",
+                    "ج7",
+                    "قاعة C7",
+                    "قاعة ج7",
+                    "قاعة دراسية C7",
+                    "قاعة دراسية ج7",
+                    "classroom C7",
+                    "classroom ج7",
+                    "room C7",
+                    "room ج7"
+                ]
+            },
+            "classroom_c8": {
+                "name_display": "قاعة دراسية C8 (ج8)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C8",
+                    "ج8",
+                    "قاعة C8",
+                    "قاعة ج8",
+                    "قاعة دراسية C8",
+                    "قاعة دراسية ج8",
+                    "classroom C8",
+                    "classroom ج8",
+                    "room C8",
+                    "room ج8"
+                ]
+            },
+            "classroom_c10": {
+                "name_display": "قاعة دراسية C10 (ج10)",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C10",
+                    "ج10",
+                    "قاعة C10",
+                    "قاعة ج10",
+                    "قاعة دراسية C10",
+                    "قاعة دراسية ج10",
+                    "classroom C10",
+                    "classroom ج10",
+                    "room C10",
+                    "room ج10"
+                ]
+            },
+            "classroom_c11": {
+                "name_display": "قاعة دراسية C11 (ج11)",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C11",
+                    "ج11",
+                    "قاعة C11",
+                    "قاعة ج11",
+                    "قاعة دراسية C11",
+                    "قاعة دراسية ج11",
+                    "classroom C11",
+                    "classroom ج11",
+                    "room C11",
+                    "room ج11"
+                ]
+            },
+            "classroom_c12": {
+                "name_display": "قاعة دراسية C12 (ج12)",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C12",
+                    "ج12",
+                    "قاعة C12",
+                    "قاعة ج12",
+                    "قاعة دراسية C12",
+                    "قاعة دراسية ج12",
+                    "classroom C12",
+                    "classroom ج12",
+                    "room C12",
+                    "room ج12"
+                ]
+            },
+            "classroom_c13": {
+                "name_display": "قاعة دراسية C13 (ج13)",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C13",
+                    "ج13",
+                    "قاعة C13",
+                    "قاعة ج13",
+                    "قاعة دراسية C13",
+                    "قاعة دراسية ج13",
+                    "classroom C13",
+                    "classroom ج13",
+                    "room C13",
+                    "room ج13"
+                ]
+            },
+            "classroom_c14": {
+                "name_display": "قاعة دراسية C14 (ج14)",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C14",
+                    "ج14",
+                    "قاعة C14",
+                    "قاعة ج14",
+                    "قاعة دراسية C14",
+                    "قاعة دراسية ج14",
+                    "classroom C14",
+                    "classroom ج14",
+                    "room C14",
+                    "room ج14"
+                ]
+            },
+            "classroom_c15": {
+                "name_display": "قاعة دراسية C15 (ج15)",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C15",
+                    "ج15",
+                    "قاعة C15",
+                    "قاعة ج15",
+                    "قاعة دراسية C15",
+                    "قاعة دراسية ج15",
+                    "classroom C15",
+                    "classroom ج15",
+                    "room C15",
+                    "room ج15"
+                ]
+            },
+            "classroom_c16": {
+                "name_display": "قاعة دراسية C16 (ج16)",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C16",
+                    "ج16",
+                    "قاعة C16",
+                    "قاعة ج16",
+                    "قاعة دراسية C16",
+                    "قاعة دراسية ج16",
+                    "classroom C16",
+                    "classroom ج16",
+                    "room C16",
+                    "room ج16"
+                ]
+            },
+            "classroom_c17": {
+                "name_display": "قاعة دراسية C17 (ج17)",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C17",
+                    "ج17",
+                    "قاعة C17",
+                    "قاعة ج17",
+                    "قاعة دراسية C17",
+                    "قاعة دراسية ج17",
+                    "classroom C17",
+                    "classroom ج17",
+                    "room C17",
+                    "room ج17"
+                ]
+            },
+            "classroom_c20": {
+                "name_display": "قاعة دراسية C20 (ج20)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C20",
+                    "ج20",
+                    "قاعة C20",
+                    "قاعة ج20",
+                    "قاعة دراسية C20",
+                    "قاعة دراسية ج20",
+                    "classroom C20",
+                    "classroom ج20",
+                    "room C20",
+                    "room ج20"
+                ]
+            },
+            "classroom_c21": {
+                "name_display": "قاعة دراسية C21 (ج21)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C21",
+                    "ج21",
+                    "قاعة C21",
+                    "قاعة ج21",
+                    "قاعة دراسية C21",
+                    "قاعة دراسية ج21",
+                    "classroom C21",
+                    "classroom ج21",
+                    "room C21",
+                    "room ج21"
+                ]
+            },
+            "classroom_c22": {
+                "name_display": "قاعة دراسية C22 (ج22)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C22",
+                    "ج22",
+                    "قاعة C22",
+                    "قاعة ج22",
+                    "قاعة دراسية C22",
+                    "قاعة دراسية ج22",
+                    "classroom C22",
+                    "classroom ج22",
+                    "room C22",
+                    "room ج22"
+                ]
+            },
+            "classroom_c23": {
+                "name_display": "قاعة دراسية C23 (ج23)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C23",
+                    "ج23",
+                    "قاعة C23",
+                    "قاعة ج23",
+                    "قاعة دراسية C23",
+                    "قاعة دراسية ج23",
+                    "classroom C23",
+                    "classroom ج23",
+                    "room C23",
+                    "room ج23"
+                ]
+            },
+            "classroom_c24": {
+                "name_display": "قاعة دراسية C24 (ج24)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C24",
+                    "ج24",
+                    "قاعة C24",
+                    "قاعة ج24",
+                    "قاعة دراسية C24",
+                    "قاعة دراسية ج24",
+                    "classroom C24",
+                    "classroom ج24",
+                    "room C24",
+                    "room ج24"
+                ]
+            },
+            "classroom_c25": {
+                "name_display": "قاعة دراسية C25 (ج25)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C25",
+                    "ج25",
+                    "قاعة C25",
+                    "قاعة ج25",
+                    "قاعة دراسية C25",
+                    "قاعة دراسية ج25",
+                    "classroom C25",
+                    "classroom ج25",
+                    "room C25",
+                    "room ج25"
+                ]
+            },
+            "classroom_c26": {
+                "name_display": "قاعة دراسية C26 (ج26)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C26",
+                    "ج26",
+                    "قاعة C26",
+                    "قاعة ج26",
+                    "قاعة دراسية C26",
+                    "قاعة دراسية ج26",
+                    "classroom C26",
+                    "classroom ج26",
+                    "room C26",
+                    "room ج26"
+                ]
+            },
+            "classroom_c27": {
+                "name_display": "قاعة دراسية C27 (ج27)",
+                "floor": "2",
+                "further_instructions": null,
+                "search_keywords": [
+                    "C27",
+                    "ج27",
+                    "قاعة C27",
+                    "قاعة ج27",
+                    "قاعة دراسية C27",
+                    "قاعة دراسية ج27",
+                    "classroom C27",
+                    "classroom ج27",
+                    "room C27",
+                    "room ج27"
+                ]
+            }
+        }
+    },
+
+    
+  "building_d": {
+    "name_display": "مبنى قاعات التدريس (د) (D)",
+    "genre": "building",
+    "lon": 58.1689278,
+    "lat": 23.5909778,
+    "search_keywords": [
+      "مبنى د",
+      "مبنى D",
+      "مبنى (د)",
+      "مبنى (D)",
+      "قاعات تدريس د",
+      "قاعات تدريس D",
+      "صفوف د",
+      "صفوف D",
+      "غرف التدريس د",
+      "غرف التدريس D",
+      "مبنى الصفوف الدراسية د",
+      "مبنى الصفوف الدراسية D",
+      "Building D",
+      "Classrooms Building D",
+      "Teaching Classrooms D"
+    ],
+    "rooms": {
+      "classroom_d1": {
+        "name_display": "قاعة دراسية D1 (د1)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "D1", "د1", "قاعة D1", "قاعة د1",
+          "قاعة دراسية D1", "قاعة دراسية د1",
+          "classroom D1", "classroom د1", "room D1", "room د1"
+        ]
+      },
+      "classroom_d2": {
+        "name_display": "قاعة دراسية D2 (د2)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "D2", "د2", "قاعة D2", "قاعة د2",
+          "قاعة دراسية D2", "قاعة دراسية د2",
+          "classroom D2", "classroom د2", "room D2", "room د2"
+        ]
+      },
+      "classroom_d3": {
+        "name_display": "قاعة دراسية D3 (د3)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "D3", "د3", "قاعة D3", "قاعة د3",
+          "قاعة دراسية D3", "قاعة دراسية د3",
+          "classroom D3", "classroom د3", "room D3", "room د3"
+        ]
+      },
+      "classroom_d4": {
+        "name_display": "قاعة دراسية D4 (د4)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "D4", "د4", "قاعة D4", "قاعة د4",
+          "قاعة دراسية D4", "قاعة دراسية د4",
+          "classroom D4", "classroom د4", "room D4", "room د4"
+        ]
+      },
+      "classroom_d5": {
+        "name_display": "قاعة دراسية D5 (د5)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "D5", "د5", "قاعة D5", "قاعة د5",
+          "قاعة دراسية D5", "قاعة دراسية د5",
+          "classroom D5", "classroom د5", "room D5", "room د5"
+        ]
+      },
+      "classroom_d6": {
+        "name_display": "قاعة دراسية D6 (د6)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "D6", "د6", "قاعة D6", "قاعة د6",
+          "قاعة دراسية D6", "قاعة دراسية د6",
+          "classroom D6", "classroom د6", "room D6", "room د6"
+        ]
+      },
+      "classroom_d7": {
+        "name_display": "قاعة دراسية D7 (د7)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "D7", "د7", "قاعة D7", "قاعة د7",
+          "قاعة دراسية D7", "قاعة دراسية د7",
+          "classroom D7", "classroom د7", "room D7", "room د7"
+        ]
+      },
+      "classroom_d8": {
+        "name_display": "قاعة دراسية D8 (د8)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "D8", "د8", "قاعة D8", "قاعة د8",
+          "قاعة دراسية D8", "قاعة دراسية د8",
+          "classroom D8", "classroom د8", "room D8", "room د8"
+        ]
+      },
+      "classroom_d9": {
+        "name_display": "قاعة دراسية D9 (د9)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "D9", "د9", "قاعة D9", "قاعة د9",
+          "قاعة دراسية D9", "قاعة دراسية د9",
+          "classroom D9", "classroom د9", "room D9", "room د9"
+        ]
+      },
+      "classroom_d10": {
+        "name_display": "قاعة دراسية D10 (د10)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "D10", "د10", "قاعة D10", "قاعة د10",
+          "قاعة دراسية D10", "قاعة دراسية د10",
+          "classroom D10", "classroom د10", "room D10", "room د10"
+        ]
+      },
+      "classroom_d11": {
+        "name_display": "قاعة دراسية D11 (د11)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "D11", "د11", "قاعة D11", "قاعة د11",
+          "قاعة دراسية D11", "قاعة دراسية د11",
+          "classroom D11", "classroom د11", "room D11", "room د11"
+        ]
+      },
+      "classroom_d12": {
+        "name_display": "قاعة دراسية D12 (د12)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "D12", "د12", "قاعة D12", "قاعة د12",
+          "قاعة دراسية D12", "قاعة دراسية د12",
+          "classroom D12", "classroom د12", "room D12", "room د12"
+        ]
+      },
+      "classroom_d13": {
+        "name_display": "قاعة دراسية D13 (د13)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "D13", "د13", "قاعة D13", "قاعة د13",
+          "قاعة دراسية D13", "قاعة دراسية د13",
+          "classroom D13", "classroom د13", "room D13", "room د13"
+        ]
+      },
+      "classroom_d14": {
+        "name_display": "قاعة دراسية D14 (د14)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "D14", "د14", "قاعة D14", "قاعة د14",
+          "قاعة دراسية D14", "قاعة دراسية د14",
+          "classroom D14", "classroom د14", "room D14", "room د14"
+        ]
+      },
+      "classroom_d15": {
+        "name_display": "قاعة دراسية D15 (د15)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "D15", "د15", "قاعة D15", "قاعة د15",
+          "قاعة دراسية D15", "قاعة دراسية د15",
+          "classroom D15", "classroom د15", "room D15", "room د15"
+        ]
+      },
+      "classroom_d16": {
+        "name_display": "قاعة دراسية D16 (د16)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "D16", "د16", "قاعة D16", "قاعة د16",
+          "قاعة دراسية D16", "قاعة دراسية د16",
+          "classroom D16", "classroom د16", "room D16", "room د16"
+        ]
+      },
+      "classroom_d17": {
+        "name_display": "قاعة دراسية D17 (د17)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "D17", "د17", "قاعة D17", "قاعة د17",
+          "قاعة دراسية D17", "قاعة دراسية د17",
+          "classroom D17", "classroom د17", "room D17", "room د17"
+        ]
+      },
+      "classroom_d18": {
+        "name_display": "قاعة دراسية D18 (د18)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "D18", "د18", "قاعة D18", "قاعة د18",
+          "قاعة دراسية D18", "قاعة دراسية د18",
+          "classroom D18", "classroom د18", "room D18", "room د18"
+        ]
+      },
+      "classroom_d20": {
+        "name_display": "قاعة دراسية D20 (د20)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "D20", "د20", "قاعة D20", "قاعة د20",
+          "قاعة دراسية D20", "قاعة دراسية د20",
+          "classroom D20", "classroom د20", "room D20", "room د20"
+        ]
+      },
+      "classroom_d21": {
+        "name_display": "قاعة دراسية D21 (د21)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "D21", "د21", "قاعة D21", "قاعة د21",
+          "قاعة دراسية D21", "قاعة دراسية د21",
+          "classroom D21", "classroom د21", "room D21", "room د21"
+        ]
+      },
+      "classroom_d22": {
+        "name_display": "قاعة دراسية D22 (د22)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "D22", "د22", "قاعة D22", "قاعة د22",
+          "قاعة دراسية D22", "قاعة دراسية د22",
+          "classroom D22", "classroom د22", "room D22", "room د22"
+        ]
+      },
+      "classroom_d23": {
+        "name_display": "قاعة دراسية D23 (د23)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "D23", "د23", "قاعة D23", "قاعة د23",
+          "قاعة دراسية D23", "قاعة دراسية د23",
+          "classroom D23", "classroom د23", "room D23", "room د23"
+        ]
+      },
+      "classroom_d24": {
+        "name_display": "قاعة دراسية D24 (د24)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "D24", "د24", "قاعة D24", "قاعة د24",
+          "قاعة دراسية D24", "قاعة دراسية د24",
+          "classroom D24", "classroom د24", "room D24", "room د24"
+        ]
+      },
+      "classroom_d25": {
+        "name_display": "قاعة دراسية D25 (د25)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "D25", "د25", "قاعة D25", "قاعة د25",
+          "قاعة دراسية D25", "قاعة دراسية د25",
+          "classroom D25", "classroom د25", "room D25", "room د25"
+        ]
+      },
+      "classroom_d26": {
+        "name_display": "قاعة دراسية D26 (د26)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "D26", "د26", "قاعة D26", "قاعة د26",
+          "قاعة دراسية D26", "قاعة دراسية د26",
+          "classroom D26", "classroom د26", "room D26", "room د26"
+        ]
+      },
+      "classroom_d27": {
+        "name_display": "قاعة دراسية D27 (د27)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "D27", "د27", "قاعة D27", "قاعة د27",
+          "قاعة دراسية D27", "قاعة دراسية د27",
+          "classroom D27", "classroom د27", "room D27", "room د27"
+        ]
+      }
     }
+  },
+  
+  "building_b": {
+    "name_display": "مبنى قاعات التدريس (ب) (B)",
+    "genre": "building",
+    "lon": 58.1682556,
+    "lat": 23.5909389,
+    "search_keywords": [
+      "مبنى ب",
+      "مبنى B",
+      "مبنى (ب)",
+      "مبنى (B)",
+      "قاعات تدريس ب",
+      "قاعات تدريس B",
+      "صفوف ب",
+      "صفوف B",
+      "غرف التدريس ب",
+      "غرف التدريس B",
+      "مبنى الصفوف الدراسية ب",
+      "مبنى الصفوف الدراسية B",
+      "Building B",
+      "Classrooms Building B",
+      "Teaching Classrooms B"
+    ],
+    "rooms": {
+      "classroom_b1": {
+        "name_display": "قاعة دراسية B1 (ب1)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "B1", "ب1", "قاعة B1", "قاعة ب1",
+          "قاعة دراسية B1", "قاعة دراسية ب1",
+          "classroom B1", "classroom ب1", "room B1", "room ب1"
+        ]
+      },
+      "classroom_b2": {
+        "name_display": "قاعة دراسية B2 (ب2)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "B2", "ب2", "قاعة B2", "قاعة ب2",
+          "قاعة دراسية B2", "قاعة دراسية ب2",
+          "classroom B2", "classroom ب2", "room B2", "room ب2"
+        ]
+      },
+      "classroom_b3": {
+        "name_display": "قاعة دراسية B3 (ب3)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "B3", "ب3", "قاعة B3", "قاعة ب3",
+          "قاعة دراسية B3", "قاعة دراسية ب3",
+          "classroom B3", "classroom ب3", "room B3", "room ب3"
+        ]
+      },
+      "classroom_b4": {
+        "name_display": "قاعة دراسية B4 (ب4)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "B4", "ب4", "قاعة B4", "قاعة ب4",
+          "قاعة دراسية B4", "قاعة دراسية ب4",
+          "classroom B4", "classroom ب4", "room B4", "room ب4"
+        ]
+      },
+      "classroom_b5": {
+        "name_display": "قاعة دراسية B5 (ب5)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "B5", "ب5", "قاعة B5", "قاعة ب5",
+          "قاعة دراسية B5", "قاعة دراسية ب5",
+          "classroom B5", "classroom ب5", "room B5", "room ب5"
+        ]
+      },
+      "classroom_b6": {
+        "name_display": "قاعة دراسية B6 (ب6)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "B6", "ب6", "قاعة B6", "قاعة ب6",
+          "قاعة دراسية B6", "قاعة دراسية ب6",
+          "classroom B6", "classroom ب6", "room B6", "room ب6"
+        ]
+      },
+      "classroom_b7": {
+        "name_display": "قاعة دراسية B7 (ب7)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "B7", "ب7", "قاعة B7", "قاعة ب7",
+          "قاعة دراسية B7", "قاعة دراسية ب7",
+          "classroom B7", "classroom ب7", "room B7", "room ب7"
+        ]
+      },
+      "classroom_b8": {
+        "name_display": "قاعة دراسية B8 (ب8)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "B8", "ب8", "قاعة B8", "قاعة ب8",
+          "قاعة دراسية B8", "قاعة دراسية ب8",
+          "classroom B8", "classroom ب8", "room B8", "room ب8"
+        ]
+      },
+      "classroom_b10": {
+        "name_display": "قاعة دراسية B10 (ب10)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "B10", "ب10", "قاعة B10", "قاعة ب10",
+          "قاعة دراسية B10", "قاعة دراسية ب10",
+          "classroom B10", "classroom ب10", "room B10", "room ب10"
+        ]
+      },
+      "classroom_b11": {
+        "name_display": "قاعة دراسية B11 (ب11)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "B11", "ب11", "قاعة B11", "قاعة ب11",
+          "قاعة دراسية B11", "قاعة دراسية ب11",
+          "classroom B11", "classroom ب11", "room B11", "room ب11"
+        ]
+      },
+      "classroom_b12": {
+        "name_display": "قاعة دراسية B12 (ب12)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "B12", "ب12", "قاعة B12", "قاعة ب12",
+          "قاعة دراسية B12", "قاعة دراسية ب12",
+          "classroom B12", "classroom ب12", "room B12", "room ب12"
+        ]
+      },
+      "classroom_b13": {
+        "name_display": "قاعة دراسية B13 (ب13)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "B13", "ب13", "قاعة B13", "قاعة ب13",
+          "قاعة دراسية B13", "قاعة دراسية ب13",
+          "classroom B13", "classroom ب13", "room B13", "room ب13"
+        ]
+      },
+      "classroom_b14": {
+        "name_display": "قاعة دراسية B14 (ب14)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "B14", "ب14", "قاعة B14", "قاعة ب14",
+          "قاعة دراسية B14", "قاعة دراسية ب14",
+          "classroom B14", "classroom ب14", "room B14", "room ب14"
+        ]
+      },
+      "classroom_b15": {
+        "name_display": "قاعة دراسية B15 (ب15)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "B15", "ب15", "قاعة B15", "قاعة ب15",
+          "قاعة دراسية B15", "قاعة دراسية ب15",
+          "classroom B15", "classroom ب15", "room B15", "room ب15"
+        ]
+      },
+      "classroom_b16": {
+        "name_display": "قاعة دراسية B16 (ب16)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "B16", "ب16", "قاعة B16", "قاعة ب16",
+          "قاعة دراسية B16", "قاعة دراسية ب16",
+          "classroom B16", "classroom ب16", "room B16", "room ب16"
+        ]
+      },
+      "classroom_b17": {
+        "name_display": "قاعة دراسية B17 (ب17)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "B17", "ب17", "قاعة B17", "قاعة ب17",
+          "قاعة دراسية B17", "قاعة دراسية ب17",
+          "classroom B17", "classroom ب17", "room B17", "room ب17"
+        ]
+      },
+      "classroom_b20": {
+        "name_display": "قاعة دراسية B20 (ب20)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "B20", "ب20", "قاعة B20", "قاعة ب20",
+          "قاعة دراسية B20", "قاعة دراسية ب20",
+          "classroom B20", "classroom ب20", "room B20", "room ب20"
+        ]
+      },
+      "classroom_b21": {
+        "name_display": "قاعة دراسية B21 (ب21)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "B21", "ب21", "قاعة B21", "قاعة ب21",
+          "قاعة دراسية B21", "قاعة دراسية ب21",
+          "classroom B21", "classroom ب21", "room B21", "room ب21"
+        ]
+      },
+      "classroom_b22": {
+        "name_display": "قاعة دراسية B22 (ب22)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "B22", "ب22", "قاعة B22", "قاعة ب22",
+          "قاعة دراسية B22", "قاعة دراسية ب22",
+          "classroom B22", "classroom ب22", "room B22", "room ب22"
+        ]
+      },
+      "classroom_b23": {
+        "name_display": "قاعة دراسية B23 (ب23)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "B23", "ب23", "قاعة B23", "قاعة ب23",
+          "قاعة دراسية B23", "قاعة دراسية ب23",
+          "classroom B23", "classroom ب23", "room B23", "room ب23"
+        ]
+      },
+      "classroom_b24": {
+        "name_display": "قاعة دراسية B24 (ب24)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "B24", "ب24", "قاعة B24", "قاعة ب24",
+          "قاعة دراسية B24", "قاعة دراسية ب24",
+          "classroom B24", "classroom ب24", "room B24", "room ب24"
+        ]
+      },
+      "classroom_b25": {
+        "name_display": "قاعة دراسية B25 (ب25)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "B25", "ب25", "قاعة B25", "قاعة ب25",
+          "قاعة دراسية B25", "قاعة دراسية ب25",
+          "classroom B25", "classroom ب25", "room B25", "room ب25"
+        ]
+      },
+      "classroom_b26": {
+        "name_display": "قاعة دراسية B26 (ب26)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "B26", "ب26", "قاعة B26", "قاعة ب26",
+          "قاعة دراسية B26", "قاعة دراسية ب26",
+          "classroom B26", "classroom ب26", "room B26", "room ب26"
+        ]
+      },
+      "classroom_b27": {
+        "name_display": "قاعة دراسية B27 (ب27)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "B27", "ب27", "قاعة B27", "قاعة ب27",
+          "قاعة دراسية B27", "قاعة دراسية ب27",
+          "classroom B27", "classroom ب27", "room B27", "room ب27"
+        ]
+      }
+    }
+  },
+  "building_a": {
+    "name_display": "مبنى قاعات التدريس (أ) (A)",
+    "genre": "building",
+    "lon": 58.1682278,
+    "lat": 23.5911306,
+    "search_keywords": [
+      "مبنى أ",
+      "مبنى A",
+      "مبنى (أ)",
+      "مبنى (A)",
+      "قاعات تدريس أ",
+      "قاعات تدريس A",
+      "صفوف أ",
+      "صفوف A",
+      "غرف التدريس أ",
+      "غرف التدريس A",
+      "مبنى الصفوف الدراسية أ",
+      "مبنى الصفوف الدراسية A",
+      "Building A",
+      "Classrooms Building A",
+      "Teaching Classrooms A"
+    ],
+    "rooms": {
+      "classroom_a1": {
+        "name_display": "قاعة دراسية A1 (أ1)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "A1", "أ1", "قاعة A1", "قاعة أ1",
+          "قاعة دراسية A1", "قاعة دراسية أ1",
+          "classroom A1", "classroom أ1", "room A1", "room أ1"
+        ]
+      },
+      "classroom_a2": {
+        "name_display": "قاعة دراسية A2 (أ2)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "A2", "أ2", "قاعة A2", "قاعة أ2",
+          "قاعة دراسية A2", "قاعة دراسية أ2",
+          "classroom A2", "classroom أ2", "room A2", "room أ2"
+        ]
+      },
+      "classroom_a3": {
+        "name_display": "قاعة دراسية A3 (أ3)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "A3", "أ3", "قاعة A3", "قاعة أ3",
+          "قاعة دراسية A3", "قاعة دراسية أ3",
+          "classroom A3", "classroom أ3", "room A3", "room أ3"
+        ]
+      },
+      "classroom_a4": {
+        "name_display": "قاعة دراسية A4 (أ4)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "A4", "أ4", "قاعة A4", "قاعة أ4",
+          "قاعة دراسية A4", "قاعة دراسية أ4",
+          "classroom A4", "classroom أ4", "room A4", "room أ4"
+        ]
+      },
+      "classroom_a5": {
+        "name_display": "قاعة دراسية A5 (أ5)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "A5", "أ5", "قاعة A5", "قاعة أ5",
+          "قاعة دراسية A5", "قاعة دراسية أ5",
+          "classroom A5", "classroom أ5", "room A5", "room أ5"
+        ]
+      },
+      "classroom_a6": {
+        "name_display": "قاعة دراسية A6 (أ6)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "A6", "أ6", "قاعة A6", "قاعة أ6",
+          "قاعة دراسية A6", "قاعة دراسية أ6",
+          "classroom A6", "classroom أ6", "room A6", "room أ6"
+        ]
+      },
+      "classroom_a7": {
+        "name_display": "قاعة دراسية A7 (أ7)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "A7", "أ7", "قاعة A7", "قاعة أ7",
+          "قاعة دراسية A7", "قاعة دراسية أ7",
+          "classroom A7", "classroom أ7", "room A7", "room أ7"
+        ]
+      },
+      "classroom_a8": {
+        "name_display": "قاعة دراسية A8 (أ8)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "A8", "أ8", "قاعة A8", "قاعة أ8",
+          "قاعة دراسية A8", "قاعة دراسية أ8",
+          "classroom A8", "classroom أ8", "room A8", "room أ8"
+        ]
+      },
+      "classroom_a9": {
+        "name_display": "قاعة دراسية A9 (أ9)",
+        "floor": "0",
+        "further_instructions": null,
+        "search_keywords": [
+          "A9", "أ9", "قاعة A9", "قاعة أ9",
+          "قاعة دراسية A9", "قاعة دراسية أ9",
+          "classroom A9", "classroom أ9", "room A9", "room أ9"
+        ]
+      },
+      "classroom_a10": {
+        "name_display": "قاعة دراسية A10 (أ10)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "A10", "أ10", "قاعة A10", "قاعة أ10",
+          "قاعة دراسية A10", "قاعة دراسية أ10",
+          "classroom A10", "classroom أ10", "room A10", "room أ10"
+        ]
+      },
+      "classroom_a11": {
+        "name_display": "قاعة دراسية A11 (أ11)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "A11", "أ11", "قاعة A11", "قاعة أ11",
+          "قاعة دراسية A11", "قاعة دراسية أ11",
+          "classroom A11", "classroom أ11", "room A11", "room أ11"
+        ]
+      },
+      "classroom_a12": {
+        "name_display": "قاعة دراسية A12 (أ12)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "A12", "أ12", "قاعة A12", "قاعة أ12",
+          "قاعة دراسية A12", "قاعة دراسية أ12",
+          "classroom A12", "classroom أ12", "room A12", "room أ12"
+        ]
+      },
+      "classroom_a13": {
+        "name_display": "قاعة دراسية A13 (أ13)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "A13", "أ13", "قاعة A13", "قاعة أ13",
+          "قاعة دراسية A13", "قاعة دراسية أ13",
+          "classroom A13", "classroom أ13", "room A13", "room أ13"
+        ]
+      },
+      "classroom_a14": {
+        "name_display": "قاعة دراسية A14 (أ14)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "A14", "أ14", "قاعة A14", "قاعة أ14",
+          "قاعة دراسية A14", "قاعة دراسية أ14",
+          "classroom A14", "classroom أ14", "room A14", "room أ14"
+        ]
+      },
+      "classroom_a15": {
+        "name_display": "قاعة دراسية A15 (أ15)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "A15", "أ15", "قاعة A15", "قاعة أ15",
+          "قاعة دراسية A15", "قاعة دراسية أ15",
+          "classroom A15", "classroom أ15", "room A15", "room أ15"
+        ]
+      },
+      "classroom_a16": {
+        "name_display": "قاعة دراسية A16 (أ16)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "A16", "أ16", "قاعة A16", "قاعة أ16",
+          "قاعة دراسية A16", "قاعة دراسية أ16",
+          "classroom A16", "classroom أ16", "room A16", "room أ16"
+        ]
+      },
+      "classroom_a17": {
+        "name_display": "قاعة دراسية A17 (أ17)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "A17", "أ17", "قاعة A17", "قاعة أ17",
+          "قاعة دراسية A17", "قاعة دراسية أ17",
+          "classroom A17", "classroom أ17", "room A17", "room أ17"
+        ]
+      },
+      "classroom_a18": {
+        "name_display": "قاعة دراسية A18 (أ18)",
+        "floor": "1",
+        "further_instructions": null,
+        "search_keywords": [
+          "A18", "أ18", "قاعة A18", "قاعة أ18",
+          "قاعة دراسية A18", "قاعة دراسية أ18",
+          "classroom A18", "classroom أ18", "room A18", "room أ18"
+        ]
+      },
+      "classroom_a20": {
+        "name_display": "قاعة دراسية A20 (أ20)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "A20", "أ20", "قاعة A20", "قاعة أ20",
+          "قاعة دراسية A20", "قاعة دراسية أ20",
+          "classroom A20", "classroom أ20", "room A20", "room أ20"
+        ]
+      },
+      "classroom_a21": {
+        "name_display": "قاعة دراسية A21 (أ21)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "A21", "أ21", "قاعة A21", "قاعة أ21",
+          "قاعة دراسية A21", "قاعة دراسية أ21",
+          "classroom A21", "classroom أ21", "room A21", "room أ21"
+        ]
+      },
+      "classroom_a22": {
+        "name_display": "قاعة دراسية A22 (أ22)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "A22", "أ22", "قاعة A22", "قاعة أ22",
+          "قاعة دراسية A22", "قاعة دراسية أ22",
+          "classroom A22", "classroom أ22", "room A22", "room أ22"
+        ]
+      },
+      "classroom_a23": {
+        "name_display": "قاعة دراسية A23 (أ23)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "A23", "أ23", "قاعة A23", "قاعة أ23",
+          "قاعة دراسية A23", "قاعة دراسية أ23",
+          "classroom A23", "classroom أ23", "room A23", "room أ23"
+        ]
+      },
+      "classroom_a24": {
+        "name_display": "قاعة دراسية A24 (أ24)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "A24", "أ24", "قاعة A24", "قاعة أ24",
+          "قاعة دراسية A24", "قاعة دراسية أ24",
+          "classroom A24", "classroom أ24", "room A24", "room أ24"
+        ]
+      },
+      "classroom_a25": {
+        "name_display": "قاعة دراسية A25 (أ25)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "A25", "أ25", "قاعة A25", "قاعة أ25",
+          "قاعة دراسية A25", "قاعة دراسية أ25",
+          "classroom A25", "classroom أ25", "room A25", "room أ25"
+        ]
+      },
+      "classroom_a26": {
+        "name_display": "قاعة دراسية A26 (أ26)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "A26", "أ26", "قاعة A26", "قاعة أ26",
+          "قاعة دراسية A26", "قاعة دراسية أ26",
+          "classroom A26", "classroom أ26", "room A26", "room أ26"
+        ]
+      },
+      "classroom_a27": {
+        "name_display": "قاعة دراسية A27 (أ27)",
+        "floor": "2",
+        "further_instructions": null,
+        "search_keywords": [
+          "A27", "أ27", "قاعة A27", "قاعة أ27",
+          "قاعة دراسية A27", "قاعة دراسية أ27",
+          "classroom A27", "classroom أ27", "room A27", "room أ27"
+        ]
+      }
+    }
+  }
+
+
 }
