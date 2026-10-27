@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math' as math;
 
+import 'package:aptabase_flutter/aptabase_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -16,7 +17,37 @@ import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:smooth_border/smooth_border.dart';
 import 'package:solar_icons/solar_icons.dart';
 
-void main() {
+const String _aptabaseAppKey = 'A-EU-4822936444';
+
+
+class Analytics {
+  static bool _ready = false;
+
+  static Future<void> init() async {
+    try {
+      await Aptabase.init(_aptabaseAppKey);
+      _ready = true;
+    } catch (e) {
+      debugPrint('analytics init failed: $e');
+    }
+  }
+
+  static void log(String event, [Map<String, dynamic>? props]) {
+    debugPrint('analytics: $event ${props ?? {}}');
+    if (!_ready) return;
+    try {
+      Aptabase.instance.trackEvent(event, props).catchError((Object e) {
+        debugPrint('analytics error: $e');
+      });
+    } catch (e) {
+      debugPrint('analytics error: $e');
+    }
+  }
+}
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Analytics.init();
   runApp(const DarbApp());
 }
 
@@ -63,6 +94,9 @@ class _DarbMapPageState extends State<DarbMapPage>
   Timer? _animationTimer;
   final math.Random _random = math.Random();
 
+  // Debounce timer for search analytics.
+  Timer? _searchLogTimer;
+
   final MapController _mapController = MapController();
   late final AnimatedMapController _animated = AnimatedMapController(
     vsync: this,
@@ -96,6 +130,7 @@ class _DarbMapPageState extends State<DarbMapPage>
   @override
   void initState() {
     super.initState();
+    Analytics.log('app_started');
     _startLocationTracking();
     loadCampusData().then((d) {
       campusPlaces = d;
@@ -143,6 +178,7 @@ class _DarbMapPageState extends State<DarbMapPage>
       final serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
       if (!serviceEnabled) {
+        Analytics.log('location_denied', {'reason': 'service_disabled'});
         _showMessage('يرجى تفعيل خدمة الموقع في هاتفك.');
         return;
       }
@@ -155,6 +191,11 @@ class _DarbMapPageState extends State<DarbMapPage>
 
       if (permission == LocationPermission.denied ||
           permission == LocationPermission.deniedForever) {
+        Analytics.log('location_denied', {
+          'reason': permission == LocationPermission.deniedForever
+              ? 'denied_forever'
+              : 'denied',
+        });
         _showMessage('يرجى السماح للتطبيق بالوصول إلى موقعك.');
         return;
       }
@@ -187,6 +228,7 @@ class _DarbMapPageState extends State<DarbMapPage>
           );
     } catch (e) {
       debugPrint('خطأ في تهيئة الموقع: $e');
+      Analytics.log('location_error');
       _showMessage('تعذر الوصول إلى موقعك.');
     }
   }
@@ -292,6 +334,7 @@ class _DarbMapPageState extends State<DarbMapPage>
   }
 
   void _clearMarkerAndRoute() {
+    Analytics.log('marker_cleared', {'had_route': routePoints.isNotEmpty});
     _routeAnim.stop();
     setState(() {
       _currentMarker = null;
@@ -330,6 +373,27 @@ class _DarbMapPageState extends State<DarbMapPage>
 
     setState(() {
       searchResults = results;
+    });
+
+    _logSearch(query);
+  }
+
+  /// Logs a search only after the user stops typing for 800 ms, so typing
+  /// "عيادة" produces one event instead of five.
+  void _logSearch(String query) {
+    _searchLogTimer?.cancel();
+
+    final q = query.trim();
+    if (q.isEmpty) return;
+
+    // Cap length as a cheap privacy safeguard.
+    final safeQuery = q.length > 50 ? q.substring(0, 50) : q;
+
+    _searchLogTimer = Timer(const Duration(milliseconds: 800), () {
+      Analytics.log(searchResults.isEmpty ? 'search_no_results' : 'search', {
+        'query': safeQuery,
+        'result_count': searchResults.length,
+      });
     });
   }
 
@@ -399,6 +463,7 @@ class _DarbMapPageState extends State<DarbMapPage>
       _applyRoute(route.$1);
     } catch (e) {
       debugPrint('تعذر جلب المسار: $e');
+      Analytics.log('route_failed', {'mode': method, 'stage': 'apply'});
       _showMessage('تعذر جلب المسار.');
     }
   }
@@ -452,10 +517,17 @@ class _DarbMapPageState extends State<DarbMapPage>
     _searchController.dispose();
     _searchFocusNode.dispose();
     _animationTimer?.cancel();
+    _searchLogTimer?.cancel();
     super.dispose();
   }
 
   Future<void> _onResultTap(Map<String, dynamic> item) async {
+    Analytics.log('result_tapped', {
+      'id': item['id'],
+      'type': item['type'],
+      'rank': searchResults.indexOf(item),
+    });
+
     final building = item['building'];
     final target = LatLng(
       (building['lat'] as num).toDouble(),
@@ -479,6 +551,7 @@ class _DarbMapPageState extends State<DarbMapPage>
       ridingRoute = await getRoute(from, target);
     } catch (e) {
       debugPrint('تعذر جلب المسار: $e');
+      Analytics.log('route_failed', {'mode': 'driving', 'stage': 'preview'});
       _showMessage('تعذر جلب المسار.');
       return;
     }
@@ -652,6 +725,11 @@ class _DarbMapPageState extends State<DarbMapPage>
                       Expanded(
                         child: FilledButton.icon(
                           onPressed: () {
+                            Analytics.log('route_requested', {
+                              'mode': 'walking',
+                              'id': item['id'],
+                              'type': item['type'],
+                            });
                             Navigator.pop(sheetContext);
                             _showRoute(from, target, 'walking');
                           },
@@ -667,6 +745,11 @@ class _DarbMapPageState extends State<DarbMapPage>
                       Expanded(
                         child: FilledButton.tonalIcon(
                           onPressed: () {
+                            Analytics.log('route_requested', {
+                              'mode': 'driving',
+                              'id': item['id'],
+                              'type': item['type'],
+                            });
                             Navigator.pop(sheetContext);
                             _applyRoute(ridingRoute.$1);
                           },

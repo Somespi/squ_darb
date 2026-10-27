@@ -1,6 +1,6 @@
 {
-    "name": "squ_navigator",
-    "short_name": "squ_navigator",
+    "name": "SQU Darb",
+    "short_name": "SQU Darb",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
