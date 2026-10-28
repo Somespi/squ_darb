@@ -1429,6 +1429,14 @@ class CampusSearch {
 
 const Map<String, IconData> kPlaceIcons = {
   'room': MingCuteIcons.mgc_door_line,
+  'sundail': MingCuteIcons.mgc_sun_line,
+  'library': MingCuteIcons.mgc_book_5_line,
+  'center': MingCuteIcons.mgc_triumphal_arch_line,
+  'tower': MingCuteIcons.mgc_canton_tower_line,
+  'pool': MingCuteIcons.mgc_swimming_pool_line,
+  'football': MingCuteIcons.mgc_football_line,
+  'basketball': MingCuteIcons.mgc_basketball_line,
+  "gym": MingCuteIcons.mgc_weightlifting_line,
   'house': MingCuteIcons.mgc_house_2_line,
   'building': MingCuteIcons.mgc_building_4_line,
   'classroom': MingCuteIcons.mgc_black_board_line,
