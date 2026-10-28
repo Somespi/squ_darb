@@ -1,5 +1,5 @@
 {
-    "version": 1,
+    "version": 2,
     "social_sciences_college": {
         "name_display": "كلية الآداب والعلوم الاجتماعية",
         "genre": "college",
@@ -1407,6 +1407,848 @@
                     "room E54",
                     "classroom E54",
                     "building E room E54"
+                ]
+            }
+        }
+    },
+    "building_f": {
+        "name_display": "مبنى الصفوف الدراسية (هـ)",
+        "genre": "building",
+        "lon": 58.1642972222,
+        "lat": 23.5914805556,
+        "search_keywords": [
+            "مبنى الصفوف الدراسية (F)",
+            "مبنى الصفوف الدراسية F",
+            "مبنى F",
+            "مبنى (F)",
+            "building F",
+            "F building",
+            "classroom building F"
+        ],
+        "rooms": {
+            "f1": {
+                "name_display": "قاعة دراسية (F1)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليسار",
+                "search_keywords": [
+                    "F1",
+                    "f1",
+                    "قاعة F1",
+                    "قاعة دراسية F1",
+                    "غرفة F1",
+                    "room F1",
+                    "classroom F1",
+                    "building F room F1"
+                ]
+            },
+            "f2": {
+                "name_display": "قاعة دراسية (F2)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليسار",
+                "search_keywords": [
+                    "F2",
+                    "f2",
+                    "قاعة F2",
+                    "قاعة دراسية F2",
+                    "غرفة F2",
+                    "room F2",
+                    "classroom F2",
+                    "building F room F2"
+                ]
+            },
+            "f3": {
+                "name_display": "قاعة دراسية (F3)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليسار",
+                "search_keywords": [
+                    "F3",
+                    "f3",
+                    "قاعة F3",
+                    "قاعة دراسية F3",
+                    "غرفة F3",
+                    "room F3",
+                    "classroom F3",
+                    "building F room F3"
+                ]
+            },
+            "f4": {
+                "name_display": "قاعة دراسية (F4)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليسار",
+                "search_keywords": [
+                    "F4",
+                    "f4",
+                    "قاعة F4",
+                    "قاعة دراسية F4",
+                    "غرفة F4",
+                    "room F4",
+                    "classroom F4",
+                    "building F room F4"
+                ]
+            },
+            "f5": {
+                "name_display": "قاعة دراسية (F5)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليسار",
+                "search_keywords": [
+                    "F5",
+                    "f5",
+                    "قاعة F5",
+                    "قاعة دراسية F5",
+                    "غرفة F5",
+                    "room F5",
+                    "classroom F5",
+                    "building F room F5"
+                ]
+            },
+            "f6": {
+                "name_display": "قاعة دراسية (F6)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليسار",
+                "search_keywords": [
+                    "F6",
+                    "f6",
+                    "قاعة F6",
+                    "قاعة دراسية F6",
+                    "غرفة F6",
+                    "room F6",
+                    "classroom F6",
+                    "building F room F6"
+                ]
+            },
+            "f7": {
+                "name_display": "قاعة دراسية (F7)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليسار",
+                "search_keywords": [
+                    "F7",
+                    "f7",
+                    "قاعة F7",
+                    "قاعة دراسية F7",
+                    "غرفة F7",
+                    "room F7",
+                    "classroom F7",
+                    "building F room F7"
+                ]
+            },
+            "f8": {
+                "name_display": "قاعة دراسية (F8)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليسار",
+                "search_keywords": [
+                    "F8",
+                    "f8",
+                    "قاعة F8",
+                    "قاعة دراسية F8",
+                    "غرفة F8",
+                    "room F8",
+                    "classroom F8",
+                    "building F room F8"
+                ]
+            },
+            "f9": {
+                "name_display": "قاعة دراسية (F9)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "F9",
+                    "f9",
+                    "قاعة F9",
+                    "قاعة دراسية F9",
+                    "غرفة F9",
+                    "room F9",
+                    "classroom F9",
+                    "building F room F9"
+                ]
+            },
+            "f10": {
+                "name_display": "قاعة دراسية (F10)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "F10",
+                    "f10",
+                    "قاعة F10",
+                    "قاعة دراسية F10",
+                    "غرفة F10",
+                    "room F10",
+                    "classroom F10",
+                    "building F room F10"
+                ]
+            },
+            "f11": {
+                "name_display": "قاعة دراسية (F11)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "F11",
+                    "f11",
+                    "قاعة F11",
+                    "قاعة دراسية F11",
+                    "غرفة F11",
+                    "room F11",
+                    "classroom F11",
+                    "building F room F11"
+                ]
+            },
+            "f12": {
+                "name_display": "قاعة دراسية (F12)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "F12",
+                    "f12",
+                    "قاعة F12",
+                    "قاعة دراسية F12",
+                    "غرفة F12",
+                    "room F12",
+                    "classroom F12",
+                    "building F room F12"
+                ]
+            },
+            "f13": {
+                "name_display": "قاعة دراسية (F13)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "F13",
+                    "f13",
+                    "قاعة F13",
+                    "قاعة دراسية F13",
+                    "غرفة F13",
+                    "room F13",
+                    "classroom F13",
+                    "building F room F13"
+                ]
+            },
+            "f14": {
+                "name_display": "قاعة دراسية (F14)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "F14",
+                    "f14",
+                    "قاعة F14",
+                    "قاعة دراسية F14",
+                    "غرفة F14",
+                    "room F14",
+                    "classroom F14",
+                    "building F room F14"
+                ]
+            },
+            "f15": {
+                "name_display": "قاعة دراسية (F15)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "F15",
+                    "f15",
+                    "قاعة F15",
+                    "قاعة دراسية F15",
+                    "غرفة F15",
+                    "room F15",
+                    "classroom F15",
+                    "building F room F15"
+                ]
+            },
+            "f16": {
+                "name_display": "قاعة دراسية (F16)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "F16",
+                    "f16",
+                    "قاعة F16",
+                    "قاعة دراسية F16",
+                    "غرفة F16",
+                    "room F16",
+                    "classroom F16",
+                    "building F room F16"
+                ]
+            },
+            "f17": {
+                "name_display": "قاعة دراسية (F17)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "F17",
+                    "f17",
+                    "قاعة F17",
+                    "قاعة دراسية F17",
+                    "غرفة F17",
+                    "room F17",
+                    "classroom F17",
+                    "building F room F17"
+                ]
+            },
+            "f18": {
+                "name_display": "قاعة دراسية (F18)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليمين",
+                "search_keywords": [
+                    "F18",
+                    "f18",
+                    "قاعة F18",
+                    "قاعة دراسية F18",
+                    "غرفة F18",
+                    "room F18",
+                    "classroom F18",
+                    "building F room F18"
+                ]
+            },
+            "f19": {
+                "name_display": "قاعة دراسية (F19)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "F19",
+                    "f19",
+                    "قاعة F19",
+                    "قاعة دراسية F19",
+                    "غرفة F19",
+                    "room F19",
+                    "classroom F19",
+                    "building F room F19"
+                ]
+            },
+            "f20": {
+                "name_display": "قاعة دراسية (F20)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "F20",
+                    "f20",
+                    "قاعة F20",
+                    "قاعة دراسية F20",
+                    "غرفة F20",
+                    "room F20",
+                    "classroom F20",
+                    "building F room F20"
+                ]
+            },
+            "f21": {
+                "name_display": "قاعة دراسية (F21)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "F21",
+                    "f21",
+                    "قاعة F21",
+                    "قاعة دراسية F21",
+                    "غرفة F21",
+                    "room F21",
+                    "classroom F21",
+                    "building F room F21"
+                ]
+            },
+            "f22": {
+                "name_display": "قاعة دراسية (F22)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "F22",
+                    "f22",
+                    "قاعة F22",
+                    "قاعة دراسية F22",
+                    "غرفة F22",
+                    "room F22",
+                    "classroom F22",
+                    "building F room F22"
+                ]
+            },
+            "f23": {
+                "name_display": "قاعة دراسية (F23)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "F23",
+                    "f23",
+                    "قاعة F23",
+                    "قاعة دراسية F23",
+                    "غرفة F23",
+                    "room F23",
+                    "classroom F23",
+                    "building F room F23"
+                ]
+            },
+            "f24": {
+                "name_display": "قاعة دراسية (F24)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "F24",
+                    "f24",
+                    "قاعة F24",
+                    "قاعة دراسية F24",
+                    "غرفة F24",
+                    "room F24",
+                    "classroom F24",
+                    "building F room F24"
+                ]
+            },
+            "f25": {
+                "name_display": "قاعة دراسية (F25)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "F25",
+                    "f25",
+                    "قاعة F25",
+                    "قاعة دراسية F25",
+                    "غرفة F25",
+                    "room F25",
+                    "classroom F25",
+                    "building F room F25"
+                ]
+            },
+            "f26": {
+                "name_display": "قاعة دراسية (F26)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "F26",
+                    "f26",
+                    "قاعة F26",
+                    "قاعة دراسية F26",
+                    "غرفة F26",
+                    "room F26",
+                    "classroom F26",
+                    "building F room F26"
+                ]
+            },
+            "f27": {
+                "name_display": "قاعة دراسية (F27)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "F27",
+                    "f27",
+                    "قاعة F27",
+                    "قاعة دراسية F27",
+                    "غرفة F27",
+                    "room F27",
+                    "classroom F27",
+                    "building F room F27"
+                ]
+            },
+            "f28": {
+                "name_display": "قاعة دراسية (F28)",
+                "floor": "1",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأول؛ من جهة اليسار",
+                "search_keywords": [
+                    "F28",
+                    "f28",
+                    "قاعة F28",
+                    "قاعة دراسية F28",
+                    "غرفة F28",
+                    "room F28",
+                    "classroom F28",
+                    "building F room F28"
+                ]
+            },
+            "f29": {
+                "name_display": "قاعة دراسية (F29)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "F29",
+                    "f29",
+                    "قاعة F29",
+                    "قاعة دراسية F29",
+                    "غرفة F29",
+                    "room F29",
+                    "classroom F29",
+                    "building F room F29"
+                ]
+            },
+            "f30": {
+                "name_display": "قاعة دراسية (F30)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "F30",
+                    "f30",
+                    "قاعة F30",
+                    "قاعة دراسية F30",
+                    "غرفة F30",
+                    "room F30",
+                    "classroom F30",
+                    "building F room F30"
+                ]
+            },
+            "f31": {
+                "name_display": "قاعة دراسية (F31)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "F31",
+                    "f31",
+                    "قاعة F31",
+                    "قاعة دراسية F31",
+                    "غرفة F31",
+                    "room F31",
+                    "classroom F31",
+                    "building F room F31"
+                ]
+            },
+            "f32": {
+                "name_display": "قاعة دراسية (F32)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "F32",
+                    "f32",
+                    "قاعة F32",
+                    "قاعة دراسية F32",
+                    "غرفة F32",
+                    "room F32",
+                    "classroom F32",
+                    "building F room F32"
+                ]
+            },
+            "f33": {
+                "name_display": "قاعة دراسية (F33)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "F33",
+                    "f33",
+                    "قاعة F33",
+                    "قاعة دراسية F33",
+                    "غرفة F33",
+                    "room F33",
+                    "classroom F33",
+                    "building F room F33"
+                ]
+            },
+            "f34": {
+                "name_display": "قاعة دراسية (F34)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "F34",
+                    "f34",
+                    "قاعة F34",
+                    "قاعة دراسية F34",
+                    "غرفة F34",
+                    "room F34",
+                    "classroom F34",
+                    "building F room F34"
+                ]
+            },
+            "f35": {
+                "name_display": "قاعة دراسية (F35)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "F35",
+                    "f35",
+                    "قاعة F35",
+                    "قاعة دراسية F35",
+                    "غرفة F35",
+                    "room F35",
+                    "classroom F35",
+                    "building F room F35"
+                ]
+            },
+            "f36": {
+                "name_display": "قاعة دراسية (F36)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "F36",
+                    "f36",
+                    "قاعة F36",
+                    "قاعة دراسية F36",
+                    "غرفة F36",
+                    "room F36",
+                    "classroom F36",
+                    "building F room F36"
+                ]
+            },
+            "f37": {
+                "name_display": "قاعة دراسية (F37)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "F37",
+                    "f37",
+                    "قاعة F37",
+                    "قاعة دراسية F37",
+                    "غرفة F37",
+                    "room F37",
+                    "classroom F37",
+                    "building F room F37"
+                ]
+            },
+            "f38": {
+                "name_display": "قاعة دراسية (F38)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليمين",
+                "search_keywords": [
+                    "F38",
+                    "f38",
+                    "قاعة F38",
+                    "قاعة دراسية F38",
+                    "غرفة F38",
+                    "room F38",
+                    "classroom F38",
+                    "building F room F38"
+                ]
+            },
+            "f39": {
+                "name_display": "قاعة دراسية (F39)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "F39",
+                    "f39",
+                    "قاعة F39",
+                    "قاعة دراسية F39",
+                    "غرفة F39",
+                    "room F39",
+                    "classroom F39",
+                    "building F room F39"
+                ]
+            },
+            "f40": {
+                "name_display": "قاعة دراسية (F40)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "F40",
+                    "f40",
+                    "قاعة F40",
+                    "قاعة دراسية F40",
+                    "غرفة F40",
+                    "room F40",
+                    "classroom F40",
+                    "building F room F40"
+                ]
+            },
+            "f41": {
+                "name_display": "قاعة دراسية (F41)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "F41",
+                    "f41",
+                    "قاعة F41",
+                    "قاعة دراسية F41",
+                    "غرفة F41",
+                    "room F41",
+                    "classroom F41",
+                    "building F room F41"
+                ]
+            },
+            "f42": {
+                "name_display": "قاعة دراسية (F42)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "F42",
+                    "f42",
+                    "قاعة F42",
+                    "قاعة دراسية F42",
+                    "غرفة F42",
+                    "room F42",
+                    "classroom F42",
+                    "building F room F42"
+                ]
+            },
+            "f43": {
+                "name_display": "قاعة دراسية (F43)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "F43",
+                    "f43",
+                    "قاعة F43",
+                    "قاعة دراسية F43",
+                    "غرفة F43",
+                    "room F43",
+                    "classroom F43",
+                    "building F room F43"
+                ]
+            },
+            "f44": {
+                "name_display": "قاعة دراسية (F44)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "F44",
+                    "f44",
+                    "قاعة F44",
+                    "قاعة دراسية F44",
+                    "غرفة F44",
+                    "room F44",
+                    "classroom F44",
+                    "building F room F44"
+                ]
+            },
+            "f45": {
+                "name_display": "قاعة دراسية (F45)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "F45",
+                    "f45",
+                    "قاعة F45",
+                    "قاعة دراسية F45",
+                    "غرفة F45",
+                    "room F45",
+                    "classroom F45",
+                    "building F room F45"
+                ]
+            },
+            "f46": {
+                "name_display": "قاعة دراسية (F46)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "F46",
+                    "f46",
+                    "قاعة F46",
+                    "قاعة دراسية F46",
+                    "غرفة F46",
+                    "room F46",
+                    "classroom F46",
+                    "building F room F46"
+                ]
+            },
+            "f47": {
+                "name_display": "قاعة دراسية (F47)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "F47",
+                    "f47",
+                    "قاعة F47",
+                    "قاعة دراسية F47",
+                    "غرفة F47",
+                    "room F47",
+                    "classroom F47",
+                    "building F room F47"
+                ]
+            },
+            "f48": {
+                "name_display": "قاعة دراسية (F48)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "F48",
+                    "f48",
+                    "قاعة F48",
+                    "قاعة دراسية F48",
+                    "غرفة F48",
+                    "room F48",
+                    "classroom F48",
+                    "building F room F48"
+                ]
+            },
+            "f49": {
+                "name_display": "قاعة دراسية (F49)",
+                "floor": "2",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الثاني؛ من جهة اليسار",
+                "search_keywords": [
+                    "F49",
+                    "f49",
+                    "قاعة F49",
+                    "قاعة دراسية F49",
+                    "غرفة F49",
+                    "room F49",
+                    "classroom F49",
+                    "building F room F49"
+                ]
+            },
+            "f50": {
+                "name_display": "قاعة دراسية (F50)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليمين",
+                "search_keywords": [
+                    "F50",
+                    "f50",
+                    "قاعة F50",
+                    "قاعة دراسية F50",
+                    "غرفة F50",
+                    "room F50",
+                    "classroom F50",
+                    "building F room F50"
+                ]
+            },
+            "f51": {
+                "name_display": "قاعة دراسية (F51)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليمين",
+                "search_keywords": [
+                    "F51",
+                    "f51",
+                    "قاعة F51",
+                    "قاعة دراسية F51",
+                    "غرفة F51",
+                    "room F51",
+                    "classroom F51",
+                    "building F room F51"
+                ]
+            },
+            "f52": {
+                "name_display": "قاعة دراسية (F52)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليمين",
+                "search_keywords": [
+                    "F52",
+                    "f52",
+                    "قاعة F52",
+                    "قاعة دراسية F52",
+                    "غرفة F52",
+                    "room F52",
+                    "classroom F52",
+                    "building F room F52"
+                ]
+            },
+            "f53": {
+                "name_display": "قاعة دراسية (F53)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليمين",
+                "search_keywords": [
+                    "F53",
+                    "f53",
+                    "قاعة F53",
+                    "قاعة دراسية F53",
+                    "غرفة F53",
+                    "room F53",
+                    "classroom F53",
+                    "building F room F53"
+                ]
+            },
+            "f54": {
+                "name_display": "قاعة دراسية (F54)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليمين",
+                "search_keywords": [
+                    "F54",
+                    "f54",
+                    "قاعة F54",
+                    "قاعة دراسية F54",
+                    "غرفة F54",
+                    "room F54",
+                    "classroom F54",
+                    "building F room F54"
+                ]
+            },
+            "f55": {
+                "name_display": "قاعة دراسية (F55)",
+                "floor": "0",
+                "further_instructions": "المدخل من جهة المسجد؛ الطابق الأرضي؛ من جهة اليمين",
+                "search_keywords": [
+                    "F55",
+                    "f55",
+                    "قاعة F55",
+                    "قاعة دراسية F55",
+                    "غرفة F55",
+                    "room F55",
+                    "classroom F55",
+                    "building F room F55"
                 ]
             }
         }
