@@ -201,24 +201,23 @@ class _DarbMapPageState extends State<DarbMapPage>
     _searchFocusNode.addListener(_onFocusChange);
   }
 
-
   Future<void> _initCampusData() async {
-  final local = await loadCampusLocal();
-  if (!mounted) return;
-  setState(() {
-    campusPlaces = local.places;
-  });
+    final local = await loadCampusLocal();
+    if (!mounted) return;
+    setState(() {
+      campusPlaces = local.places;
+    });
 
-  final update = await fetchCampusUpdate(local.version);
-  if (update == null || !mounted) return;
-  setState(() {
-    campusPlaces = update.places;
-  });
-  Analytics.log('campus_data_updated', {
-    'from': local.version,
-    'to': update.version,
-  });
-}
+    final update = await fetchCampusUpdate(local.version);
+    if (update == null || !mounted) return;
+    setState(() {
+      campusPlaces = update.places;
+    });
+    Analytics.log('campus_data_updated', {
+      'from': local.version,
+      'to': update.version,
+    });
+  }
 
   void _onFocusChange() {
     if (_searchFocusNode.hasFocus) {
@@ -452,6 +451,21 @@ class _DarbMapPageState extends State<DarbMapPage>
                   result.buildingId,
             },
             'building': result.building,
+            'icon': resolvePlaceIcon(
+              cacheKey: '${result.buildingId}/${result.id}/${result.name}',
+              isRoom: result.isRoom,
+              name: result.name,
+              keywords: _readKeywords(
+                result.isRoom
+                    ? result.room!['search_keywords']
+                    : result.building['search_keywords'],
+              ),
+              explicitKey:
+                  (result.isRoom
+                          ? result.room!['icon']
+                          : result.building['icon'])
+                      ?.toString(),
+            ),
           },
         )
         .toList();
@@ -1095,12 +1109,7 @@ class _DarbMapPageState extends State<DarbMapPage>
                                           item['floor'] = 'الأرضي';
                                         }
                                         return ListTile(
-                                          leading: Icon(
-                                            isRoom
-                                                ? MingCuteIcons.mgc_door_line
-                                                : MingCuteIcons
-                                                      .mgc_house_2_line,
-                                          ),
+                                          leading: Icon(iconOfItem(item)),
                                           title: Text(item['name']),
                                           subtitle: Text(
                                             isRoom
@@ -1394,3 +1403,172 @@ class CampusSearch {
     });
   }
 }
+
+const Map<String, IconData> kPlaceIcons = {
+  'room': MingCuteIcons.mgc_door_line,
+  'house': MingCuteIcons.mgc_house_2_line,
+  'building': MingCuteIcons.mgc_building_4_line,
+  'classroom': MingCuteIcons.mgc_black_board_line,
+  'lecture': MingCuteIcons.mgc_black_board_2_line,
+  'hall': MingCuteIcons.mgc_seat_line,
+  'lab': MingCuteIcons.mgc_flask_line,
+  'study': MingCuteIcons.mgc_bulb_line,
+  'cafe': MingCuteIcons.mgc_teacup_line,
+  'food': MingCuteIcons.mgc_dinner_line,
+  'grocery': MingCuteIcons.mgc_basket_line,
+  'shop': MingCuteIcons.mgc_store_2_line,
+  'book': MingCuteIcons.mgc_book_6_line,
+  'bank': MingCuteIcons.mgc_bank_line,
+  'clinic': MingCuteIcons.mgc_nurse_line,
+  'admin': MingCuteIcons.mgc_briefcase_line,
+  'student': MingCuteIcons.mgc_backpack_line,
+  'restroom': MingCuteIcons.mgc_toilet_paper_line,
+  'game': MingCuteIcons.mgc_game_2_line,
+  'relax': MingCuteIcons.mgc_bed_line,
+  'photo': MingCuteIcons.mgc_camera_line,
+  'art': MingCuteIcons.mgc_brush_line,
+  'exhibition': MingCuteIcons.mgc_award_line,
+};
+
+const List<(String, List<String>)> _iconRules = [
+  ('lab', ['معمل', 'مختبر', 'لاب', 'lab', 'laboratory']),
+  (
+    'restroom',
+    [
+      'دورات المياه',
+      'دورات مياه',
+      'دورة مياه',
+      'حمام',
+      'حمامات',
+      'toilet',
+      'toilets',
+      'restroom',
+      'restrooms',
+      'washroom',
+      'bathroom',
+    ],
+  ),
+  ('cafe', ['مقهى', 'كافيه', 'قهوة', 'شاي', 'cafe', 'coffee']),
+  (
+    'food',
+    [
+      'مطعم',
+      'كافتيريا',
+      'صالة الطعام',
+      'قاعة الطعام',
+      'restaurant',
+      'cafeteria',
+      'dining hall',
+    ],
+  ),
+  ('grocery', ['بقالة', 'بقاله', 'ميني ماركت', 'grocery', 'minimarket']),
+  (
+    'books',
+    ['متجر الكتب', 'بوكشوب', 'بوك شوب', 'bookshop', 'book shop', 'bookstore'],
+  ),
+  ('bank', ['بنك', 'bank', 'banking']),
+  ('shop', ['فودافون', 'vodafone', 'متجر', 'shop', 'store']),
+  (
+    'game',
+    [
+      'تسلية',
+      'ترفيه',
+      'بولينج',
+      'بلياردو',
+      'بلايستيشن',
+      'playstation',
+      'bowling',
+      'billiards',
+      'gaming',
+      'games',
+    ],
+  ),
+  ('photo', ['جماعة التصوير', 'photography', 'photo club']),
+  ('art', ['جماعة الفنون', 'الفنون التشكيلية', 'فنون تشكيلية', 'fine arts']),
+  (
+    'study',
+    ['مساحات المذاكرة', 'مساحات مذاكرة', 'مذاكرة', 'study area', 'study space'],
+  ),
+  ('relax', ['استرخاء', 'relaxation', 'lounge']),
+  ('clinic', ['عيادة', 'clinic', 'medical']),
+  ('admin', ['عمادة', 'deanship']),
+  (
+    'student',
+    [
+      'دعم الطلبة',
+      'دعم الطلبه',
+      'دعم الطلاب',
+      'خدمات الطلبة',
+      'student support',
+      'student services',
+    ],
+  ),
+  ('exhibition', ['معارض', 'معرض', 'exhibition']),
+  (
+    'hall',
+    [
+      'قاعة المؤتمرات',
+      'مؤتمرات',
+      'مؤتمر',
+      'دراما',
+      'مسرح',
+      'conference',
+      'drama',
+      'theatre',
+      'theater',
+    ],
+  ),
+  ('lecture', ['محاضرات', 'مدرج', 'lecture', 'auditorium']),
+  (
+    'classroom',
+    [
+      'قاعة دراسية',
+      'قاعات التدريس',
+      'الصفوف الدراسية',
+      'classroom',
+      'classrooms',
+    ],
+  ),
+];
+
+RegExp _ruleRegExp(List<String> words) {
+  final alternatives = words
+      .map((w) => RegExp.escape(normalizeSearchText(w)))
+      .join('|');
+  return RegExp('(?:^| )(?:ال)?(?:$alternatives)(?: |\$)');
+}
+
+final List<(String, RegExp)> _compiledIconRules = [
+  for (final (key, words) in _iconRules) (key, _ruleRegExp(words)),
+];
+
+final Map<String, IconData> _placeIconCache = {};
+
+IconData resolvePlaceIcon({
+  required String cacheKey,
+  required bool isRoom,
+  required String name,
+  List<String> keywords = const [],
+  String? explicitKey,
+}) {
+  final pinned = explicitKey == null ? null : kPlaceIcons[explicitKey];
+  if (pinned != null) return pinned;
+
+  return _placeIconCache.putIfAbsent(cacheKey, () {
+    final nameText = normalizeSearchText(name);
+    for (final (key, pattern) in _compiledIconRules) {
+      if (pattern.hasMatch(nameText)) return kPlaceIcons[key]!;
+    }
+
+    final keywordText = normalizeSearchText(keywords.join(' '));
+    for (final (key, pattern) in _compiledIconRules) {
+      if (pattern.hasMatch(keywordText)) return kPlaceIcons[key]!;
+    }
+
+    return kPlaceIcons[isRoom ? 'room' : 'house']!;
+  });
+}
+
+IconData iconOfItem(Map<String, dynamic> item) =>
+    (item['icon'] as IconData?) ??
+    kPlaceIcons[item['type'] == 'room' ? 'room' : 'house']!;
