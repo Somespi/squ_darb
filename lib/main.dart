@@ -23,6 +23,12 @@ const String _campusRemoteUrl =
     'https://raw.githubusercontent.com/Somespi/squ_darb/refs/heads/master/assets/data/campus.json';
 const String _campusCacheKey = 'campus_json_cache';
 
+const String _lostSignAsset = 'assets/images/daroob_lost.png';
+const Duration _lostCooldown = Duration(seconds: 6);
+const Duration _lostHold = Duration(milliseconds: 2500);
+const double _lostSignHeight = 38;
+const int _lostMinQueryLength = 3;
+
 class CampusData {
   final int version;
   final Map<String, dynamic> places;
@@ -64,7 +70,6 @@ Future<CampusData> loadCampusLocal() async {
   return bundled;
 }
 
-
 Future<CampusData?> fetchCampusUpdate(int currentVersion) async {
   try {
     final res = await http
@@ -72,7 +77,7 @@ Future<CampusData?> fetchCampusUpdate(int currentVersion) async {
         .timeout(const Duration(seconds: 8));
     if (res.statusCode != 200) return null;
 
-    final raw = utf8.decode(res.bodyBytes); 
+    final raw = utf8.decode(res.bodyBytes);
     final remote = parseCampus(raw);
     if (remote == null || remote.version <= currentVersion) return null;
 
@@ -159,8 +164,12 @@ class _DarbMapPageState extends State<DarbMapPage>
   Timer? _animationTimer;
   final math.Random _random = math.Random();
 
-  
   Timer? _searchLogTimer;
+
+  bool _showLost = false;
+  Timer? _lostHideTimer;
+  int _lostCount = 0;
+  DateTime? _lastLost;
 
   final MapController _mapController = MapController();
   late final AnimatedMapController _animated = AnimatedMapController(
@@ -174,7 +183,7 @@ class _DarbMapPageState extends State<DarbMapPage>
     vsync: this,
     duration: const Duration(milliseconds: 1200),
   );
-  List<double> _routeCumulative = []; 
+  List<double> _routeCumulative = [];
 
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
@@ -328,7 +337,7 @@ class _DarbMapPageState extends State<DarbMapPage>
 
     if (_mapReady && !_hasCentered) {
       _hasCentered = true;
-      
+
       _animated.animateTo(dest: location, zoom: 18);
     }
   }
@@ -340,7 +349,7 @@ class _DarbMapPageState extends State<DarbMapPage>
 
     if (location != null && !_hasCentered) {
       _hasCentered = true;
-      _mapController.move(location, 18); 
+      _mapController.move(location, 18);
     }
   }
 
@@ -478,26 +487,52 @@ class _DarbMapPageState extends State<DarbMapPage>
     setState(() {
       searchResults = results;
       _resultsOpen = query.trim().isNotEmpty;
+      if (results.isNotEmpty) {
+        _showLost = false;
+        _lostHideTimer?.cancel();
+      }
     });
     _logSearch(query);
   }
 
-  
-  
+  void _triggerLost() {
+    if (!mounted || _showLost) return;
+
+    final now = DateTime.now();
+    final last = _lastLost;
+    if (last != null && now.difference(last) < _lostCooldown) return;
+    _lastLost = now;
+
+    HapticFeedback.mediumImpact();
+    setState(() {
+      _showLost = true;
+      _lostCount++;
+    });
+    _lostHideTimer?.cancel();
+    _lostHideTimer = Timer(_lostHold, () {
+      if (mounted) setState(() => _showLost = false);
+    });
+    Analytics.log('easter_egg', {'id': 'lost_sign'});
+  }
+
   void _logSearch(String query) {
     _searchLogTimer?.cancel();
 
     final q = query.trim();
     if (q.isEmpty) return;
 
-    
     final safeQuery = q.length > 50 ? q.substring(0, 50) : q;
 
     _searchLogTimer = Timer(const Duration(milliseconds: 800), () {
-      Analytics.log(searchResults.isEmpty ? 'search_no_results' : 'search', {
+      final empty = searchResults.isEmpty;
+      Analytics.log(empty ? 'search_no_results' : 'search', {
         'query': safeQuery,
         'result_count': searchResults.length,
       });
+
+      if (empty && safeQuery.length >= _lostMinQueryLength) {
+        _triggerLost();
+      }
     });
   }
 
@@ -535,9 +570,6 @@ class _DarbMapPageState extends State<DarbMapPage>
     LatLng endPoint, {
     String method = 'driving',
   }) async {
-    
-    
-    
     final base = method == 'walking'
         ? 'https://routing.openstreetmap.de/routed-foot/route/v1/driving'
         : 'https://router.project-osrm.org/route/v1/driving';
@@ -619,6 +651,7 @@ class _DarbMapPageState extends State<DarbMapPage>
     _searchFocusNode.dispose();
     _animationTimer?.cancel();
     _searchLogTimer?.cancel();
+    _lostHideTimer?.cancel();
     super.dispose();
   }
 
@@ -1061,6 +1094,7 @@ class _DarbMapPageState extends State<DarbMapPage>
                                 left: 70,
                                 bottom:
                                     _isDaroobStaring &&
+                                        !_showLost &&
                                         _resultsOpen &&
                                         _searchController.text.isNotEmpty
                                     ? 0
@@ -1103,6 +1137,37 @@ class _DarbMapPageState extends State<DarbMapPage>
                                     ),
                                   ],
                                 ),
+                              ),
+
+                              AnimatedPositioned(
+                                duration: const Duration(milliseconds: 350),
+                                curve: Curves.easeInOutBack,
+                                left: 70,
+                                bottom:
+                                    _showLost &&
+                                        _resultsOpen &&
+                                        _searchController.text.isNotEmpty
+                                    ? -6
+                                    : -_lostSignHeight - 10,
+                                child:
+                                    Image.asset(
+                                      _lostSignAsset,
+                                      height: _lostSignHeight,
+                                      fit: BoxFit.contain,
+                                      filterQuality: FilterQuality.none,
+                                    ).animate(
+                                      onPlay: (controller) =>
+                                          controller.repeat(reverse: true),
+                                      effects: [
+                                        RotateEffect(
+                                          begin: -0.02,
+                                          end: 0.02,
+                                          duration: 1200.ms,
+                                          curve: Curves.easeInOut,
+                                          alignment: Alignment.bottomCenter,
+                                        ),
+                                      ],
+                                    ),
                               ),
                             ],
                           ),
@@ -1195,8 +1260,6 @@ Future<Map<String, dynamic>> loadCampusData() async {
 
   return data;
 }
-
-
 
 List<String> parseInstructions(dynamic value) {
   if (value == null) return [];
