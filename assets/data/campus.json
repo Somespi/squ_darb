@@ -1,5 +1,5 @@
 {
-    "version": 2,
+    "version": 3,
     "social_sciences_college": {
         "name_display": "كلية الآداب والعلوم الاجتماعية",
         "genre": "college",
@@ -2253,6 +2253,248 @@
             }
         }
     },
+
+    "student_support_services": {
+        "name_display": "مركز خدمات دعم الطلبة",
+        "genre": "building",
+        "lon": 58.1648166667,
+        "lat": 23.5928805556,
+        "search_keywords": [
+            "مركز خدمات دعم الطلبة",
+            "خدمات دعم الطلبة",
+            "دعم الطلبة",
+            "دعم الطلاب",
+            "خدمات الطلاب",
+            "مركز خدمات الطلبة",
+            "مركز خدمات الطلبه",
+            "مركز خدمات الطلاب",
+            "خدمات الطلبة",
+            "دعم الطلبه",
+            "مركز الطلبة",
+            "student support services center",
+            "student support services",
+            "student support",
+            "student services",
+            "student services center",
+            "student center"
+        ],
+        "rooms": {
+            "entertainment_center": {
+                "name_display": "مركز التسلية",
+                "floor": "0",
+                "further_instructions": "يضم بولينج وبلياردو وأجهزة بلايستيشن",
+                "search_keywords": [
+                    "مركز التسلية",
+                    "التسلية",
+                    "ترفيه",
+                    "ألعاب",
+                    "العاب",
+                    "بولينج",
+                    "بولنج",
+                    "بولينغ",
+                    "بلياردو",
+                    "بيلياردو",
+                    "بلايستيشن",
+                    "بلاي ستيشن",
+                    "PS",
+                    "playstation",
+                    "play station",
+                    "console",
+                    "gaming",
+                    "games",
+                    "bowling",
+                    "billiards",
+                    "entertainment center",
+                    "game center"
+                ]
+            },
+            "cafe_shai_al_fareej": {
+                "name_display": "مقهى شاي الفريج",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "مقهى شاي الفريج",
+                    "شاي الفريج",
+                    "الفريج",
+                    "مقهى",
+                    "كافيه",
+                    "كوفي",
+                    "قهوة",
+                    "شاي",
+                    "cafe",
+                    "coffee shop",
+                    "Shai Al Fareej",
+                    "Shay Al Fareej",
+                    "Chai Al Fareej"
+                ]
+            },
+            "grocery": {
+                "name_display": "البقالة",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "بقالة",
+                    "البقالة",
+                    "بقاله",
+                    "ميني ماركت",
+                    "grocery",
+                    "grocery store",
+                    "convenience store",
+                    "minimarket"
+                ]
+            },
+            "bank_dhofar_islamic": {
+                "name_display": "فرع بنك ظفار الإسلامي",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "فرع بنك ظفار الإسلامي",
+                    "بنك ظفار الإسلامي",
+                    "بنك ظفار",
+                    "ظفار الإسلامي",
+                    "بنك",
+                    "خدمات بنكية",
+                    "Bank Dhofar",
+                    "Dhofar Islamic",
+                    "Bank Dhofar Islamic",
+                    "bank",
+                    "banking"
+                ]
+            },
+            "vodafone_services": {
+                "name_display": "خدمات فودافون",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "خدمات فودافون",
+                    "فودافون",
+                    "Vodafone",
+                    "Vodafone services"
+                ]
+            },
+            "bookshop": {
+                "name_display": "متجر الكتب (Bookshop)",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "متجر الكتب",
+                    "محل الكتب",
+                    "بوكشوب",
+                    "بوك شوب",
+                    "كتب",
+                    "مكتبة",
+                    "قرطاسية",
+                    "مسلتزمات",
+                    "Bookshop",
+                    "Book shop",
+                    "Bookstore",
+                    "Book store"
+                ]
+            },
+            "restrooms": {
+                "name_display": "دورات المياه",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "دورات المياه",
+                    "دورة مياه",
+                    "دورات مياه",
+                    "حمام",
+                    "حمامات",
+                    "مرحاض",
+                    "toilet",
+                    "toilets",
+                    "restroom",
+                    "restrooms",
+                    "bathroom",
+                    "washroom",
+                    "WC"
+                ]
+            },
+            "relaxation_areas": {
+                "name_display": "مساحات الاسترخاء",
+                "floor": "0",
+                "further_instructions": null,
+                "search_keywords": [
+                    "مساحات الاسترخاء",
+                    "مساحات استرخاء",
+                    "استرخاء",
+                    "جلسات",
+                    "relaxation area",
+                    "relaxation areas",
+                    "lounge",
+                    "relax"
+                ]
+            },
+            "central_restaurant_hall": {
+                "name_display": "صالة المطعم المركزي",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "صالة المطعم المركزي",
+                    "المطعم المركزي",
+                    "مطعم",
+                    "صالة الطعام",
+                    "قاعة الطعام",
+                    "كافتيريا",
+                    "أكل",
+                    "طعام",
+                    "غداء",
+                    "central restaurant",
+                    "restaurant",
+                    "dining hall",
+                    "cafeteria"
+                ]
+            },
+            "study_areas": {
+                "name_display": "مساحات المذاكرة",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "مساحات المذاكرة",
+                    "مساحات مذاكرة",
+                    "مذاكرة",
+                    "دراسة",
+                    "study area",
+                    "study areas",
+                    "study space",
+                    "study spaces"
+                ]
+            },
+            "photography_club_center": {
+                "name_display": "مركز جماعة التصوير",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "مركز جماعة التصوير",
+                    "جماعة التصوير",
+                    "نادي التصوير",
+                    "التصوير",
+                    "photography club",
+                    "photography group",
+                    "photography center",
+                    "photo club"
+                ]
+            },
+            "fine_arts_club_center": {
+                "name_display": "مركز جماعة الفنون التشكيلية",
+                "floor": "1",
+                "further_instructions": null,
+                "search_keywords": [
+                    "مركز جماعة الفنون التشكيلية",
+                    "جماعة الفنون التشكيلية",
+                    "الفنون التشكيلية",
+                    "فنون تشكيلية",
+                    "نادي الفنون",
+                    "الفنون",
+                    "fine arts club",
+                    "fine arts group",
+                    "fine arts",
+                    "art club"
+                ]
+            }
+        }
+    },
     "student_clinic": {
         "name_display": "عيادة الطلبة",
         "genre": "building",
@@ -2372,23 +2614,7 @@
             }
         }
     },
-    "student_support_services": {
-        "name_display": "مركز خدمات دعم الطلبة",
-        "genre": "building",
-        "lon": 58.1695833,
-        "lat": 23.5911639,
-        "search_keywords": [
-            "مركز خدمات دعم الطلبة",
-            "خدمات دعم الطلبة",
-            "دعم الطلبة",
-            "دعم الطلاب",
-            "خدمات الطلاب",
-            "student support services center",
-            "student support services",
-            "student support",
-            "student services"
-        ]
-    },
+    
     "building_c": {
         "name_display": "مبنى قاعات التدريس (ج) (C)",
         "genre": "building",
