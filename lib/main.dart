@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math' as math;
 
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:aptabase_flutter/aptabase_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,7 +19,71 @@ import 'package:smooth_border/smooth_border.dart';
 import 'package:solar_icons/solar_icons.dart';
 
 const String _aptabaseAppKey = 'A-EU-4822936444';
+const String _campusRemoteUrl =
+    'https://raw.githubusercontent.com/Somespi/squ_darb/refs/heads/master/assets/data/campus.json';
+const String _campusCacheKey = 'campus_json_cache';
 
+class CampusData {
+  final int version;
+  final Map<String, dynamic> places;
+  const CampusData(this.version, this.places);
+}
+
+CampusData? parseCampus(String raw) {
+  try {
+    final decoded = jsonDecode(raw);
+    if (decoded is! Map<String, dynamic>) return null;
+    final version = decoded['version'];
+    if (version is! int) return null;
+
+    final places = Map<String, dynamic>.from(decoded)..remove('version');
+    if (places.isEmpty) return null;
+    for (final b in places.values) {
+      if (b is! Map || b['lat'] is! num || b['lon'] is! num) return null;
+    }
+    return CampusData(version, places);
+  } catch (_) {
+    return null;
+  }
+}
+
+Future<CampusData> loadCampusLocal() async {
+  final bundled = parseCampus(
+    await rootBundle.loadString('assets/data/campus.json'),
+  )!;
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    final cachedRaw = prefs.getString(_campusCacheKey);
+    if (cachedRaw != null) {
+      final cached = parseCampus(cachedRaw);
+      if (cached != null && cached.version > bundled.version) return cached;
+    }
+  } catch (e) {
+    debugPrint('campus cache read failed: $e');
+  }
+  return bundled;
+}
+
+/// Returns new data only if the remote version is newer and valid.
+Future<CampusData?> fetchCampusUpdate(int currentVersion) async {
+  try {
+    final res = await http
+        .get(Uri.parse(_campusRemoteUrl))
+        .timeout(const Duration(seconds: 8));
+    if (res.statusCode != 200) return null;
+
+    final raw = utf8.decode(res.bodyBytes); // bytes, so Arabic decodes safely
+    final remote = parseCampus(raw);
+    if (remote == null || remote.version <= currentVersion) return null;
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_campusCacheKey, raw);
+    return remote;
+  } catch (e) {
+    debugPrint('campus update check failed: $e');
+    return null;
+  }
+}
 
 class Analytics {
   static bool _ready = false;
@@ -132,11 +197,28 @@ class _DarbMapPageState extends State<DarbMapPage>
     super.initState();
     Analytics.log('app_started');
     _startLocationTracking();
-    loadCampusData().then((d) {
-      campusPlaces = d;
-    });
+    _initCampusData();
     _searchFocusNode.addListener(_onFocusChange);
   }
+
+
+  Future<void> _initCampusData() async {
+  final local = await loadCampusLocal();
+  if (!mounted) return;
+  setState(() {
+    campusPlaces = local.places;
+  });
+
+  final update = await fetchCampusUpdate(local.version);
+  if (update == null || !mounted) return;
+  setState(() {
+    campusPlaces = update.places;
+  });
+  Analytics.log('campus_data_updated', {
+    'from': local.version,
+    'to': update.version,
+  });
+}
 
   void _onFocusChange() {
     if (_searchFocusNode.hasFocus) {
@@ -305,7 +387,8 @@ class _DarbMapPageState extends State<DarbMapPage>
   }
 
   List<LatLng> _visibleRoute(double t) {
-    if (routePoints.length < 2 || _routeCumulative.length != routePoints.length) {
+    if (routePoints.length < 2 ||
+        _routeCumulative.length != routePoints.length) {
       return routePoints;
     }
     if (t >= 1) return routePoints;
@@ -318,7 +401,9 @@ class _DarbMapPageState extends State<DarbMapPage>
         out.add(routePoints[i]);
       } else {
         final segLen = _routeCumulative[i] - _routeCumulative[i - 1];
-        final f = segLen == 0 ? 0.0 : (target - _routeCumulative[i - 1]) / segLen;
+        final f = segLen == 0
+            ? 0.0
+            : (target - _routeCumulative[i - 1]) / segLen;
         final a = routePoints[i - 1];
         final b = routePoints[i];
         out.add(
@@ -996,7 +1081,8 @@ class _DarbMapPageState extends State<DarbMapPage>
                             curve: Curves.easeInOut,
                             alignment: Alignment.topCenter,
                             child:
-                                _searchController.text.isNotEmpty && keyboardOpen
+                                _searchController.text.isNotEmpty &&
+                                    keyboardOpen
                                 ? TapRegion(
                                     groupId: 'search_bar',
                                     child: ListView.builder(
