@@ -1,4 +1,4 @@
-package com.example.squ_navigator
+package com.alfarsi.squ_darb
 
 import io.flutter.embedding.android.FlutterActivity
 
