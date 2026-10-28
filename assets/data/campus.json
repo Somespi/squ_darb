@@ -1545,8 +1545,9 @@
             "reception",
             "sports reception"
         ],
-        "facilities": {
+        "rooms": {
             "gym": {
+                "floor": 0,
     "name_display": "صالة اللياقة البدنية",
     "search_keywords": [
         "الجم",
@@ -1606,8 +1607,10 @@
         "university fitness center",
         "university fitness centre",
         "sports gym"
-    ]},
+    ]
+},
             "swimming_pool": {
+                "floor": "0",
                 "name_display": "حوض السباحة",
                 "search_keywords": [
                     "حوض السباحة",
@@ -1625,6 +1628,7 @@
                 "further_instructions": "الدخول من الباب الخلفي لغرفة تبديل الملابس."
             },
             "basketball_court": {
+                "floor": 0,
                 "name_display": "ملعب كرة السلة",
                 "search_keywords": [
                     "ملعب كرة السلة",
@@ -1640,6 +1644,7 @@
                 "further_instructions": "يوجد في القاعة المغلقة."
             },
             "table_tennis": {
+                "floor": "1",
                 "name_display": "تنس الطاولة",
                 "search_keywords": [
                     "تنس الطاولة",
@@ -1652,10 +1657,10 @@
                     "ping-pong",
                     "table tennis table",
                     "table tennis facility"
-                ],
-                "further_instructions": "يوجد في الطابق الأول."
+                ]
             },
             "padel_court": {
+                "floor":"0",
                 "name_display": "ملعب البادل",
                 "search_keywords": [
                     "البادل",
@@ -1672,6 +1677,8 @@
                 "further_instructions": "يوجد في الساحة."
             },
             "football_field": {
+                                "floor":"0",
+
                 "name_display": "ملعب كرة القدم",
                 "search_keywords": [
                     "كرة القدم",
@@ -1694,6 +1701,8 @@
                 "further_instructions": "يوجد في الساحة."
             },
             "prayer_room": {
+                                "floor":"0",
+
                 "name_display": "المصلى",
                 "search_keywords": [
                     "المصلى",
