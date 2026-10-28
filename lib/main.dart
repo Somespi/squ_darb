@@ -1526,6 +1526,8 @@ const Map<String, IconData> kPlaceIcons = {
 
 const List<(String, List<String>)> _iconRules = [
   ('lab', ['معمل', 'مختبر', 'لاب', 'lab', 'laboratory']),
+    ('pool', ['حمام السباحة', 'حمام سباحة', 'مسبح', 'سباحة', 'swimming pool', 'pool']),
+
   (
     'restroom',
     [
@@ -1557,8 +1559,8 @@ const List<(String, List<String>)> _iconRules = [
   ),
   ('grocery', ['بقالة', 'بقاله', 'ميني ماركت', 'grocery', 'minimarket']),
   (
-    'books',
-    ['متجر الكتب', 'بوكشوب', 'بوك شوب', 'bookshop', 'book shop', 'bookstore'],
+    'book',
+    ['متجر الكتب', 'بوكشوب', 'بوك شوب', 'bookshop', 'book', 'مكتبة', 'book shop', 'bookstore'],
   ),
   ('bank', ['بنك', 'bank', 'banking']),
   ('shop', ['فودافون', 'vodafone', 'متجر', 'shop', 'store']),
