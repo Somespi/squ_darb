@@ -222,6 +222,9 @@ class _DarbMapPageState extends State<DarbMapPage>
   void _onFocusChange() {
     if (_searchFocusNode.hasFocus) {
       _startStaring();
+      if (_searchController.text.trim().isNotEmpty && !_resultsOpen) {
+        setState(() => _resultsOpen = true);
+      }
     } else {
       _animationTimer?.cancel();
       _animationTimer = null;
@@ -432,6 +435,8 @@ class _DarbMapPageState extends State<DarbMapPage>
 
   List<Map<String, dynamic>> searchResults = [];
 
+  bool _resultsOpen = false;
+
   void searchCampus(String query) {
     final results = CampusSearch(campusPlaces)
         .search(query)
@@ -472,8 +477,8 @@ class _DarbMapPageState extends State<DarbMapPage>
 
     setState(() {
       searchResults = results;
+      _resultsOpen = query.trim().isNotEmpty;
     });
-
     _logSearch(query);
   }
 
@@ -608,9 +613,6 @@ class _DarbMapPageState extends State<DarbMapPage>
   @override
   void dispose() {
     _positionSubscription?.cancel();
-    // Disposes the animation controller (and the wrapped MapController).
-    // If your version of flutter_map_animations does not dispose the
-    // MapController, add `_mapController.dispose();` after this line.
     _animated.dispose();
     _routeAnim.dispose();
     _searchController.dispose();
@@ -642,9 +644,9 @@ class _DarbMapPageState extends State<DarbMapPage>
     _searchController.text = item['name'];
     _searchFocusNode.unfocus();
     setState(() {
+      _resultsOpen = false;
       _currentMarker = createMapMarkerForBuilding(item['building_id']);
     });
-
     final RouteResult ridingRoute;
     try {
       ridingRoute = await getRoute(from, target);
@@ -873,114 +875,124 @@ class _DarbMapPageState extends State<DarbMapPage>
 
   @override
   Widget build(BuildContext context) {
-    final keyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
+    return PopScope(
+      canPop: !_resultsOpen,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _closeSearch();
+      },
+      child: Scaffold(
+        body: SafeArea(
+          top: false,
+          child: Stack(
+            children: [
+              FlutterMap(
+                mapController: _mapController,
+                options: MapOptions(
+                  initialCenter: _initialCenter,
+                  initialZoom: 16,
+                  minZoom: 3,
+                  maxZoom: 22,
+                  onTap: (_, _) => _closeSearch(),
+                  onMapReady: _onMapReady,
+                ),
+                children: [
+                  TileLayer(
+                    urlTemplate:
+                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    userAgentPackageName: 'com.squ_navigator',
+                    maxNativeZoom: 19,
+                  ),
+                  const RichAttributionWidget(
+                    attributions: [
+                      TextSourceAttribution('مساهمو OpenStreetMap'),
+                    ],
+                  ),
 
-    return Scaffold(
-      body: SafeArea(
-        top: false,
-        child: Stack(
-          children: [
-            FlutterMap(
-              mapController: _mapController,
-              options: MapOptions(
-                initialCenter: _initialCenter,
-                initialZoom: 16,
-                minZoom: 3,
-                maxZoom: 22,
-                onMapReady: _onMapReady,
+                  if (routePoints.isNotEmpty)
+                    AnimatedBuilder(
+                      animation: _routeAnim,
+                      builder: (context, _) {
+                        final t = Curves.easeInOutCubic.transform(
+                          _routeAnim.value,
+                        );
+                        final visible = _visibleRoute(t);
+                        if (visible.length < 2) return const SizedBox.shrink();
+                        return PolylineLayer(
+                          polylines: [
+                            Polyline(
+                              points: visible,
+                              color: Theme.of(context).colorScheme.primary,
+                              strokeWidth: 5.0,
+                              strokeCap: StrokeCap.round,
+                              strokeJoin: StrokeJoin.round,
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+
+                  MarkerLayer(
+                    markers: _currentMarker != null ? [_currentMarker!] : [],
+                  ),
+
+                  CurrentLocationLayer(
+                    alignPositionOnUpdate: AlignOnUpdate.never,
+                    alignDirectionOnUpdate: AlignOnUpdate.never,
+                    style: LocationMarkerStyle(
+                      marker: const DefaultLocationMarker(
+                        child: Icon(Icons.navigation, color: Colors.white),
+                      ),
+                      markerSize: const Size(40, 40),
+                      markerDirection: MarkerDirection.heading,
+                    ),
+                  ),
+                ],
               ),
-              children: [
-                TileLayer(
-                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  userAgentPackageName: 'com.squ_navigator',
-                  maxNativeZoom: 19,
-                ),
-                const RichAttributionWidget(
-                  attributions: [TextSourceAttribution('مساهمو OpenStreetMap')],
-                ),
 
-                if (routePoints.isNotEmpty)
-                  AnimatedBuilder(
-                    animation: _routeAnim,
-                    builder: (context, _) {
-                      final t = Curves.easeInOutCubic.transform(
-                        _routeAnim.value,
-                      );
-                      final visible = _visibleRoute(t);
-                      if (visible.length < 2) return const SizedBox.shrink();
-                      return PolylineLayer(
-                        polylines: [
-                          Polyline(
-                            points: visible,
-                            color: Theme.of(context).colorScheme.primary,
-                            strokeWidth: 5.0,
-                            strokeCap: StrokeCap.round,
-                            strokeJoin: StrokeJoin.round,
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-
-                MarkerLayer(
-                  markers: _currentMarker != null ? [_currentMarker!] : [],
-                ),
-
-                CurrentLocationLayer(
-                  alignPositionOnUpdate: AlignOnUpdate.never,
-                  alignDirectionOnUpdate: AlignOnUpdate.never,
-                  style: LocationMarkerStyle(
-                    marker: const DefaultLocationMarker(
-                      child: Icon(Icons.navigation, color: Colors.white),
-                    ),
-                    markerSize: const Size(40, 40),
-                    markerDirection: MarkerDirection.heading,
-                  ),
-                ),
-              ],
-            ),
-
-            SafeArea(
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  margin: const EdgeInsets.fromLTRB(12, 8, 12, 0),
-                  constraints: const BoxConstraints(maxHeight: 340),
-                  child: Material(
-                    shape: SmoothRectangleBorder(
-                      borderRadius: 24,
-                      smoothing: 0.6,
-                    ),
-                    color: Colors.white,
-                    elevation: 8,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Stack(
-                          clipBehavior: Clip.hardEdge,
-                          alignment: Alignment.bottomCenter,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                16,
-                                4,
-                                12,
-                                4,
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: TapRegion(
-                                      groupId: 'search_bar',
-                                      onTapOutside: (_) {
-                                        _searchFocusNode.unfocus();
-                                      },
+              SafeArea(
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    margin: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+                    constraints: const BoxConstraints(maxHeight: 340),
+                    child: Material(
+                      shape: SmoothRectangleBorder(
+                        borderRadius: 24,
+                        smoothing: 0.6,
+                      ),
+                      color: Colors.white,
+                      elevation: 8,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Stack(
+                            clipBehavior: Clip.hardEdge,
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                  16,
+                                  4,
+                                  12,
+                                  4,
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
                                       child: TextField(
                                         controller: _searchController,
                                         focusNode: _searchFocusNode,
                                         onChanged: searchCampus,
+                                        onTap: () {
+                                          if (_searchController.text
+                                                  .trim()
+                                                  .isNotEmpty &&
+                                              !_resultsOpen) {
+                                            setState(() => _resultsOpen = true);
+                                          }
+                                        },
                                         textInputAction: TextInputAction.search,
                                         textDirection: TextDirection.rtl,
                                         textAlignVertical:
@@ -1008,98 +1020,104 @@ class _DarbMapPageState extends State<DarbMapPage>
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  AnimatedSwitcher(
-                                    duration: const Duration(milliseconds: 250),
-                                    reverseDuration: const Duration(
-                                      milliseconds: 180,
-                                    ),
-                                    switchInCurve:
-                                        Curves.fastEaseInToSlowEaseOut,
-                                    switchOutCurve: Curves.elasticOut,
-                                    child: _searchController.text.isNotEmpty
-                                        ? IconButton(
-                                            key: const ValueKey('clear_button'),
-                                            onPressed: () {
-                                              setState(() {
-                                                _searchController.clear();
-                                              });
-                                            },
-                                            icon: const Icon(
-                                              MingCuteIcons.mgc_close_line,
-                                            ),
-                                          )
-                                        : const SizedBox(
-                                            key: ValueKey('empty'),
-                                            width: 48,
-                                          ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            AnimatedPositioned(
-                              duration: const Duration(milliseconds: 350),
-                              curve: Curves.easeOutBack,
-                              left: 70,
-                              bottom:
-                                  _isDaroobStaring &&
-                                      _searchController.text.isNotEmpty &&
-                                      keyboardOpen
-                                  ? 0
-                                  : -30,
-                              child: Stack(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/daroob_staring.png',
-                                    width: 20 * 1.3,
-                                    height: 15.14 * 1.3,
-                                    fit: BoxFit.contain,
-                                    filterQuality: FilterQuality.none,
-                                  ),
-                                  Positioned(
-                                    bottom: 1,
-                                    left: 0,
-                                    child:
-                                        Image.asset(
-                                              'assets/images/daroob_eyes_staring.png',
-                                              width: 16.8664803193,
-                                              height: 4.50891333832,
-                                              fit: BoxFit.contain,
-                                              filterQuality: FilterQuality.none,
-                                            )
-                                            .animate(
-                                              onPlay: (controller) => controller
-                                                  .repeat(reverse: true),
-                                            )
-                                            .moveX(
-                                              begin: 13 / 4,
-                                              end: 13 / 2,
-                                              duration: const Duration(
-                                                seconds: 1,
+                                    AnimatedSwitcher(
+                                      duration: const Duration(
+                                        milliseconds: 250,
+                                      ),
+                                      reverseDuration: const Duration(
+                                        milliseconds: 180,
+                                      ),
+                                      switchInCurve:
+                                          Curves.fastEaseInToSlowEaseOut,
+                                      switchOutCurve: Curves.elasticOut,
+                                      child: _searchController.text.isNotEmpty
+                                          ? IconButton(
+                                              key: const ValueKey(
+                                                'clear_button',
                                               ),
-                                              curve: Curves.easeInOutBack,
+                                              onPressed: () {
+                                                _searchController.clear();
+                                                setState(
+                                                  () => _resultsOpen = false,
+                                                );
+                                                _searchFocusNode.requestFocus();
+                                              },
+                                              icon: const Icon(
+                                                MingCuteIcons.mgc_close_line,
+                                              ),
+                                            )
+                                          : const SizedBox(
+                                              key: ValueKey('empty'),
+                                              width: 48,
                                             ),
-                                  ),
-                                ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
 
-                        const Divider(height: 1),
+                              AnimatedPositioned(
+                                duration: const Duration(milliseconds: 350),
+                                curve: Curves.easeOutBack,
+                                left: 70,
+                                bottom:
+                                    _isDaroobStaring &&
+                                        _resultsOpen &&
+                                        _searchController.text.isNotEmpty
+                                    ? 0
+                                    : -30,
+                                child: Stack(
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/daroob_staring.png',
+                                      width: 20 * 1.3,
+                                      height: 15.14 * 1.3,
+                                      fit: BoxFit.contain,
+                                      filterQuality: FilterQuality.none,
+                                    ),
+                                    Positioned(
+                                      bottom: 1,
+                                      left: 0,
+                                      child:
+                                          Image.asset(
+                                                'assets/images/daroob_eyes_staring.png',
+                                                width: 16.8664803193,
+                                                height: 4.50891333832,
+                                                fit: BoxFit.contain,
+                                                filterQuality:
+                                                    FilterQuality.none,
+                                              )
+                                              .animate(
+                                                onPlay: (controller) =>
+                                                    controller.repeat(
+                                                      reverse: true,
+                                                    ),
+                                              )
+                                              .moveX(
+                                                begin: 13 / 4,
+                                                end: 13 / 2,
+                                                duration: const Duration(
+                                                  seconds: 1,
+                                                ),
+                                                curve: Curves.easeInOutBack,
+                                              ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
 
-                        Flexible(
-                          child: AnimatedSize(
-                            duration: const Duration(milliseconds: 250),
-                            curve: Curves.easeInOut,
-                            alignment: Alignment.topCenter,
-                            child:
-                                _searchController.text.isNotEmpty &&
-                                    keyboardOpen
-                                ? TapRegion(
-                                    groupId: 'search_bar',
-                                    child: ListView.builder(
+                          const Divider(height: 1),
+
+                          Flexible(
+                            child: AnimatedSize(
+                              duration: const Duration(milliseconds: 250),
+                              curve: Curves.easeInOut,
+                              alignment: Alignment.topCenter,
+                              child:
+                                  _resultsOpen &&
+                                      _searchController.text.isNotEmpty
+                                  ? ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: searchResults.length,
                                       itemBuilder: (listContext, index) {
@@ -1119,49 +1137,54 @@ class _DarbMapPageState extends State<DarbMapPage>
                                           onTap: () => _onResultTap(item),
                                         );
                                       },
-                                    ),
-                                  )
-                                : const SizedBox.shrink(),
+                                    )
+                                  : const SizedBox.shrink(),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
 
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            _currentMarker != null
-                ? FloatingActionButton(
-                    heroTag: 'removeMarker',
-                    elevation: 5,
-                    tooltip: 'احذف العلامة',
-                    onPressed: _clearMarkerAndRoute,
-                    child: const Icon(SolarIconsBold.mapPointRemove),
-                  )
-                : const SizedBox.shrink(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              _currentMarker != null
+                  ? FloatingActionButton(
+                      heroTag: 'removeMarker',
+                      elevation: 5,
+                      tooltip: 'احذف العلامة',
+                      onPressed: _clearMarkerAndRoute,
+                      child: const Icon(SolarIconsBold.mapPointRemove),
+                    )
+                  : const SizedBox.shrink(),
 
-            const SizedBox(height: 10),
-            FloatingActionButton(
-              heroTag: 'currentLocationButton',
-              elevation: 5,
-              tooltip: 'موقعي الحالي',
-              onPressed: _goToCurrentLocation,
-              child: const Icon(Icons.my_location_rounded),
-            ),
-          ],
+              const SizedBox(height: 10),
+              FloatingActionButton(
+                heroTag: 'currentLocationButton',
+                elevation: 5,
+                tooltip: 'موقعي الحالي',
+                onPressed: _goToCurrentLocation,
+                child: const Icon(Icons.my_location_rounded),
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  void _closeSearch() {
+    _searchFocusNode.unfocus();
+    if (_resultsOpen) setState(() => _resultsOpen = false);
   }
 }
 
