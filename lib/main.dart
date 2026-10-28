@@ -64,7 +64,7 @@ Future<CampusData> loadCampusLocal() async {
   return bundled;
 }
 
-/// Returns new data only if the remote version is newer and valid.
+
 Future<CampusData?> fetchCampusUpdate(int currentVersion) async {
   try {
     final res = await http
@@ -72,7 +72,7 @@ Future<CampusData?> fetchCampusUpdate(int currentVersion) async {
         .timeout(const Duration(seconds: 8));
     if (res.statusCode != 200) return null;
 
-    final raw = utf8.decode(res.bodyBytes); // bytes, so Arabic decodes safely
+    final raw = utf8.decode(res.bodyBytes); 
     final remote = parseCampus(raw);
     if (remote == null || remote.version <= currentVersion) return null;
 
@@ -159,7 +159,7 @@ class _DarbMapPageState extends State<DarbMapPage>
   Timer? _animationTimer;
   final math.Random _random = math.Random();
 
-  // Debounce timer for search analytics.
+  
   Timer? _searchLogTimer;
 
   final MapController _mapController = MapController();
@@ -174,7 +174,7 @@ class _DarbMapPageState extends State<DarbMapPage>
     vsync: this,
     duration: const Duration(milliseconds: 1200),
   );
-  List<double> _routeCumulative = []; // cumulative distance (m) per point
+  List<double> _routeCumulative = []; 
 
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
@@ -328,7 +328,7 @@ class _DarbMapPageState extends State<DarbMapPage>
 
     if (_mapReady && !_hasCentered) {
       _hasCentered = true;
-      // First centering: animated fly-in. Use _mapController.move(...) to snap.
+      
       _animated.animateTo(dest: location, zoom: 18);
     }
   }
@@ -340,7 +340,7 @@ class _DarbMapPageState extends State<DarbMapPage>
 
     if (location != null && !_hasCentered) {
       _hasCentered = true;
-      _mapController.move(location, 18); // snap on initial load
+      _mapController.move(location, 18); 
     }
   }
 
@@ -482,15 +482,15 @@ class _DarbMapPageState extends State<DarbMapPage>
     _logSearch(query);
   }
 
-  /// Logs a search only after the user stops typing for 800 ms, so typing
-  /// "عيادة" produces one event instead of five.
+  
+  
   void _logSearch(String query) {
     _searchLogTimer?.cancel();
 
     final q = query.trim();
     if (q.isEmpty) return;
 
-    // Cap length as a cheap privacy safeguard.
+    
     final safeQuery = q.length > 50 ? q.substring(0, 50) : q;
 
     _searchLogTimer = Timer(const Duration(milliseconds: 800), () {
@@ -535,9 +535,9 @@ class _DarbMapPageState extends State<DarbMapPage>
     LatLng endPoint, {
     String method = 'driving',
   }) async {
-    // The OSRM demo server (router.project-osrm.org) only serves the car
-    // profile. Walking uses routing.openstreetmap.de's foot server, which
-    // always takes "driving" as the profile segment in the path.
+    
+    
+    
     final base = method == 'walking'
         ? 'https://routing.openstreetmap.de/routed-foot/route/v1/driving'
         : 'https://router.project-osrm.org/route/v1/driving';
@@ -1196,8 +1196,8 @@ Future<Map<String, dynamic>> loadCampusData() async {
   return data;
 }
 
-/// Turns `further_instructions` into a list of bullet lines.
-/// Accepts null, a JSON list, or a string separated by ؛ ; ، or newlines.
+
+
 List<String> parseInstructions(dynamic value) {
   if (value == null) return [];
   final parts = value is List
