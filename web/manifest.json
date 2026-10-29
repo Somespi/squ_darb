@@ -3,11 +3,13 @@
     "short_name": "SQU Darb",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#FFFFFF",
+    "theme_color": "#008577",
+    "description": "دليلك داخل الحرم الجامعي: ابحث عن أي مبنى أو قاعة واعرف الطريق إليها.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
+    "lang": "ar",
+    "dir": "rtl",
     "icons": [
         {
             "src": "icons/Icon-192.png",
