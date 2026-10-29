@@ -534,35 +534,6 @@ class _DarbMapPageState extends State<DarbMapPage>
     });
   }
 
-  List<Marker> createMapMarkersForBuildings() {
-    final List<Marker> markers = [];
-    final Map<String, Color> markerColors = {
-      "college": const Color(0xFFC9826B),
-      "teaching": const Color(0xFFD6B58C),
-      "library": const Color(0xFF8F9B83),
-      "research_center": const Color(0xFFB7A5C7),
-      "other": const Color(0xFF7F9C9A),
-    };
-
-    campusPlaces.forEach((key, building) {
-      markers.add(
-        Marker(
-          point: LatLng(building['lat'], building['lon']),
-          width: 40.0,
-          height: 40.0,
-          rotate: true,
-          child: CircleAvatar(
-            backgroundColor: markerColors[building['genre'] as String],
-            radius: 30,
-            child: const Icon(Icons.school, size: 20, color: Colors.white),
-          ),
-        ),
-      );
-    });
-
-    return markers;
-  }
-
   Future<RouteResult> getRoute(
     LatLng startPoint,
     LatLng endPoint, {
@@ -1249,14 +1220,6 @@ class _DarbMapPageState extends State<DarbMapPage>
     _searchFocusNode.unfocus();
     if (_resultsOpen) setState(() => _resultsOpen = false);
   }
-}
-
-Future<Map<String, dynamic>> loadCampusData() async {
-  final jsonString = await rootBundle.loadString('assets/data/campus.json');
-
-  final Map<String, dynamic> data = jsonDecode(jsonString);
-
-  return data;
 }
 
 List<String> parseInstructions(dynamic value) {
