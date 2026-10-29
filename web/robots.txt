@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://somespi.github.io/squ_darb/sitemap.xml
