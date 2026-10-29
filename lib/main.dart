@@ -783,7 +783,6 @@ class _DarbMapPageState extends State<DarbMapPage>
     });
     final RouteResult ridingRoute;
     try {
-      throw Exception("Simulated routing failure");
       ridingRoute = await getRoute(from, target);
       await _showRouteSheet(
       item: item,
