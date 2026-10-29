@@ -24,10 +24,13 @@ const String _campusRemoteUrl =
 const String _campusCacheKey = 'campus_json_cache';
 
 const String _lostSignAsset = 'assets/images/daroob_lost.png';
+const String _sadAsset = 'assets/images/daroob_sad.png';
 const Duration _lostCooldown = Duration(seconds: 6);
 const Duration _lostHold = Duration(milliseconds: 2500);
 const double _lostSignHeight = 38;
 const int _lostMinQueryLength = 3;
+final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+
 
 class CampusData {
   final int version;
@@ -115,6 +118,36 @@ class Analytics {
   }
 }
 
+class RouteException implements Exception {
+  final String message;
+  final String reason;
+  const RouteException(this.message, this.reason);
+
+  @override
+  String toString() => 'RouteException($reason): $message';
+}
+
+class DaroobSadMessage extends StatelessWidget {
+  final String message;
+  const DaroobSadMessage(this.message, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Image.asset(
+          _sadAsset,
+          height: 34,
+          fit: BoxFit.contain,
+          filterQuality: FilterQuality.none,
+        ),
+        const SizedBox(width: 12),
+        Expanded(child: Text(message)),
+      ],
+    );
+  }
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Analytics.init();
@@ -127,6 +160,7 @@ class DarbApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: scaffoldMessengerKey,
       debugShowCheckedModeBanner: false,
       title: 'Darb',
       locale: const Locale('ar'),
@@ -199,6 +233,8 @@ class _DarbMapPageState extends State<DarbMapPage>
   bool _hasCentered = false;
 
   Map<String, dynamic> campusPlaces = {};
+
+
 
   @override
   void initState() {
@@ -534,6 +570,35 @@ class _DarbMapPageState extends State<DarbMapPage>
     });
   }
 
+  List<Marker> createMapMarkersForBuildings() {
+    final List<Marker> markers = [];
+    final Map<String, Color> markerColors = {
+      "college": const Color(0xFFC9826B),
+      "teaching": const Color(0xFFD6B58C),
+      "library": const Color(0xFF8F9B83),
+      "research_center": const Color(0xFFB7A5C7),
+      "other": const Color(0xFF7F9C9A),
+    };
+
+    campusPlaces.forEach((key, building) {
+      markers.add(
+        Marker(
+          point: LatLng(building['lat'], building['lon']),
+          width: 40.0,
+          height: 40.0,
+          rotate: true,
+          child: CircleAvatar(
+            backgroundColor: markerColors[building['genre'] as String],
+            radius: 30,
+            child: const Icon(Icons.school, size: 20, color: Colors.white),
+          ),
+        ),
+      );
+    });
+
+    return markers;
+  }
+
   Future<RouteResult> getRoute(
     LatLng startPoint,
     LatLng endPoint, {
@@ -546,14 +611,44 @@ class _DarbMapPageState extends State<DarbMapPage>
         '$base/'
         '${startPoint.longitude},${startPoint.latitude};'
         '${endPoint.longitude},${endPoint.latitude}?overview=full&geometries=geojson';
-    final response = await http.get(Uri.parse(url));
 
-    final data = jsonDecode(response.body);
-    final List coordinates = data['routes'][0]['geometry']['coordinates'];
+    final response = await http
+        .get(Uri.parse(url))
+        .timeout(const Duration(seconds: 10));
+
+    Map<String, dynamic>? data;
+    try {
+      final decoded = jsonDecode(response.body);
+      if (decoded is Map<String, dynamic>) data = decoded;
+    } catch (_) {}
+
+    if (data?['code'] == 'NoRoute') {
+      throw const RouteException(
+        'لا يوجد مسار متاح إلى هذا المكان.',
+        'no_route',
+      );
+    }
+    if (response.statusCode != 200 || data == null) {
+      throw const RouteException(
+        'تعذر الاتصال بخدمة المسارات، حاول لاحقًا.',
+        'http_error',
+      );
+    }
+
+    final routes = data['routes'];
+    if (data['code'] != 'Ok' || routes is! List || routes.isEmpty) {
+      throw const RouteException(
+        'لا يوجد مسار متاح إلى هذا المكان.',
+        'no_route',
+      );
+    }
+
+    final route = routes[0];
+    final List coordinates = route['geometry']['coordinates'];
     return (
       coordinates,
-      data['routes'][0]['legs'][0]['duration'],
-      data['routes'][0]['legs'][0]['distance'],
+      route['legs'][0]['duration'],
+      route['legs'][0]['distance'],
     );
   }
 
@@ -567,9 +662,7 @@ class _DarbMapPageState extends State<DarbMapPage>
       if (!mounted) return;
       _applyRoute(route.$1);
     } catch (e) {
-      debugPrint('تعذر جلب المسار: $e');
-      Analytics.log('route_failed', {'mode': method, 'stage': 'apply'});
-      _showMessage('تعذر جلب المسار.');
+      _handleRouteError(e, mode: method, stage: 'apply');
     }
   }
 
@@ -602,13 +695,52 @@ class _DarbMapPageState extends State<DarbMapPage>
   }
 
   void _showMessage(String message) {
-    if (!mounted) return;
-
-    ScaffoldMessenger.of(context)
+    if (!mounted || scaffoldMessengerKey.currentState == null) return;
+    scaffoldMessengerKey.currentState!
       ..hideCurrentSnackBar()
       ..showSnackBar(
-        SnackBar(content: Text(message), behavior: SnackBarBehavior.floating),
+        SnackBar(content: Text(message), behavior: SnackBarBehavior.fixed),
       );
+  }
+
+  void _showSadMessage(String message) {
+    if (!mounted || scaffoldMessengerKey.currentState == null) return;
+    scaffoldMessengerKey.currentState!
+      .showSnackBar(
+        SnackBar(
+          content: DaroobSadMessage(message),
+          behavior: SnackBarBehavior.fixed,
+          // duration: const Duration(seconds: 4),
+        ),
+      );
+  }
+
+  void _handleRouteError(
+    Object e, {
+    required String mode,
+    required String stage,
+  }) {
+    debugPrint('تعذر جلب المسار: $e');
+
+    final String reason;
+    final String message;
+    if (e is RouteException) {
+      reason = e.reason;
+      message = e.message;
+    } else if (e is TimeoutException) {
+      reason = 'timeout';
+      message = 'انتهت مهلة الاتصال، حاول مرة أخرى.';
+    } else {
+      reason = 'unknown';
+      message = 'تعذر جلب المسار.';
+    }
+
+    Analytics.log('route_failed', {
+      'mode': mode,
+      'stage': stage,
+      'reason': reason,
+    });
+    _showSadMessage(message);
   }
 
   @override
@@ -651,21 +783,22 @@ class _DarbMapPageState extends State<DarbMapPage>
     });
     final RouteResult ridingRoute;
     try {
+      throw Exception("Simulated routing failure");
       ridingRoute = await getRoute(from, target);
-    } catch (e) {
-      debugPrint('تعذر جلب المسار: $e');
-      Analytics.log('route_failed', {'mode': 'driving', 'stage': 'preview'});
-      _showMessage('تعذر جلب المسار.');
-      return;
-    }
-    if (!mounted) return;
-
-    await _showRouteSheet(
+      await _showRouteSheet(
       item: item,
       from: from,
       target: target,
       ridingRoute: ridingRoute,
     );
+    } catch (e) {
+      debugPrint("huh??");
+      _handleRouteError(e, mode: 'driving', stage: 'preview');
+      return;
+    }
+    if (!mounted) return;
+
+    
   }
 
   Future<void> _showRouteSheet({
@@ -878,6 +1011,7 @@ class _DarbMapPageState extends State<DarbMapPage>
   @override
   Widget build(BuildContext context) {
     return PopScope(
+    
       canPop: !_resultsOpen,
       onPopInvokedWithResult: (didPop, _) {
         if (!didPop) _closeSearch();
@@ -1222,6 +1356,14 @@ class _DarbMapPageState extends State<DarbMapPage>
   }
 }
 
+Future<Map<String, dynamic>> loadCampusData() async {
+  final jsonString = await rootBundle.loadString('assets/data/campus.json');
+
+  final Map<String, dynamic> data = jsonDecode(jsonString);
+
+  return data;
+}
+
 List<String> parseInstructions(dynamic value) {
   if (value == null) return [];
   final parts = value is List
@@ -1487,8 +1629,10 @@ const Map<String, IconData> kPlaceIcons = {
 
 const List<(String, List<String>)> _iconRules = [
   ('lab', ['معمل', 'مختبر', 'لاب', 'lab', 'laboratory']),
-    ('pool', ['حمام السباحة', 'حمام سباحة', 'مسبح', 'سباحة', 'swimming pool', 'pool']),
-
+  (
+    'pool',
+    ['حمام السباحة', 'حمام سباحة', 'مسبح', 'سباحة', 'swimming pool', 'pool'],
+  ),
   (
     'restroom',
     [
@@ -1521,7 +1665,16 @@ const List<(String, List<String>)> _iconRules = [
   ('grocery', ['بقالة', 'بقاله', 'ميني ماركت', 'grocery', 'minimarket']),
   (
     'book',
-    ['متجر الكتب', 'بوكشوب', 'بوك شوب', 'bookshop', 'book', 'مكتبة', 'book shop', 'bookstore'],
+    [
+      'متجر الكتب',
+      'بوكشوب',
+      'بوك شوب',
+      'bookshop',
+      'book',
+      'مكتبة',
+      'book shop',
+      'bookstore',
+    ],
   ),
   ('bank', ['بنك', 'bank', 'banking']),
   ('shop', ['فودافون', 'vodafone', 'متجر', 'shop', 'store']),

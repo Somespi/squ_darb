@@ -73,6 +73,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/daroob_staring.png
+    - assets/images/daroob_sad.png
     - assets/images/daroob_down_sideways.png
     - assets/images/daroob_sideways.png
     - assets/images/daroob_up_sideways.png
