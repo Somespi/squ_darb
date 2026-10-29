@@ -168,7 +168,6 @@ class _DarbMapPageState extends State<DarbMapPage>
 
   bool _showLost = false;
   Timer? _lostHideTimer;
-  int _lostCount = 0;
   DateTime? _lastLost;
 
   final MapController _mapController = MapController();
@@ -506,7 +505,6 @@ class _DarbMapPageState extends State<DarbMapPage>
     HapticFeedback.mediumImpact();
     setState(() {
       _showLost = true;
-      _lostCount++;
     });
     _lostHideTimer?.cancel();
     _lostHideTimer = Timer(_lostHold, () {
