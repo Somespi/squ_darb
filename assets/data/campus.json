@@ -1,5 +1,5 @@
 {
-    "version": 8,
+    "version": 9,
     "social_sciences_college": {
         "name_display": "كلية الآداب والعلوم الاجتماعية",
         "genre": "college",
@@ -583,6 +583,45 @@
                 ]
             }
         }
+    },
+    "medical_library": {
+        "name_display": "المكتبة الطبية",
+        "lat": 23.590244,
+        "lon": 58.170822,
+        "genre": "library",
+        "icon": "library",
+        "search_keywords": [
+            "المكتبة الطبية",
+            "مكتبة الطب",
+            "مكتبة كلية الطب",
+            "medical library",
+            "library"
+        ],
+        "further_instructions": [
+            "مدخل الذكور من اليسار",
+            "مدخل الإناث من اليمين",
+            "قرب Ratio Coffee",
+            "يُمكن لطلبة كلية الطلب والعلوم الصحية فقط استعارة الكتب"
+        ]
+    },
+    "ratio_coffee": {
+        "name_display": "Ratio Coffee",
+        "lat": 23.590244,
+        "lon": 58.170822,
+        "genre": "other",
+        "icon": "cafe",
+        "search_keywords": [
+            "ratio coffee",
+            "ratio",
+            "راشيو",
+            "قهوة",
+            "كافيه",
+            "coffee",
+            "cafe"
+        ],
+        "further_instructions": [
+            "قرب المكتبة الطبية"
+        ]
     },
     "building_e": {
         "name_display": "مبنى الصفوف الدراسية (و)",
