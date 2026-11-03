@@ -1,6 +1,25 @@
 {
-    "version": 10,
-
+    "version": 11,
+    "chess_center": {
+    "name_display": "مركز الشطرنج",
+    "genre": "building",
+    "lon": 58.1664056,
+    "lat": 23.5910472,
+    "search_keywords": [
+        "مركز الشطرنج",
+        "الشطرنج",
+        "نادي الشطرنج",
+        "جماعة الشطرنج",
+        "chess center",
+        "chess centre",
+        "chess club",
+        "chess"
+    ],
+    "further_instructions": [
+        "الطابق الأول",
+        "في نفس موقع عيادة الطلبة"
+    ]
+},
     "college_of_law": {
         "name_display": "كلية الحقوق",
         "genre": "college",
