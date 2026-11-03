@@ -17,6 +17,28 @@
             "humanities"
         ],
         "rooms": {
+            "admission_registration_deanship": {
+    "name_display": "عمادة القبول والتسجيل",
+    "floor": "0",
+    "further_instructions": "بجانب ممر الدوار",
+    "search_keywords": [
+        "عمادة القبول والتسجيل",
+        "القبول والتسجيل",
+        "عمادة القبول",
+        "عمادة التسجيل",
+        "القبول",
+        "التسجيل",
+        "تسجيل المواد",
+        "شؤون القبول",
+        "deanship of admission and registration",
+        "admission and registration",
+        "admissions and registration deanship",
+        "admissions",
+        "registration",
+        "registrar",
+        "registrar office"
+    ]
+},
             "drama_hall_1": {
                 "name_display": "قاعة الدراما (1)",
                 "floor": "0",
