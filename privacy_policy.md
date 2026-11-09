@@ -1,8 +1,8 @@
-# Privacy Policy for SQU Darb
+# Privacy Policy for Darb
 
 **Last Updated:** November 9, 2026
 
-Welcome to **SQU Darb** ("we," "our," or "us"). We respect your privacy and are committed to protecting the data collected when you use our application. This Privacy Policy explains what information is collected, how it is used, and your choices regarding your data.
+Welcome to **Darb** ("we," "our," or "us"). We respect your privacy and are committed to protecting the data collected when you use our application. This Privacy Policy explains what information is collected, how it is used, and your choices regarding your data.
 
 ---
 
